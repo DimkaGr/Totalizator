@@ -8,7 +8,6 @@ import by.gritsuk.dima.domain.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Example User DAO implementation
@@ -67,6 +66,14 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Long> implements GenericD
     public String getDeleteQuery() {
 
         //provide your code here
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String getSelectAllQuery() {
+
+        //provide your ode here
 
         throw new UnsupportedOperationException();
     }

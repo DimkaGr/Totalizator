@@ -6,18 +6,29 @@ import by.gritsuk.dima.dao.exception.DaoException;
 import by.gritsuk.dima.dao.exception.PersistException;
 import by.gritsuk.dima.domain.Bet;
 
-import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class BetDAO extends AbstractJdbcDao<Bet,Long> {
 
     @Override
-    protected List<Bet> parseResultSet(ResultSet rs) throws PersistException {
-        return null;
+    protected List<Bet> parseResultSet(ResultSet rs) throws PersistException,SQLException {
+        List<Bet>bets=new ArrayList<>();
+        while(rs.next()){
+            Bet bet=new Bet();
+            bet.setId(rs.getLong("id"));
+            bet.setMinValue(rs.getDouble("min_value"));
+            Bet.CompetitionEvent event=new Bet.CompetitionEvent();
+            event.setEvent(rs.getString("event_name"));
+            event.setFactor(rs.getDouble("factor"));
+            bet.setEvent(event);
+            bet.setCompetition_id(rs.getLong("competition_id"));
+            bets.add(bet);
+        }
+        return bets;
     }
 
     @Override
@@ -27,7 +38,6 @@ public class BetDAO extends AbstractJdbcDao<Bet,Long> {
         statement.setLong(++i,object.getCompetition_id());
         statement.setLong(++i,object.getEvent().getId());
         statement.setLong(++i,object.getCompetition_id());
-        statement.executeUpdate();
     }
 
     @Override
@@ -37,12 +47,12 @@ public class BetDAO extends AbstractJdbcDao<Bet,Long> {
         statement.setLong(++i,object.getCompetition_id());
         statement.setLong(++i,object.getEvent().getId());
         statement.setLong(++i,object.getCompetition_id());
-        statement.executeUpdate();
     }
 
     @Override
     public String getSelectQuery() {
-        return "SELECT * FROM bet WHERE id=?";
+        return "SELECT * FROM bet INNER JOIN competition_events ON bet.competition_events_id=competition_events.id"+
+                "INNER JOIN competition ON competition.id=bet.competition_id WHERE id=?";
     }
 
     @Override
@@ -58,5 +68,11 @@ public class BetDAO extends AbstractJdbcDao<Bet,Long> {
     @Override
     public String getDeleteQuery() {
         return "DELETE FROM bet WHERE id=?";
+    }
+
+    @Override
+    public String getSelectAllQuery(){
+        return "SELECT * FROM bet INNER JOIN competition_events ON bet.competition_events_id=competition_events.id"+
+                "INNER JOIN competition ON competition.id=bet.competition_id";
     }
 }
