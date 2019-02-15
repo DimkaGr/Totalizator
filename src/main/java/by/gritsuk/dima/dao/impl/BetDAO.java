@@ -1,9 +1,7 @@
 package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.AbstractJdbcDao;
-import by.gritsuk.dima.dao.Identified;
-import by.gritsuk.dima.dao.exception.DaoException;
-import by.gritsuk.dima.dao.exception.PersistException;
+import by.gritsuk.dima.dao.GenericDao;
 import by.gritsuk.dima.domain.Bet;
 
 import java.sql.PreparedStatement;
@@ -12,16 +10,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BetDAO extends AbstractJdbcDao<Bet,Long> {
+public class BetDAO extends AbstractJdbcDao<Bet,Long> implements GenericDao<Bet,Long> {
 
     @Override
-    protected List<Bet> parseResultSet(ResultSet rs) throws PersistException,SQLException {
+    protected List<Bet> parseResultSet(ResultSet rs) throws SQLException {
         List<Bet>bets=new ArrayList<>();
         while(rs.next()){
             Bet bet=new Bet();
             bet.setId(rs.getLong("id"));
             bet.setMinValue(rs.getDouble("min_value"));
             Bet.CompetitionEvent event=new Bet.CompetitionEvent();
+            event.setId(rs.getLong("id"));
             event.setEvent(rs.getString("event_name"));
             event.setFactor(rs.getDouble("factor"));
             bet.setEvent(event);
@@ -32,21 +31,20 @@ public class BetDAO extends AbstractJdbcDao<Bet,Long> {
     }
 
     @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, Bet object) throws PersistException, SQLException {
+    protected void prepareStatementForInsert(PreparedStatement statement, Bet object) throws SQLException {
         int i=0;
         statement.setDouble(++i,object.getMinValue());
         statement.setLong(++i,object.getCompetition_id());
         statement.setLong(++i,object.getEvent().getId());
-        statement.setLong(++i,object.getCompetition_id());
     }
 
     @Override
-    protected void prepareStatementForUpdate(PreparedStatement statement, Bet object) throws PersistException, SQLException {
+    protected void prepareStatementForUpdate(PreparedStatement statement, Bet object) throws SQLException {
         int i=0;
         statement.setDouble(++i,object.getMinValue());
         statement.setLong(++i,object.getCompetition_id());
         statement.setLong(++i,object.getEvent().getId());
-        statement.setLong(++i,object.getCompetition_id());
+        statement.setLong(++i,object.getId());
     }
 
     @Override

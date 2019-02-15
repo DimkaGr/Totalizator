@@ -13,6 +13,7 @@ public abstract class User implements Identified<Long> {
     private String firstName;
     private String lastName;
     private long role_id;
+    private long client_account_id=0;
 
     public User(){ }
 
@@ -57,6 +58,10 @@ public abstract class User implements Identified<Long> {
         this.role_id = role_id;
     }
 
+    public void setClient_account_id(long client_account_id) {
+        this.client_account_id = client_account_id;
+    }
+
     public String getLogin() {
         return login;
     }
@@ -79,5 +84,9 @@ public abstract class User implements Identified<Long> {
 
     public long getRole_id() {
         return role_id;
+    }
+
+    public long getClient_account_id() {
+        return client_account_id;
     }
 }

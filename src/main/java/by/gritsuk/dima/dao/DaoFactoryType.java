@@ -6,7 +6,4 @@ package by.gritsuk.dima.dao;
  */
 public enum  DaoFactoryType {
     JDBC
-
-    //provide your code here
-
 }

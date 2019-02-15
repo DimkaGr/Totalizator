@@ -1,9 +1,10 @@
 package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.AbstractJdbcDao;
-import by.gritsuk.dima.dao.exception.PersistException;
+import by.gritsuk.dima.dao.GenericDao;
 import by.gritsuk.dima.domain.Competition;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,10 +12,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompetitionDAO extends AbstractJdbcDao<Competition,Long> {
+public class CompetitionDAO extends AbstractJdbcDao<Competition,Long> implements GenericDao<Competition, Long> {
 
     @Override
-    protected List<Competition> parseResultSet(ResultSet rs) throws PersistException, SQLException {
+    protected List<Competition> parseResultSet(ResultSet rs) throws SQLException {
         List<Competition> competitions=new ArrayList<>();
         while(rs.next()){
             Competition competition=new Competition();
@@ -31,13 +32,24 @@ public class CompetitionDAO extends AbstractJdbcDao<Competition,Long> {
     }
 
     @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, Competition object) throws PersistException {
-
+    protected void prepareStatementForInsert(PreparedStatement statement, Competition object) throws SQLException {
+        int i=0;
+        statement.setDate(++i, Date.valueOf(object.getDate()));
+        statement.setString(++i,object.getParticipant1());
+        statement.setString(++i,object.getParticipant2());
+        statement.setLong(++i,object.getKind_of_sport_id());
+        statement.setLong(++i,object.getCompetition_result_id());
     }
 
     @Override
-    protected void prepareStatementForUpdate(PreparedStatement statement, Competition object) throws PersistException {
-
+    protected void prepareStatementForUpdate(PreparedStatement statement, Competition object) throws SQLException {
+        int i=0;
+        statement.setDate(++i, Date.valueOf(object.getDate()));
+        statement.setString(++i,object.getParticipant1());
+        statement.setString(++i,object.getParticipant2());
+        statement.setLong(++i,object.getKind_of_sport_id());
+        statement.setLong(++i,object.getCompetition_result_id());
+        statement.setLong(++i,object.getId());
     }
 
     @Override

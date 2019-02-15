@@ -26,5 +26,4 @@ public interface ConnectionPool {
      * Destroy CP. Method close all connections.
      * @throws ConnectionPoolException should be clarify
      */
-    void destroyPool() throws ConnectionPoolException;
 }

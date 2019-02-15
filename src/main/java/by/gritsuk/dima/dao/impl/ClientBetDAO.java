@@ -1,8 +1,7 @@
 package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.AbstractJdbcDao;
-import by.gritsuk.dima.dao.exception.PersistException;
-import by.gritsuk.dima.domain.Client;
+import by.gritsuk.dima.dao.GenericDao;
 import by.gritsuk.dima.domain.ClientBet;
 
 import java.sql.PreparedStatement;
@@ -11,10 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Long> {
+public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Long> implements GenericDao<ClientBet,Long> {
 
     @Override
-    protected List<ClientBet> parseResultSet(ResultSet rs) throws PersistException, SQLException {
+    protected List<ClientBet> parseResultSet(ResultSet rs) throws SQLException {
         List<ClientBet> clientBets=new ArrayList<>();
         while(rs.next()){
             ClientBet bet=new ClientBet();
@@ -29,13 +28,24 @@ public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Long> {
     }
 
     @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, ClientBet object) throws PersistException {
-
+    protected void prepareStatementForInsert(PreparedStatement statement, ClientBet object) throws SQLException {
+        int i=0;
+        statement.setDouble(++i,object.getDeposit());
+        statement.setString(++i,object.getStatus());
+        statement.setDouble(++i,object.getIncome());
+        statement.setLong(++i,object.getBet_id());
+        statement.setDouble(++i,object.getUser_id());
     }
 
     @Override
-    protected void prepareStatementForUpdate(PreparedStatement statement, ClientBet object) throws PersistException {
-
+    protected void prepareStatementForUpdate(PreparedStatement statement, ClientBet object) throws SQLException {
+        int i=0;
+        statement.setDouble(++i,object.getDeposit());
+        statement.setString(++i,object.getStatus());
+        statement.setDouble(++i,object.getIncome());
+        statement.setLong(++i,object.getBet_id());
+        statement.setDouble(++i,object.getUser_id());
+        statement.setLong(++i,object.getId());
     }
 
     @Override

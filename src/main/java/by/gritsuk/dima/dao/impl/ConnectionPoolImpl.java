@@ -24,10 +24,14 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPoolImpl.class);
     private static volatile ConnectionPool instance;
     private static final Lock LOCK = new ReentrantLock();
-    private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String URL = "jdbc:mysql://127.0.0.1:3306/totalizator";
-    private final String USER = "dmitry_gritsuk";
-    private final String PASSWORD = "x8ejD39Ndk32";
+//    private final String DRIVER = "com.mysql.jdbc.Driver";
+//    private final String URL = "jdbc:mysql://127.0.0.1:3306/totalizator";
+//    private final String USER = "dmitry_gritsuk";
+//    private final String PASSWORD = "x8ejD39Ndk32";
+    private final String DRIVER = "org.hsqldb.jdbcDriver";
+    private final String URL = "jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1";
+    private final String USER = "SA";
+    private final String PASSWORD = null;
     private final int POOL_CAPACITY = 20;
     private final Semaphore SEMAPHORE;
     private final Queue<Connection> POOL;
@@ -85,14 +89,6 @@ public class ConnectionPoolImpl implements ConnectionPool {
             LOCK.unlock();
 
         }
-    }
-
-    @Override
-    public void destroyPool() throws ConnectionPoolException {
-
-        //provide your code here
-
-        throw new UnsupportedOperationException();
     }
 
     private void initDriver() {

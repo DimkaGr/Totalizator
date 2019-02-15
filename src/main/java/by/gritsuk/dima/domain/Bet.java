@@ -44,7 +44,7 @@ public class Bet implements Identified<Long> {
     }
 
     public static class CompetitionEvent implements Identified<Long>{
-        public long id;
+        private long id;
         private String event;
         private double factor;
 

@@ -8,7 +8,7 @@ PRIMARY KEY (id));
 CREATE TABLE client_account (
 id BIGINT NOT NULL AUTO_INCREMENT,
 status ENUM('banned','active') NOT NULL,
-user_cash FLOAT NOT NULL,
+user_cash DOUBLE NOT NULL,
 PRIMARY KEY (id));
 CREATE TABLE users (
 id BIGINT NOT NULL AUTO_INCREMENT,
@@ -33,7 +33,7 @@ PRIMARY KEY (id));
 CREATE TABLE competition_events (
 id BIGINT NOT NULL AUTO_INCREMENT,
 event_name VARCHAR(45) NOT NULL,
-factor FLOAT NOT NULL,
+factor DOUBLE NOT NULL,
 PRIMARY KEY (id));
 CREATE TABLE competition (
 id BIGINT NOT NULL AUTO_INCREMENT,
@@ -47,7 +47,7 @@ CONSTRAINT fk_kind_of_sport_id FOREIGN KEY (kind_of_sport_id) REFERENCES kind_of
 CONSTRAINT fk_competition_result_id FOREIGN KEY (competition_result_id) REFERENCES competition_result (id) ON DELETE CASCADE);
 CREATE TABLE bet (
 id BIGINT NOT NULL AUTO_INCREMENT,
-min_value FLOAT NOT NULL,
+min_value DOUBLE NOT NULL,
 competition_id BIGINT NOT NULL,
 competition_events_id BIGINT NOT NULL,
 PRIMARY KEY (id),
@@ -55,9 +55,9 @@ CONSTRAINT fk_competition_id FOREIGN KEY (competition_id) REFERENCES competition
 CONSTRAINT fk_competition_event_id FOREIGN KEY (competition_events_id) REFERENCES competition_events (id) ON DELETE CASCADE);
 CREATE TABLE client_bet (
 id BIGINT NOT NULL AUTO_INCREMENT,
-deposit FLOAT NOT NULL,
+deposit DOUBLE NOT NULL,
 status VARCHAR(10) NOT NULL,
-income FLOAT NOT NULL,
+income DOUBLE NOT NULL,
 bet_id BIGINT NOT NULL,
 users_id BIGINT NOT NULL,
 PRIMARY KEY (id),
