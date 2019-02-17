@@ -12,4 +12,6 @@ public interface Identified<PK extends Serializable> {
      * @return primary key
      */
     PK getId();
+
+    void setId(PK id);
 }

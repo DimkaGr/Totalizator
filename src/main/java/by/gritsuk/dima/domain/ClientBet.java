@@ -12,7 +12,8 @@ public class ClientBet implements Identified<Long> {
 
     public ClientBet(){}
 
-    public void setId(long id) {
+    @Override
+    public void setId(Long id) {
         this.id = id;
     }
 

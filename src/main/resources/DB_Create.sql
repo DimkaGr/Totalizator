@@ -5,6 +5,9 @@ CREATE TABLE role (
 id BIGINT NOT NULL AUTO_INCREMENT,
 name ENUM('admin','user','bookmaker') NOT NULL,
 PRIMARY KEY (id));
+INSERT INTO role(name) VALUES('admin');
+INSERT INTO role(name) VALUES('user');
+INSERT INTO role(name) VALUES('bookmaker');
 CREATE TABLE client_account (
 id BIGINT NOT NULL AUTO_INCREMENT,
 status ENUM('banned','active') NOT NULL,

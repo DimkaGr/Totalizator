@@ -3,11 +3,7 @@ package by.gritsuk.dima.dao;
 import by.gritsuk.dima.dao.exception.DaoException;
 import by.gritsuk.dima.dao.exception.PersistException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +36,9 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     }
 
     @Override
+    @AutoConnection
     public Optional<T> getByPK(PK key) throws DaoException {
-        try(PreparedStatement selectStatement=connection.prepareStatement(getSelectQuery())){
+        try(PreparedStatement selectStatement=this.connection.prepareStatement(getSelectQuery())){
             selectStatement.setLong(1,(Long)key);
             try(ResultSet resQuery=selectStatement.executeQuery()) {
                 List<T> list = parseResultSet(resQuery);
@@ -57,8 +54,9 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     }
 
     @Override
+    @AutoConnection
     public List<T> getAll() throws DaoException {
-        try(PreparedStatement selectStatement=connection.prepareStatement(getSelectAllQuery())){
+        try(PreparedStatement selectStatement=this.connection.prepareStatement(getSelectAllQuery())){
             try(ResultSet resQuery=selectStatement.executeQuery()) {
                 return parseResultSet(resQuery);
             }
@@ -68,18 +66,25 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     }
 
     @Override
-    public boolean persist(T object) throws PersistException {
-        try(PreparedStatement persistStatement=connection.prepareStatement(getCreateQuery())){
+    @AutoConnection
+    public T persist(T object) throws PersistException {
+        try(PreparedStatement persistStatement=this.connection.prepareStatement(getCreateQuery(),PreparedStatement.RETURN_GENERATED_KEYS)){
             prepareStatementForInsert(persistStatement,object);
-            return persistStatement.execute();
+            ResultSet keysSet=persistStatement.getGeneratedKeys();
+            if(keysSet.next()){
+                PK id=(PK)keysSet.getObject(1);
+                object.setId(id);
+                return object;
+            }else return null;
         }catch(SQLException e){
             throw new PersistException("Failed while insert element",e);
         }
     }
 
     @Override
+    @AutoConnection
     public void update(T object) throws PersistException {
-        try(PreparedStatement updateStatement=connection.prepareStatement(getUpdateQuery())){
+        try(PreparedStatement updateStatement=this.connection.prepareStatement(getUpdateQuery())){
             prepareStatementForUpdate(updateStatement,object);
             updateStatement.executeUpdate();
         }catch(SQLException e){
@@ -88,8 +93,9 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     }
 
     @Override
+    @AutoConnection
     public void delete(T object) throws PersistException {
-        try(PreparedStatement deleteStatement=connection.prepareStatement(getDeleteQuery())){
+        try(PreparedStatement deleteStatement=this.connection.prepareStatement(getDeleteQuery())){
             deleteStatement.setLong(1,(Long)object.getId());
             deleteStatement.executeUpdate();
         }catch (SQLException e){

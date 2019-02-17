@@ -20,7 +20,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
      * @return identified entity in DB
      * @throws PersistException should be clarify
      */
-    boolean persist(T object) throws PersistException;
+    T persist(T object) throws PersistException;
 
     /**
      * Get identified entity by PK

@@ -2,6 +2,8 @@ package by.gritsuk.dima.dao;
 
 import by.gritsuk.dima.dao.exception.DaoException;
 
+import java.io.Serializable;
+
 /**
  * Dao Factory
  */
@@ -12,5 +14,5 @@ public interface DaoFactory {
      * @return - implementation of DAO for entity class
      * @throws DaoException - should be clarify
      */
-    GenericDao getDao(Class entityClass) throws DaoException;
+    <T extends Identified<PK>, PK extends Serializable> GenericDao<T, PK> getDao(Class<T> entityClass) throws DaoException;
 }

@@ -50,7 +50,8 @@ public abstract class User implements Identified<Long> {
         this.lastName = lastName;
     }
 
-    public void setId(long id) {
+    @Override
+    public void setId(Long id) {
         this.id = id;
     }
 

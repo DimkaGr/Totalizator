@@ -16,7 +16,8 @@ public class Competition implements Identified<Long> {
 
     public Competition(){}
 
-    public void setId(long id) {
+    @Override
+    public void setId(Long id) {
         this.id = id;
     }
 

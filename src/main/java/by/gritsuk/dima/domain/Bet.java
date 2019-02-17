@@ -10,7 +10,8 @@ public class Bet implements Identified<Long> {
 
     public Bet(){}
 
-    public void setId(long id) {
+    @Override
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,7 +51,8 @@ public class Bet implements Identified<Long> {
 
         public CompetitionEvent(){}
 
-        public void setId(long id) {
+        @Override
+        public void setId(Long id) {
             this.id = id;
         }
 
