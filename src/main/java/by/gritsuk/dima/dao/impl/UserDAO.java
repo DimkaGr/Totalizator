@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends AbstractJdbcDao<User, Long> implements GenericDao<User,Long> {
+public class UserDAO extends AbstractJdbcDao<User, Integer> implements GenericDao<User,Integer> {
 
     @Override
     protected List<User> parseResultSet(ResultSet rs) throws PersistException, SQLException {
@@ -36,14 +36,14 @@ public class UserDAO extends AbstractJdbcDao<User, Long> implements GenericDao<U
                     break;
                 default:throw new PersistException("There is no such user's type");
             }
-            user.setId(rs.getLong("id"));
-            user.setRole_id(rs.getLong("role_id"));
+            user.setId(rs.getInt("id"));
+            user.setRole_id(rs.getInt("role_id"));
             user.setLogin(rs.getString("login"));
             user.setPassword(rs.getString("password"));
             user.setEmail(rs.getString("email"));
             user.setFirstName(rs.getString("first_name"));
             user.setLastName(rs.getString("last_name"));
-            user.setClient_account_id(rs.getLong("client_account_id"));
+            user.setClient_account_id(rs.getInt("client_account_id"));
             users.add(user);
         }
         return users;
@@ -57,8 +57,8 @@ public class UserDAO extends AbstractJdbcDao<User, Long> implements GenericDao<U
         statement.setString(++i,object.getEmail());
         statement.setString(++i,object.getFirstName());
         statement.setString(++i,object.getLastName());
-        statement.setLong(++i,object.getRole_id());
-        statement.setLong(++i,object.getClient_account_id());
+        statement.setInt(++i,object.getRole_id());
+        statement.setInt(++i,object.getClient_account_id());
     }
 
     @Override
@@ -69,9 +69,9 @@ public class UserDAO extends AbstractJdbcDao<User, Long> implements GenericDao<U
         statement.setString(++i,object.getEmail());
         statement.setString(++i,object.getFirstName());
         statement.setString(++i,object.getLastName());
-        statement.setLong(++i,object.getRole_id());
-        statement.setLong(++i,object.getClient_account_id());
-        statement.setLong(++i,object.getId());
+        statement.setInt(++i,object.getRole_id());
+        statement.setInt(++i,object.getClient_account_id());
+        statement.setInt(++i,object.getId());
     }
 
     @Override

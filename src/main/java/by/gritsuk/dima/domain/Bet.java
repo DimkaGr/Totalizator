@@ -2,16 +2,16 @@ package by.gritsuk.dima.domain;
 
 import by.gritsuk.dima.dao.Identified;
 
-public class Bet implements Identified<Long> {
-    private long id;
+public class Bet implements Identified<Integer> {
+    private int id;
     private double minValue;
-    private long competition_id;
+    private int competition_id;
     private CompetitionEvent event;
 
     public Bet(){}
 
     @Override
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -19,7 +19,7 @@ public class Bet implements Identified<Long> {
         this.minValue = minValue;
     }
 
-    public void setCompetition_id(long competition_id) {
+    public void setCompetition_id(int competition_id) {
         this.competition_id = competition_id;
     }
 
@@ -28,7 +28,7 @@ public class Bet implements Identified<Long> {
     }
 
     @Override
-    public Long getId(){
+    public Integer getId(){
         return id;
     }
 
@@ -36,7 +36,7 @@ public class Bet implements Identified<Long> {
         return minValue;
     }
 
-    public long getCompetition_id() {
+    public int getCompetition_id() {
         return competition_id;
     }
 
@@ -44,15 +44,15 @@ public class Bet implements Identified<Long> {
         return event;
     }
 
-    public static class CompetitionEvent implements Identified<Long>{
-        private long id;
+    public static class CompetitionEvent implements Identified<Integer>{
+        private int id;
         private String event;
         private double factor;
 
         public CompetitionEvent(){}
 
         @Override
-        public void setId(Long id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
@@ -73,7 +73,7 @@ public class Bet implements Identified<Long> {
         }
 
         @Override
-        public Long getId(){
+        public Integer getId(){
             return id;
         }
     }

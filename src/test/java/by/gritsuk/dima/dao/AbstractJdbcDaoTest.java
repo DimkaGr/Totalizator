@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.sql.Connection;
-import java.sql.Statement;
 
 import static org.junit.Assert.*;
 
@@ -22,13 +21,6 @@ public class AbstractJdbcDaoTest {
     public void create() throws Exception {
         connectionPool=ConnectionPoolFactory.getInstance().getConnectionPool();
         connection=connectionPool.retrieveConnection();
-        Statement statement=connection.createStatement();
-        statement.execute("DROP TABLE IF EXISTS competition_events CREATE TABLE competition_events (" +
-                "id BIGINT NOT NULL IDENTITY ," +
-                "event_name VARCHAR(45) NOT NULL," +
-                "factor DOUBLE NOT NULL," +
-                "PRIMARY KEY (id));");
-        statement.execute("INSERT INTO competition_events (event_name,factor) VALUES ('Participant 1 win',1.6)");
         dao=new CompetitionEventDAO();
         dao.setConnection(connection);
     }
@@ -47,8 +39,8 @@ public class AbstractJdbcDaoTest {
     public void persist() throws Exception{
         create();
         Bet.CompetitionEvent event=new Bet.CompetitionEvent();
-        event.setEvent("Participant 3 win");
-        event.setFactor(1.6);
+        event.setEvent("Draw");
+        event.setFactor(10.6);
         assertEquals(event,dao.persist(event));
     }
 
@@ -58,7 +50,7 @@ public class AbstractJdbcDaoTest {
         Bet.CompetitionEvent event=new Bet.CompetitionEvent();
         event.setEvent("Participant 2 win");
         event.setFactor(1.6);
-        event.setId(0L);
+        event.setId(0);
         dao.update(event);
         Bet.CompetitionEvent bet= (Bet.CompetitionEvent)(dao.getAll().get(0));
         assertEquals("Participant 2 win",bet.getEvent());

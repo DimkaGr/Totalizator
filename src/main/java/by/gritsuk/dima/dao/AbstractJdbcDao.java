@@ -40,7 +40,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     @AutoConnection
     public Optional<T> getByPK(PK key) throws DaoException {
         try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectQuery())) {
-            selectStatement.setLong(1, (Long) key);
+            selectStatement.setInt(1,  key.intValue());
             try (ResultSet resQuery = selectStatement.executeQuery()) {
                 List<T> list = parseResultSet(resQuery);
                 if (list.size() == 1) {
@@ -74,7 +74,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             persistStatement.executeUpdate();
             try (ResultSet keysSet = persistStatement.getGeneratedKeys()) {
                 if (keysSet.next()) {
-                    PK id = (PK) keysSet.getObject(1);
+                    PK id = (PK) new Integer(keysSet.getInt(1));
                     object.setId(id);
                     return object;
                 } else return null;
@@ -99,7 +99,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     @AutoConnection
     public void delete(T object) throws PersistException {
         try (PreparedStatement deleteStatement = this.connection.prepareStatement(getDeleteQuery())) {
-            deleteStatement.setLong(1, (Long) object.getId());
+            deleteStatement.setInt(1, (Integer) object.getId());
             deleteStatement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistException("Failed while delete element", e);

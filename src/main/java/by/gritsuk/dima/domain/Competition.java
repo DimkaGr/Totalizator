@@ -4,20 +4,20 @@ import by.gritsuk.dima.dao.Identified;
 
 import java.time.LocalDate;
 
-public class Competition implements Identified<Long> {
-    private long id;
+public class Competition implements Identified<Integer> {
+    private int id;
     private LocalDate date;
     private String participant1;
     private String participant2;
-    private long kind_of_sport_id;
+    private int kind_of_sport_id;
     private String kindOfSport;
-    private long competition_result_id;
+    private int competition_result_id;
     private String result;
 
     public Competition(){}
 
     @Override
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,16 +41,16 @@ public class Competition implements Identified<Long> {
         this.result = result;
     }
 
-    public void setKind_of_sport_id(long kind_of_sport_id) {
+    public void setKind_of_sport_id(int kind_of_sport_id) {
         this.kind_of_sport_id = kind_of_sport_id;
     }
 
-    public void setCompetition_result_id(long competition_result_id) {
+    public void setCompetition_result_id(int competition_result_id) {
         this.competition_result_id = competition_result_id;
     }
 
     @Override
-    public Long getId(){
+    public Integer getId(){
         return id;
     }
 
@@ -74,11 +74,11 @@ public class Competition implements Identified<Long> {
         return result;
     }
 
-    public long getKind_of_sport_id() {
+    public int getKind_of_sport_id() {
         return kind_of_sport_id;
     }
 
-    public long getCompetition_result_id() {
+    public int getCompetition_result_id() {
         return competition_result_id;
     }
 }

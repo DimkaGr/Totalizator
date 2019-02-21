@@ -10,18 +10,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Long> implements GenericDao<ClientBet,Long> {
+public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Integer> implements GenericDao<ClientBet,Integer> {
 
     @Override
     protected List<ClientBet> parseResultSet(ResultSet rs) throws SQLException {
         List<ClientBet> clientBets=new ArrayList<>();
         while(rs.next()){
             ClientBet bet=new ClientBet();
+            bet.setId(rs.getInt("id"));
             bet.setDeposit(rs.getDouble("deposit"));
             bet.setStatus(rs.getString("status"));
             bet.setIncome(rs.getDouble("income"));
-            bet.setBet_id(rs.getLong("bet_id"));
-            bet.setUser_id(rs.getLong("users_id"));
+            bet.setBet_id(rs.getInt("bet_id"));
+            bet.setUser_id(rs.getInt("users_id"));
             clientBets.add(bet);
         }
         return clientBets;
@@ -33,8 +34,8 @@ public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Long> implements Gen
         statement.setDouble(++i,object.getDeposit());
         statement.setString(++i,object.getStatus());
         statement.setDouble(++i,object.getIncome());
-        statement.setLong(++i,object.getBet_id());
-        statement.setDouble(++i,object.getUser_id());
+        statement.setInt(++i,object.getBet_id());
+        statement.setInt(++i,object.getUser_id());
     }
 
     @Override
@@ -43,9 +44,9 @@ public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Long> implements Gen
         statement.setDouble(++i,object.getDeposit());
         statement.setString(++i,object.getStatus());
         statement.setDouble(++i,object.getIncome());
-        statement.setLong(++i,object.getBet_id());
-        statement.setDouble(++i,object.getUser_id());
-        statement.setLong(++i,object.getId());
+        statement.setInt(++i,object.getBet_id());
+        statement.setInt(++i,object.getUser_id());
+        statement.setInt(++i,object.getId());
     }
 
     @Override

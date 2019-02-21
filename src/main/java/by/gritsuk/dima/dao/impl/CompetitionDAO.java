@@ -12,14 +12,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompetitionDAO extends AbstractJdbcDao<Competition,Long> implements GenericDao<Competition, Long> {
+public class CompetitionDAO extends AbstractJdbcDao<Competition,Integer> implements GenericDao<Competition, Integer> {
 
     @Override
     protected List<Competition> parseResultSet(ResultSet rs) throws SQLException {
         List<Competition> competitions=new ArrayList<>();
         while(rs.next()){
             Competition competition=new Competition();
-            competition.setId(rs.getLong("id"));
+            competition.setId(rs.getInt("id"));
             LocalDate date=LocalDate.parse(rs.getNString("date"));
             competition.setDate(date);
             competition.setParticipant1(rs.getString("participant_1"));
@@ -37,8 +37,8 @@ public class CompetitionDAO extends AbstractJdbcDao<Competition,Long> implements
         statement.setDate(++i, Date.valueOf(object.getDate()));
         statement.setString(++i,object.getParticipant1());
         statement.setString(++i,object.getParticipant2());
-        statement.setLong(++i,object.getKind_of_sport_id());
-        statement.setLong(++i,object.getCompetition_result_id());
+        statement.setInt(++i,object.getKind_of_sport_id());
+        statement.setInt(++i,object.getCompetition_result_id());
     }
 
     @Override
@@ -47,9 +47,9 @@ public class CompetitionDAO extends AbstractJdbcDao<Competition,Long> implements
         statement.setDate(++i, Date.valueOf(object.getDate()));
         statement.setString(++i,object.getParticipant1());
         statement.setString(++i,object.getParticipant2());
-        statement.setLong(++i,object.getKind_of_sport_id());
-        statement.setLong(++i,object.getCompetition_result_id());
-        statement.setLong(++i,object.getId());
+        statement.setInt(++i,object.getKind_of_sport_id());
+        statement.setInt(++i,object.getCompetition_result_id());
+        statement.setInt(++i,object.getId());
     }
 
     @Override

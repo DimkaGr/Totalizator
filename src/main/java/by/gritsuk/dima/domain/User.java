@@ -5,15 +5,15 @@ import lombok.Data;
 
 
 @Data
-public abstract class User implements Identified<Long> {
-    private long id;
+public abstract class User implements Identified<Integer> {
+    private int id;
     private String login;
     private String password;
     private String email;
     private String firstName;
     private String lastName;
-    private long role_id;
-    private long client_account_id=0;
+    private int role_id;
+    private int client_account_id=-1;
 
     public User(){ }
 
@@ -26,7 +26,7 @@ public abstract class User implements Identified<Long> {
     }
 
     @Override
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -51,15 +51,15 @@ public abstract class User implements Identified<Long> {
     }
 
     @Override
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setRole_id(long role_id) {
+    public void setRole_id(int role_id) {
         this.role_id = role_id;
     }
 
-    public void setClient_account_id(long client_account_id) {
+    public void setClient_account_id(int client_account_id) {
         this.client_account_id = client_account_id;
     }
 
@@ -83,11 +83,11 @@ public abstract class User implements Identified<Long> {
         return lastName;
     }
 
-    public long getRole_id() {
+    public int getRole_id() {
         return role_id;
     }
 
-    public long getClient_account_id() {
+    public int getClient_account_id() {
         return client_account_id;
     }
 }

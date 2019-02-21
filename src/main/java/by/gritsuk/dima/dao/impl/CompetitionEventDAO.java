@@ -10,15 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompetitionEventDAO extends AbstractJdbcDao<Bet.CompetitionEvent,Long>
-        implements GenericDao<Bet.CompetitionEvent,Long> {
+public class CompetitionEventDAO extends AbstractJdbcDao<Bet.CompetitionEvent,Integer>
+        implements GenericDao<Bet.CompetitionEvent,Integer> {
 
     @Override
     protected List<Bet.CompetitionEvent> parseResultSet(ResultSet rs) throws SQLException {
         List<Bet.CompetitionEvent> events=new ArrayList<>();
         while(rs.next()){
             Bet.CompetitionEvent event=new Bet.CompetitionEvent();
-            event.setId(rs.getLong("id"));
+            event.setId(rs.getInt("id"));
             event.setEvent(rs.getString("event_name"));
             event.setFactor(rs.getDouble("factor"));
             events.add(event);
@@ -38,7 +38,7 @@ public class CompetitionEventDAO extends AbstractJdbcDao<Bet.CompetitionEvent,Lo
         int i=0;
         statement.setString(++i,object.getEvent());
         statement.setDouble(++i,object.getFactor());
-        statement.setLong(++i,object.getId());
+        statement.setInt(++i,object.getId());
     }
 
     @Override

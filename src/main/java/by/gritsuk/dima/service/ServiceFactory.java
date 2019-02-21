@@ -1,6 +1,9 @@
 package by.gritsuk.dima.service;
 
+import by.gritsuk.dima.service.exception.ServiceException;;
 import by.gritsuk.dima.service.impl.UserServiceImpl;
+
+import java.sql.SQLException;
 
 /**
  * Service factory
@@ -12,7 +15,7 @@ public class ServiceFactory {
         return instance;
     }
 
-    public UserService getUserService() {
+    public UserService getUserService() throws SQLException, ServiceException {
         return new UserServiceImpl();
     }
 }

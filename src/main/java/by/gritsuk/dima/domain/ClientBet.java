@@ -2,18 +2,18 @@ package by.gritsuk.dima.domain;
 
 import by.gritsuk.dima.dao.Identified;
 
-public class ClientBet implements Identified<Long> {
-    private long id;
+public class ClientBet implements Identified<Integer> {
+    private int id;
     private double deposit;
     private String status;
     private double income;
-    private long user_id;
-    private long bet_id;
+    private int user_id;
+    private int bet_id;
 
     public ClientBet(){}
 
     @Override
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -29,16 +29,16 @@ public class ClientBet implements Identified<Long> {
         this.income = income;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
-    public void setBet_id(long bet_id) {
+    public void setBet_id(int bet_id) {
         this.bet_id = bet_id;
     }
 
     @Override
-    public Long getId(){
+    public Integer getId(){
         return id;
     }
 
@@ -54,11 +54,11 @@ public class ClientBet implements Identified<Long> {
         return income;
     }
 
-    public long getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public long getBet_id() {
+    public int getBet_id() {
         return bet_id;
     }
 }

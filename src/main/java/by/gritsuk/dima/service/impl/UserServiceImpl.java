@@ -1,43 +1,81 @@
 package by.gritsuk.dima.service.impl;
 
-import by.gritsuk.dima.dao.DaoFactory;
-import by.gritsuk.dima.dao.DaoFactoryType;
-import by.gritsuk.dima.dao.FactoryProducer;
-import by.gritsuk.dima.dao.GenericDao;
+import by.gritsuk.dima.dao.*;
+import by.gritsuk.dima.dao.exception.ConnectionPoolException;
 import by.gritsuk.dima.dao.exception.DaoException;
-import by.gritsuk.dima.dao.exception.DaoFactoryException;
 import by.gritsuk.dima.dao.exception.PersistException;
+import by.gritsuk.dima.dao.impl.UserDAO;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.service.UserService;
 import by.gritsuk.dima.service.exception.ServiceException;
+import by.gritsuk.dima.service.exception.UserRegisterException;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Example of user service implementation
  */
 public class UserServiceImpl implements UserService {
+    private static UserServiceImpl instance;
+    private static final Lock LOCK=new ReentrantLock();
+
+    public UserServiceImpl(){}
+
+//    public static UserServiceImpl getInstance(){
+//            LOCK.lock();
+//            try {
+//                if (instance == null) {
+//                    instance = new UserServiceImpl();
+//                }
+//            } finally {
+//                LOCK.unlock();
+//            }
+//            return instance;
+//    }
+
     @Override
-    public User signUp(User user) throws ServiceException {
-        DaoFactory daoFactory=null;
+    public User signUp(User user) throws ServiceException,UserRegisterException {
+        ConnectionPool connectionPool=ConnectionPoolFactory.getInstance().getConnectionPool();;
+        Connection connection=null;
         try {
-            daoFactory = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC);
-        } catch (DaoFactoryException e) {
-
-        }
-        //provide your code here
-
-        try {
-            GenericDao<User, Long> userDao = daoFactory.getDao(User.class);
-            userDao.persist(user);
-
-        } catch (DaoException e) {
-            throw new ServiceException("Failed to get user DAO. ", e);
-
+            connection=connectionPool.retrieveConnection();
+            AbstractJdbcDao userDao = new UserDAO();
+            userDao.setConnection(connection);
+//            if(UserValidation.valifate(user)) {
+                userDao.persist(user);
+//            }else{
+//                throw new UserRegisterException("Inavlid data to geristrate this user");
+//            }
         } catch (PersistException e) {
             throw new ServiceException("Failed to save user. ", e);
+        } catch (ConnectionPoolException e){
+            throw new SecurityException("Failed to get connection",e);
+        }finally {
+            connectionPool.putBackConnection(connection);
         }
+        return user;
+    }
 
-        //provide your code here
-
-        throw new UnsupportedOperationException();
+    public List<User> getAll()throws ServiceException{
+        List<User> users=new ArrayList<>();
+        ConnectionPool connectionPool=ConnectionPoolFactory.getInstance().getConnectionPool();;
+        Connection connection=null;
+        try {
+            connection=connectionPool.retrieveConnection();
+            AbstractJdbcDao userDao = new UserDAO();
+            userDao.setConnection(connection);
+            users=userDao.getAll();
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to save user. ", e);
+        } catch (ConnectionPoolException e){
+            throw new SecurityException("Failed to get connection",e);
+        }finally {
+            connectionPool.putBackConnection(connection);
+        }
+        return users;
     }
 }
