@@ -28,10 +28,6 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private final String URL = "jdbc:mysql://207.154.220.222:3306/totalizator";
     private final String USER = "dmitry_gritsuk";
     private final String PASSWORD = "x8ejD39Ndk32";
-//    private final String DRIVER = "org.hsqldb.jdbcDriver";
-//    private final String URL = "jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1";
-//    private final String USER = "SA";
-//    private final String PASSWORD = null;
     private final int POOL_CAPACITY = 20;
     private final Semaphore SEMAPHORE;
     private final Queue<Connection> POOL;
@@ -88,6 +84,17 @@ public class ConnectionPoolImpl implements ConnectionPool {
             SEMAPHORE.release();
             LOCK.unlock();
 
+        }
+    }
+
+    @Override
+    public void destroyPool() throws ConnectionPoolException {
+        try {
+            for (Connection connection : POOL) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new ConnectionPoolException("Failed while close all connections",e);
         }
     }
 

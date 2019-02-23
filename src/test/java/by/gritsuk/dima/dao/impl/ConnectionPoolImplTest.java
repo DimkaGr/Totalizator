@@ -52,7 +52,7 @@ public class ConnectionPoolImplTest {
                 throw new RuntimeException(e);
             }
         }));
-        executorService.awaitTermination(5L, TimeUnit.SECONDS);
+        executorService.awaitTermination(15L, TimeUnit.SECONDS);
         Assert.assertEquals(POOL_CAPACITY, hashCodes.size());
         Mockito.verify(((ConnectionPoolImpl) connectionPool),
                 Mockito.times(N_THREADS)).putBackConnection(Mockito.any());
