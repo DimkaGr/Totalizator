@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/add")
+@WebServlet(urlPatterns = "/add")
 public class AddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,8 +43,8 @@ public class AddServlet extends HttpServlet {
             throw new ServletException("Failed while adding user to database",e);
         }
         catch (UserRegisterException e){
-//            req.setAttribute("errors",false);
-//            req.getRequestDispatcher("/WEB-INF/views/add_page.jsp").forward(req,resp);
+            req.setAttribute("errors",true);
+            req.getRequestDispatcher("/WEB-INF/views/add_page.jsp").forward(req,resp);
         }
         req.setAttribute("user",user.getLogin());
         req.getRequestDispatcher("/WEB-INF/views/add_page.jsp").forward(req,resp);

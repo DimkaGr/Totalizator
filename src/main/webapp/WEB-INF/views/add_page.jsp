@@ -19,11 +19,9 @@
 </div>
 
 <div class="w3-container w3-padding">
-    <%--<%--%>
-        <%--if(request.getAttribute("errors").equals(false))--%>
-    <%--%>--%>
-        <%--<form action="${pageContext.request.contextPath}/error">--%>
-
+    <c:if test="${errors}">
+        <jsp:forward page="error_page.jsp"></jsp:forward>
+    </c:if>
     <%
         if (request.getAttribute("user") != null) {
             out.println("<div class=\"w3-panel w3-green w3-display-container w3-card-4 w3-round\">\n" +
@@ -37,26 +35,27 @@
         <div class="w3-container w3-center w3-green">
             <h2>Add user</h2>
         </div>
+        <%--<form method="POST" class="w3-selection w3-light-grey w3-padding" action="${pageContext.request.contextPath}?command=add_user">--%>
         <form method="POST" class="w3-selection w3-light-grey w3-padding" action="${pageContext.request.contextPath}/add">
             <label>First name:
                 <input type="text" name="first_name" class="w3-input w3-animate-input w3-border w3-round-large"
-                       style="width: 30%" required><br/>
+                       pattern="^[a-zA-Z]+$" style="width: 30%" required><br/>
             </label>
             <label>Last name:
                 <input type="text" name="last_name" class="w3-input w3-animate-input w3-border w3-round-large"
-                       style="width: 30%" required><br/>
+                       pattern="^[a-zA-Z]+$" style="width: 30%" required><br/>
             </label>
             <label>Email:
                 <input type="text" name="email" class="w3-input w3-animate-input w3-border w3-round-large"
-                       style="width: 30%" required><br/>
+                       pattern="^\w+@[_a-zA-Z]+\.[a-z]{2,3}$" style="width: 30%" required><br/>
             </label>
             <label>Login:
                 <input type="text" name="login" class="w3-input w3-animate-input w3-border w3-round-large"
-                       style="width: 30%" required><br/>
+                       pattern="^[\w]+$" style="width: 30%" required><br/>
             </label>
             <label>Password:
                 <input type="password" name="password" class="w3-input w3-animate-input w3-border w3-round-large"
-                       style="width: 30%" required><br/>
+                       pattern="^[\w]+$" style="width: 30%" required><br/>
             </label>
             <button type="submit" class="w3-btn w3-green w3-round-large w3-margin-bottom">Submit</button>
         </form>

@@ -13,11 +13,13 @@ import java.sql.SQLException;
  */
 public class CommandExample implements Command {
     @Override
-    public ResponseContent execute(HttpServletRequest request) throws SQLException, ServiceException {
+    public ResponseContent execute(HttpServletRequest request) {
         // Provide your code here
+        try {
+            UserService userService = ServiceFactory.getInstance().getUserService();
+        }catch (SQLException| ServiceException e){
 
-        UserService userService = ServiceFactory.getInstance().getUserService();
-
+        }
         // Provide your code here
 
         throw new UnsupportedOperationException();

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%--<%@ page import="by.gritsuk.dima.controller.command.CommandType" %>--%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

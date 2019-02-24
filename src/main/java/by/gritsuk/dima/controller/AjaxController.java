@@ -26,12 +26,12 @@ public class AjaxController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandProvider.getInstance().takeCommand("CommandExample");
-        try {
-            ResponseContent responseContent = command.execute(request);
-        }catch (SQLException| ServiceException e){
-            throw new ServletException(e);
-        }
+//        Command command = CommandProvider.getInstance().takeCommand("CommandExample");
+//        try {
+//            ResponseContent responseContent = command.execute(request);
+//        }catch (SQLException| ServiceException e){
+//            throw new ServletException(e);
+//        }
         // Provide your code here
 
     }

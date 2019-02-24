@@ -15,17 +15,15 @@ public class CommandProvider {
     }
 
     private CommandProvider() {
-        commandMap.put("CommandExample", new CommandExample());
+        commandMap.put("add_user", new UserRegisterCommand());
     }
 
     /**
      * Return command by name
-     * @param command name
+     * @param commandType name
      * @return command implementation
      */
-    public Command takeCommand(String command) {
-        // Provide your code here
-
-        throw new UnsupportedOperationException();
+    public Command takeCommand(CommandType commandType) {
+        return commandMap.get(commandType);
     }
 }

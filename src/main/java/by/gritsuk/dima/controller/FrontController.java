@@ -2,8 +2,9 @@ package by.gritsuk.dima.controller;
 
 import by.gritsuk.dima.controller.command.Command;
 import by.gritsuk.dima.controller.command.CommandProvider;
+import by.gritsuk.dima.controller.command.CommandType;
+import by.gritsuk.dima.controller.command.Router;
 import by.gritsuk.dima.dto.ResponseContent;
-import by.gritsuk.dima.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,13 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/")
 public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request,response);
+//        processRequest(request, response);
     }
 
     @Override
@@ -26,13 +27,16 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandProvider.getInstance().takeCommand("CommandExample");
-        try {
+        Command command = CommandProvider.getInstance().takeCommand(CommandType.valueOf(request.getParameter("command")));
+//        try {
             ResponseContent responseContent = command.execute(request);
-        }catch (SQLException| ServiceException e){
-            throw new ServletException(e);
-        }
-        // Provide your code here
-
+            if(responseContent.getRouter().getType()== Router.Type.REDIRECT){
+                response.sendRedirect(responseContent.getRouter().getRoute());
+            }else{
+                request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request,response);
+            }
+//        }catch (SQLException| ServiceException e){
+//            throw new ServletException(e);
+//        }
     }
 }

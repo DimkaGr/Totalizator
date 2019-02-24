@@ -45,11 +45,11 @@ public class UserServiceImpl implements UserService {
             connection=connectionPool.retrieveConnection();
             AbstractJdbcDao userDao = new UserDAO();
             userDao.setConnection(connection);
-//            if(UserValidation.valifate(user)) {
+            if(UserValidation.validate(user)) {
                 userDao.persist(user);
-//            }else{
-//                throw new UserRegisterException("Inavlid data to geristrate this user");
-//            }
+            }else{
+                throw new UserRegisterException("Inavlid data to registrate this user");
+            }
         } catch (PersistException e) {
             throw new ServiceException("Failed to save user. ", e);
         } catch (ConnectionPoolException e){
