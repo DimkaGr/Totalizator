@@ -10,6 +10,9 @@
 <body class="w3-light-grey">
 <div class="w3-container w3-blue-grey w3-opacity w3-left-align">
     <h1>Totalizator</h1>
+    <div class="w3-right-align">
+        <button class="w3-btn w3-hover-green w3-round-large" onclick="location.href='${pageContext.request.contextPath}/sign_in'">Sign In</button>
+    </div>
 </div>
 
 <div class="w3-container w3-center">

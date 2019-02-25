@@ -23,7 +23,7 @@ public class CommandProvider {
      * @param commandType name
      * @return command implementation
      */
-    public Command takeCommand(CommandType commandType) {
+    public Command takeCommand(String commandType) {
         return commandMap.get(commandType);
     }
 }

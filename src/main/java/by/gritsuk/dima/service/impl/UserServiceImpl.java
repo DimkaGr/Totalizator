@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             if(UserValidation.validate(user)) {
                 userDao.persist(user);
             }else{
-                throw new UserRegisterException("Inavlid data to registrate this user");
+                throw new UserRegisterException("Invalid data to registrate this user");
             }
         } catch (PersistException e) {
             throw new ServiceException("Failed to save user. ", e);
@@ -77,5 +77,16 @@ public class UserServiceImpl implements UserService {
             connectionPool.putBackConnection(connection);
         }
         return users;
+    }
+
+    @Override
+    public User getUser(String login,String password) throws ServiceException {
+        List<User> userList = getAll();
+        for (User user : userList) {
+            if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
     }
 }
