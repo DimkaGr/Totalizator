@@ -21,8 +21,8 @@
     <h5>Your input data is not valid! Try to registr again or return to menu</h5>
     </div>
     <div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">
-        <button class="w3-btn w3-round-large" onclick="location.href='/Totalizator_war/'">Back to main</button>
-        <button class="w3-btn w3-round-large" onclick="location.href='/Totalizator_war/add'">Try to register again</button>
+        <button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/'">Back to main</button>
+        <button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/add'">Try to register again</button>
     </div>
 </div>
 </body>

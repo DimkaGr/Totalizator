@@ -44,7 +44,7 @@
 </div>
 
 <div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">
-    <button class="w3-btn w3-round-large" onclick="location.href='/Totalizator_war/'">Back to main</button>
+    <button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/'">Back to main</button>
 </div>
 </body>
 </html>

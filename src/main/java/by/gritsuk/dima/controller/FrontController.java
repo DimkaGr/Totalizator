@@ -17,7 +17,7 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request,response);
+        request.getRequestDispatcher("/index.jsp").forward(request,response);
 //        processRequest(request, response);
     }
 
