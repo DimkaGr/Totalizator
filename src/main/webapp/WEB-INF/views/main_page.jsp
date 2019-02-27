@@ -11,7 +11,7 @@
     <title>Main page(in progress)</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
-<body>
+<body class="w3-light-grey">
 
 <div class="picture">
     <img src="inProgress.png" height=330px" width="500px" alt="You'r welcome!">

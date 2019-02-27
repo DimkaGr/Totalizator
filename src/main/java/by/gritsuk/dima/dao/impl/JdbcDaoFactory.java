@@ -2,10 +2,7 @@ package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.*;
 import by.gritsuk.dima.dao.exception.DaoException;
-import by.gritsuk.dima.domain.Bet;
-import by.gritsuk.dima.domain.ClientBet;
-import by.gritsuk.dima.domain.Competition;
-import by.gritsuk.dima.domain.User;
+import by.gritsuk.dima.domain.*;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
@@ -68,6 +65,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
         creators.put(ClientBet.class,ClientBetDAO::new);
         creators.put(Competition.class,CompetitionDAO::new);
         creators.put(Bet.CompetitionEvent.class,CompetitionEventDAO::new);
+        creators.put(RegistrationKey.class,SendKeysDAO::new);
     }
 
     public static JdbcDaoFactory getInstance() {

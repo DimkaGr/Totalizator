@@ -41,7 +41,7 @@ factor DOUBLE NOT NULL,
 PRIMARY KEY (id));
 CREATE TABLE competition (
 id INT NOT NULL AUTO_INCREMENT,
-date DATETIME NOT NULL,
+date CHAR(10) NOT NULL,
 participant_1 VARCHAR(45) NOT NULL,
 participant_2 VARCHAR(45) NOT NULL,
 kind_of_sport_id INT NOT NULL,
@@ -67,4 +67,8 @@ users_id INT NOT NULL,
 PRIMARY KEY (id),
 CONSTRAINT fk_bet_id FOREIGN KEY (bet_id) REFERENCES bet (id) ON DELETE CASCADE,
 CONSTRAINT fk_users_id FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE CASCADE);
+CREATE TABLE registration_keys (
+user_id INT NOT NULL AUTO_INCREMENT,
+user_key VARCHAR(36) NOT NULL,
+PRIMARY KEY (user_id));
 

@@ -11,7 +11,7 @@
     <title>Failed registration</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
-<body>
+<body class="w3-light-grey">
 <div class="container">
     <div class="picture">
         <img src="errorPic.jpg" height=330px" width="500px" alt="Oops!">

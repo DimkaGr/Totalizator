@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         } catch (PersistException e) {
             throw new ServiceException("Failed to save user. ", e);
         } catch (ConnectionPoolException e){
-            throw new SecurityException("Failed to get connection",e);
+            throw new ServiceException("Failed to get connection",e);
         }finally {
             connectionPool.putBackConnection(connection);
         }
@@ -70,9 +70,9 @@ public class UserServiceImpl implements UserService {
             userDao.setConnection(connection);
             users=userDao.getAll();
         } catch (DaoException e) {
-            throw new ServiceException("Failed to save user. ", e);
+            throw new ServiceException("Failed to get users. ", e);
         } catch (ConnectionPoolException e){
-            throw new SecurityException("Failed to get connection",e);
+            throw new ServiceException("Failed to get connection",e);
         }finally {
             connectionPool.putBackConnection(connection);
         }
@@ -80,10 +80,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String login,String password) throws ServiceException {
+    public User getUserForLogin(String login,String password) throws ServiceException {
         List<User> userList = getAll();
         for (User user : userList) {
             if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public User getUserForRestoring(String login,String email) throws ServiceException{
+        List<User> userList = getAll();
+        for (User user : userList) {
+            if (user.getLogin().equals(login) && user.getEmail().equals(email)) {
                 return user;
             }
         }

@@ -7,7 +7,7 @@ public class UserValidation {
     private static final String PASSWORD_PATTERN="^[\\w]+$";
     private static final String FIRST_NAME_PATTERN="^[a-zA-Z]+$";
     private static final String LAST_NAME_PATTERN="^[a-zA-Z]+$";
-    private static final String EMAIL_PATTERN="^\\w+@[_a-zA-Z]+\\.[a-z]{2,3}$";
+    private static final String EMAIL_PATTERN="^[\\w\\.-]+@[_a-zA-Z]+\\.[a-z]{2,3}$";
 
     public UserValidation(){}
 

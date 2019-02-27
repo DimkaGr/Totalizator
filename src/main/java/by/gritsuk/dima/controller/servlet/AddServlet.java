@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/add")
 public class AddServlet extends HttpServlet {
@@ -31,12 +30,7 @@ public class AddServlet extends HttpServlet {
         user.setLogin(req.getParameter("login"));
         user.setPassword(req.getParameter("password"));
         user.setRole_id(1);
-        UserService userService=null;
-        try {
-            userService = ServiceFactory.getInstance().getUserService();
-        }catch (SQLException|ServiceException e){
-            throw new ServletException("Failed while getting user service",e);
-        }
+        UserService userService=ServiceFactory.getInstance().getUserService();
         try {
             userService.signUp(user);
         }catch(ServiceException e){

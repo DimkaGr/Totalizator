@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class Competition implements Identified<Integer> {
     private int id;
-    private LocalDate date;
+    private String date;
     private String participant1;
     private String participant2;
     private int kind_of_sport_id;
@@ -21,7 +21,7 @@ public class Competition implements Identified<Integer> {
         this.id = id;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -54,7 +54,7 @@ public class Competition implements Identified<Integer> {
         return id;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 

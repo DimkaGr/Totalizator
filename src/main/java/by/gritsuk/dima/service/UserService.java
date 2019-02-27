@@ -21,5 +21,7 @@ public interface UserService {
 
     List<User> getAll() throws ServiceException;
 
-    User getUser(String login, String password)throws ServiceException;
+    User getUserForLogin(String login, String password)throws ServiceException;
+
+    User getUserForRestoring(String login, String email)throws ServiceException;
 }

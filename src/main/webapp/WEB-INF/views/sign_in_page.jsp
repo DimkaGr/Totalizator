@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
-<body>
+<body class="w3-light-grey">
 <div class="w3-container w3-blue-grey w3-opacity w3-left-align">
     <h1>Totalizator</h1>
 </div>
@@ -51,10 +51,14 @@
             </label>
             <label>Password:
                 <input type="password" name="password" class="w3-input w3-animate-input w3-border w3-round-large"
-                       style="width: 30%" required><br/>
+                       style="width: 30%" required>
             </label>
             <button type="submit" class="w3-btn w3-green w3-round-large w3-margin-bottom">Log In</button>
+            <div class="w3-container w3-light-grey w3-opacity w3-left-align w3-padding">
+                <button class="w3-btn w3-green w3-round-large" onclick="location.href='${pageContext.request.contextPath}/restore'">Forgot the password?</button>
+            </div>
         </form>
+
     </div>
 </div>
 

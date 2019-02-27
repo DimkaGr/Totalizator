@@ -51,7 +51,7 @@ public class AbstractJdbcDaoTest {
         event.setFactor(1.6);
         event.setId(2);
         dao.update(event);
-        Bet.CompetitionEvent bet= (Bet.CompetitionEvent)(dao.getAll().get(0));
+        Bet.CompetitionEvent bet= (Bet.CompetitionEvent)(dao.getAll().get(1));
         assertEquals("Participant 2 win",bet.getEvent());
     }
 

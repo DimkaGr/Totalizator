@@ -49,7 +49,7 @@ public class BetDAO extends AbstractJdbcDao<Bet,Integer> implements GenericDao<B
 
     @Override
     public String getSelectQuery() {
-        return "SELECT * FROM bet INNER JOIN competition_events ON bet.competition_events_id=competition_events.id"+
+        return "SELECT * FROM bet INNER JOIN competition_events ON bet.competition_events_id=competition_events.id "+
                 "INNER JOIN competition ON competition.id=bet.competition_id WHERE id=?";
     }
 
@@ -70,7 +70,7 @@ public class BetDAO extends AbstractJdbcDao<Bet,Integer> implements GenericDao<B
 
     @Override
     public String getSelectAllQuery(){
-        return "SELECT * FROM bet INNER JOIN competition_events ON bet.competition_events_id=competition_events.id"+
+        return "SELECT * FROM bet INNER JOIN competition_events ON bet.competition_events_id=competition_events.id "+
                 "INNER JOIN competition ON competition.id=bet.competition_id";
     }
 }

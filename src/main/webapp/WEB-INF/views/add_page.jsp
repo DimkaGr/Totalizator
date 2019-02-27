@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Add new user</title>
@@ -20,9 +19,9 @@
 </div>
 
 <div class="w3-container w3-padding">
-    <c:if test="${errors}">
-        <jsp:forward page="error_page.jsp"></jsp:forward>
-    </c:if>
+    <%--<c:if test="${errors}">--%>
+        <%--<jsp:forward page="error_page.jsp"></jsp:forward>--%>
+    <%--</c:if>--%>
     <%
         if (request.getAttribute("user") != null) {
             out.println("<div class=\"w3-panel w3-green w3-display-container w3-card-4 w3-round\">\n" +
@@ -48,7 +47,7 @@
             </label>
             <label>Email:
                 <input type="text" name="email" class="w3-input w3-animate-input w3-border w3-round-large"
-                       pattern="^\w+@[_a-zA-Z]+\.[a-z]{2,3}$" style="width: 30%" required><br/>
+                       pattern="^[\w\.-]+@[_a-zA-Z]+\.[a-z]{2,3}$" style="width: 30%" required><br/>
             </label>
             <label>Login:
                 <input type="text" name="login" class="w3-input w3-animate-input w3-border w3-round-large"

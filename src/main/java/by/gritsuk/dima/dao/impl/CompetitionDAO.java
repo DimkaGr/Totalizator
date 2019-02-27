@@ -20,8 +20,7 @@ public class CompetitionDAO extends AbstractJdbcDao<Competition,Integer> impleme
         while(rs.next()){
             Competition competition=new Competition();
             competition.setId(rs.getInt("id"));
-            LocalDate date=LocalDate.parse(rs.getNString("date"));
-            competition.setDate(date);
+            competition.setDate(rs.getString("date"));
             competition.setParticipant1(rs.getString("participant_1"));
             competition.setParticipant2(rs.getString("participant_2"));
             competition.setKindOfSport(rs.getString("name"));
@@ -34,7 +33,7 @@ public class CompetitionDAO extends AbstractJdbcDao<Competition,Integer> impleme
     @Override
     protected void prepareStatementForInsert(PreparedStatement statement, Competition object) throws SQLException {
         int i=0;
-        statement.setDate(++i, Date.valueOf(object.getDate()));
+        statement.setString(++i, object.getDate());
         statement.setString(++i,object.getParticipant1());
         statement.setString(++i,object.getParticipant2());
         statement.setInt(++i,object.getKind_of_sport_id());
@@ -44,7 +43,7 @@ public class CompetitionDAO extends AbstractJdbcDao<Competition,Integer> impleme
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, Competition object) throws SQLException {
         int i=0;
-        statement.setDate(++i, Date.valueOf(object.getDate()));
+        statement.setString(++i, object.getDate());
         statement.setString(++i,object.getParticipant1());
         statement.setString(++i,object.getParticipant2());
         statement.setInt(++i,object.getKind_of_sport_id());
@@ -54,7 +53,7 @@ public class CompetitionDAO extends AbstractJdbcDao<Competition,Integer> impleme
 
     @Override
     public String getSelectQuery() {
-        return "SELECT * FROM competition INNER JOIN kind_of_sport ON kind_of_sport.id=competition.kind_of_sport_id"+
+        return "SELECT * FROM competition INNER JOIN kind_of_sport ON kind_of_sport.id=competition.kind_of_sport_id "+
                 "INNER JOIN competition_result ON competition_result.id=competition.competition_result_id WHERE id=?";
     }
 
@@ -75,7 +74,7 @@ public class CompetitionDAO extends AbstractJdbcDao<Competition,Integer> impleme
 
     @Override
     public String getSelectAllQuery() {
-        return "SELECT * FROM competition INNER JOIN kind_of_sport ON kind_of_sport.id=competition.kind_of_sport_id"+
+        return "SELECT * FROM competition INNER JOIN kind_of_sport ON kind_of_sport.id=competition.kind_of_sport_id "+
                 "INNER JOIN competition_result ON competition_result.id=competition.competition_result_id";
     }
 }

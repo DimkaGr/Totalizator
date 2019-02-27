@@ -38,15 +38,15 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
 
     @Override
     @AutoConnection
-    public Optional<T> getByPK(PK key) throws DaoException {
+    public T getByPK(PK key) throws DaoException {
         try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectQuery())) {
             selectStatement.setInt(1,  key.intValue());
             try (ResultSet resQuery = selectStatement.executeQuery()) {
                 List<T> list = parseResultSet(resQuery);
                 if (list.size() == 1) {
-                    return Optional.ofNullable(list.get(0));
+                    return list.get(0);
                 } else {
-                    return Optional.empty();
+                    return null;
                 }
             }
         } catch (PersistException | SQLException e) {

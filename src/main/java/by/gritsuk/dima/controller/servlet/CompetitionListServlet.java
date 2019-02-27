@@ -1,8 +1,8 @@
 package by.gritsuk.dima.controller.servlet;
 
-import by.gritsuk.dima.domain.User;
+import by.gritsuk.dima.domain.Competition;
+import by.gritsuk.dima.service.CompetitionService;
 import by.gritsuk.dima.service.ServiceFactory;
-import by.gritsuk.dima.service.UserService;
 import by.gritsuk.dima.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -13,27 +13,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = "/list")
-public class UserListServlet extends HttpServlet {
 
+@WebServlet(urlPatterns = "/comp_list")
+public class CompetitionListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User>users=new ArrayList<>();
-        List<String> userNames=new ArrayList<>();
-        UserService userService=ServiceFactory.getInstance().getUserService();
+//        req.getRequestDispatcher("/WEB-INF/views/competitions_page.jsp").forward(req,resp);
+        List<Competition> competitions=new ArrayList<>();
+        CompetitionService competitionService= ServiceFactory.getInstance().getCompetitionService();
         try {
-            users=userService.getAll();
-            userNames=users.stream()
-                    .map(User::getLogin)
-                    .collect(Collectors.toList());
+            competitions=competitionService.getAll();
         }catch(ServiceException e){
-            throw new ServletException("Failed while getting users from database",e);
+            throw new ServletException("Failed while getting competitions from database",e);
         }
-        req.setAttribute("user",userNames);
-        req.getRequestDispatcher("/WEB-INF/views/list_page.jsp").forward(req,resp);
+        req.setAttribute("competitions",competitions);
+        req.getRequestDispatcher("/WEB-INF/views/competitions_page.jsp").forward(req,resp);
     }
+
 
 //    @Override
 //    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -51,7 +51,7 @@ public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Integer> implements 
 
     @Override
     public String getSelectQuery() {
-        return "SELECT * FROM  client_bet INNER JOIN bet ON bet.id=client_bet.bet_id"+
+        return "SELECT * FROM  client_bet INNER JOIN bet ON bet.id=client_bet.bet_id "+
                 "INNER JOIN users ON users.id=client_bet.users_id WHERE id=?";
     }
 
@@ -72,7 +72,7 @@ public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Integer> implements 
 
     @Override
     public String getSelectAllQuery(){
-        return "SELECT * FROM client_bet INNER JOIN bet ON bet.id=client_bet.bet_id"+
+        return "SELECT * FROM client_bet INNER JOIN bet ON bet.id=client_bet.bet_id "+
                 "INNER JOIN users ON users.id=client_bet.users_id";
     }
 }
