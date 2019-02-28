@@ -14,7 +14,7 @@
 <body class="w3-light-grey">
 <div class="container">
     <div class="picture">
-        <img src="errorPic.jpg" height=330px" width="500px" alt="Oops!">
+        <img src="../../static/errorPic.jpg" height=330px" width="500px" alt="Oops!">
     </div>
     <div class="w3-panel w3-red w3-display-container w3-card-4 w3-round">
        <%--<span class="w3-button w3-margin-right w3-display-center w3-round-large w3-hover-green w3-border w3-border-green w3-hover-border-grey"></span>--%>
