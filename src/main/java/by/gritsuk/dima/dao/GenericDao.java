@@ -20,6 +20,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
      * @return identified entity in DB
      * @throws PersistException should be clarify
      */
+    @AutoConnection
     T persist(T object) throws PersistException;
 
     /**
@@ -28,6 +29,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
      * @return identified entity
      * @throws DaoException should be clarify
      */
+    @AutoConnection
     T getByPK(PK id) throws DaoException;
 
     /**
@@ -35,6 +37,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
      * @param object identified entity
      * @throws PersistException should be clarify
      */
+    @AutoConnection
     void update(T object) throws PersistException;
 
     /**
@@ -42,6 +45,7 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
      * @param object identified entity
      * @throws PersistException should be clarify
      */
+    @AutoConnection
     void delete(T object) throws PersistException;
 
     /**
@@ -49,5 +53,6 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
      * @return identified entity
      * @throws DaoException should be clarify
      */
+    @AutoConnection
     List<T> getAll() throws DaoException;
 }

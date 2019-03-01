@@ -17,53 +17,53 @@ public class AbstractJdbcDaoTest {
     private Connection connection;
     private AbstractJdbcDao dao;
 
-    @Before
-    public void create() throws Exception {
-        connectionPool=ConnectionPoolFactory.getInstance().getConnectionPool();
-        connection=connectionPool.retrieveConnection();
-        dao=new CompetitionEventDAO();
-        dao.setConnection(connection);
-    }
-
-    @Test
-    public void getAll()throws Exception {
-        create();
+//    @Before
+//    public void create() throws Exception {
+//        connectionPool=ConnectionPoolFactory.getInstance().getConnectionPool();
+//        connection=connectionPool.retrieveConnection();
+//        dao=new CompetitionEventDAO();
+//        dao.setConnection(connection);
+//    }
+//
+//    @Test
+//    public void getAll()throws Exception {
+//        create();
+////        Bet.CompetitionEvent event=new Bet.CompetitionEvent();
+////        event.setEvent("Participant 1 win");
+////        event.setFactor(1.6);
+//        assertTrue(dao.getAll().size()>0);
+//    }
+//
+//    @Test
+//    public void persist() throws Exception{
+//        create();
 //        Bet.CompetitionEvent event=new Bet.CompetitionEvent();
-//        event.setEvent("Participant 1 win");
+//        event.setEvent("Participant 3 win");
 //        event.setFactor(1.6);
-        assertTrue(dao.getAll().size()>0);
-    }
-
-    @Test
-    public void persist() throws Exception{
-        create();
-        Bet.CompetitionEvent event=new Bet.CompetitionEvent();
-        event.setEvent("Participant 3 win");
-        event.setFactor(1.6);
-        assertEquals(event,dao.persist(event));
-    }
-
-    @Test
-    public void update() throws Exception{
-        create();
-        Bet.CompetitionEvent event=new Bet.CompetitionEvent();
-        event.setEvent("Participant 2 win");
-        event.setFactor(1.6);
-        event.setId(2);
-        dao.update(event);
-        Bet.CompetitionEvent bet= (Bet.CompetitionEvent)(dao.getAll().get(1));
-        assertEquals("Participant 2 win",bet.getEvent());
-    }
-
-    @Test
-    public void delete() throws Exception{
-        Bet.CompetitionEvent event=new Bet.CompetitionEvent();
-        int before=dao.getAll().size();
-//        event.setEvent("Participant 1 win");
+//        assertEquals(event,dao.persist(event));
+//    }
+//
+//    @Test
+//    public void update() throws Exception{
+//        create();
+//        Bet.CompetitionEvent event=new Bet.CompetitionEvent();
+//        event.setEvent("Participant 2 win");
 //        event.setFactor(1.6);
-        event.setId(3);
-        dao.delete(event);
-        int size=(dao.getAll().size());
-        assertEquals(before-1,size);
-    }
+//        event.setId(2);
+//        dao.update(event);
+//        Bet.CompetitionEvent bet= (Bet.CompetitionEvent)(dao.getAll().get(1));
+//        assertEquals("Participant 2 win",bet.getEvent());
+//    }
+//
+//    @Test
+//    public void delete() throws Exception{
+//        Bet.CompetitionEvent event=new Bet.CompetitionEvent();
+//        int before=dao.getAll().size();
+////        event.setEvent("Participant 1 win");
+////        event.setFactor(1.6);
+//        event.setId(1);
+//        dao.delete(event);
+//        int size=(dao.getAll().size());
+//        assertEquals(before-1,size);
+//    }
 }

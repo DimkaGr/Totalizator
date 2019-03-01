@@ -86,7 +86,7 @@
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <configuration>
                         <port>8080</port>
-                        <path>/</path>
+                        <path>/Totalizator_war</path>
                     </configuration>
                     <version>2.2</version>
                 </plugin>
