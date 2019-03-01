@@ -23,11 +23,11 @@ import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
-@RunWith(JUnit4.class)
-public class ConnectionPoolImplTest {
-    private static final Logger LOGGER = LogManager.getLogger(ConnectionPoolImplTest.class);
-    private static final int N_THREADS = 30;
-    private static final int POOL_CAPACITY = 20;
+//@RunWith(JUnit4.class)
+//public class ConnectionPoolImplTest {
+//    private static final Logger LOGGER = LogManager.getLogger(ConnectionPoolImplTest.class);
+//    private static final int N_THREADS = 30;
+//    private static final int POOL_CAPACITY = 20;
 
 //    @Test
 //    public void shouldGetConnection() throws InterruptedException {
@@ -58,4 +58,4 @@ public class ConnectionPoolImplTest {
 //                Mockito.times(N_THREADS)).putBackConnection(Mockito.any());
 //    }
 
-}
+//}

@@ -11,11 +11,11 @@ import java.sql.Connection;
 
 import static org.junit.Assert.*;
 
-@RunWith(JUnit4.class)
-public class AbstractJdbcDaoTest {
-    ConnectionPool connectionPool;
-    private Connection connection;
-    private AbstractJdbcDao dao;
+//@RunWith(JUnit4.class)
+//public class AbstractJdbcDaoTest {
+//    ConnectionPool connectionPool;
+//    private Connection connection;
+//    private AbstractJdbcDao dao;
 
 //    @Before
 //    public void create() throws Exception {
@@ -66,4 +66,4 @@ public class AbstractJdbcDaoTest {
 //        int size=(dao.getAll().size());
 //        assertEquals(before-1,size);
 //    }
-}
+//}
