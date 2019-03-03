@@ -9,14 +9,14 @@ import java.util.Properties;
 public class DAOProperties {
     public DAOProperties(){}
 
-    public Properties getDAOProperties(String fileName)throws DaoException{
+    public Properties getDAOProperties(String fileName){
         ClassLoader classLoader = getClass().getClassLoader();
         try(InputStream iStream=classLoader.getResourceAsStream(fileName)){
             Properties properties=new Properties();
             properties.load(iStream);
             return properties;
         }catch(IOException e){
-            throw new DaoException("Property file is not found",e);
+            throw new RuntimeException("Property file is not found",e);
         }
     }
 }

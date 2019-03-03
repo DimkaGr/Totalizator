@@ -1,16 +1,15 @@
 package by.gritsuk.dima.service.impl;
 
 import by.gritsuk.dima.dao.*;
-import by.gritsuk.dima.dao.exception.ConnectionPoolException;
 import by.gritsuk.dima.dao.exception.DaoException;
+import by.gritsuk.dima.dao.exception.DaoFactoryException;
 import by.gritsuk.dima.dao.exception.PersistException;
-import by.gritsuk.dima.dao.impl.UserDAO;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.service.UserService;
 import by.gritsuk.dima.service.exception.ServiceException;
 import by.gritsuk.dima.service.exception.UserRegisterException;
+import by.gritsuk.dima.validation.UserValidation;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -39,12 +38,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User signUp(User user) throws ServiceException,UserRegisterException {
-        ConnectionPool connectionPool=ConnectionPoolFactory.getInstance().getConnectionPool();;
-        Connection connection=null;
         try {
-            connection=connectionPool.retrieveConnection();
-            AbstractJdbcDao userDao = new UserDAO();
-            userDao.setConnection(connection);
+            GenericDao<User,Integer> userDao = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
             if(UserValidation.validate(user)) {
                 userDao.persist(user);
             }else{
@@ -52,29 +47,21 @@ public class UserServiceImpl implements UserService {
             }
         } catch (PersistException e) {
             throw new ServiceException("Failed to save user. ", e);
-        } catch (ConnectionPoolException e){
-            throw new ServiceException("Failed to get connection",e);
-        }finally {
-            connectionPool.putBackConnection(connection);
+        } catch (DaoFactoryException|DaoException e){
+            throw new ServiceException("Failed to connect to database",e);
         }
         return user;
     }
 
     public List<User> getAll()throws ServiceException{
         List<User> users=new ArrayList<>();
-        ConnectionPool connectionPool=ConnectionPoolFactory.getInstance().getConnectionPool();;
-        Connection connection=null;
         try {
-            connection=connectionPool.retrieveConnection();
-            AbstractJdbcDao userDao = new UserDAO();
-            userDao.setConnection(connection);
+            GenericDao<User,Integer> userDao = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
             users=userDao.getAll();
         } catch (DaoException e) {
             throw new ServiceException("Failed to get users. ", e);
-        } catch (ConnectionPoolException e){
-            throw new ServiceException("Failed to get connection",e);
-        }finally {
-            connectionPool.putBackConnection(connection);
+        } catch (DaoFactoryException e){
+            throw new ServiceException("Failed to connect to database",e);
         }
         return users;
     }

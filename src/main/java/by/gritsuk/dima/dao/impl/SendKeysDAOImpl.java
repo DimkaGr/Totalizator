@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SendKeysDAO extends AbstractJdbcDao<RegistrationKey,Integer> implements GenericDao<RegistrationKey,Integer> {
+public class SendKeysDAOImpl extends AbstractJdbcDao<RegistrationKey,Integer> implements GenericDao<RegistrationKey,Integer> {
     @Override
     protected List<RegistrationKey> parseResultSet(ResultSet rs) throws PersistException, SQLException {
         List<RegistrationKey>keys=new ArrayList<>();

@@ -7,63 +7,164 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<%--<html>--%>
+<%--<head>--%>
+    <%--<title>Add new user</title>--%>
+    <%--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">--%>
+<%--</head>--%>
+
+<%--<body class="w3-light-grey">--%>
+<%--<div class="w3-container w3-blue-grey w3-opacity w3-left-align">--%>
+    <%--<h1>Totalizator</h1>--%>
+<%--</div>--%>
+
+<%--<div class="w3-container w3-padding">--%>
+    <%--&lt;%&ndash;<c:if test="${errors}">&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<jsp:forward page="error_page.jsp"></jsp:forward>&ndash;%&gt;--%>
+    <%--&lt;%&ndash;</c:if>&ndash;%&gt;--%>
+    <%--<%--%>
+        <%--if (request.getAttribute("user") != null) {--%>
+            <%--out.println("<div class=\"w3-panel w3-green w3-display-container w3-card-4 w3-round\">\n" +--%>
+                    <%--"   <span onclick=\"this.parentElement.style.display='none'\"\n" +--%>
+                    <%--"   class=\"w3-button w3-margin-right w3-display-right w3-round-large w3-hover-green w3-border w3-border-green w3-hover-border-grey\">×</span>\n" +--%>
+                    <%--"   <h5>User '" + request.getAttribute("user") + "' added!</h5>\n" +--%>
+                    <%--"</div>");--%>
+        <%--}--%>
+    <%--%>--%>
+    <%--<div class="w3-card-4">--%>
+        <%--<div class="w3-container w3-center w3-green">--%>
+            <%--<h2>Add user</h2>--%>
+        <%--</div>--%>
+        <%--&lt;%&ndash;<form method="POST" class="w3-selection w3-light-grey w3-padding" action="${pageContext.request.contextPath}?command=add_user">&ndash;%&gt;--%>
+        <%--<form method="POST" class="w3-selection w3-light-grey w3-padding" action="${pageContext.request.contextPath}/add">--%>
+            <%--<label>First name:--%>
+                <%--<input type="text" name="first_name" class="w3-input w3-animate-input w3-border w3-round-large"--%>
+                       <%--pattern="^[a-zA-Z]+$" style="width: 30%" required><br/>--%>
+            <%--</label>--%>
+            <%--<label>Last name:--%>
+                <%--<input type="text" name="last_name" class="w3-input w3-animate-input w3-border w3-round-large"--%>
+                       <%--pattern="^[a-zA-Z]+$" style="width: 30%" required><br/>--%>
+            <%--</label>--%>
+            <%--<label>Email:--%>
+                <%--<input type="text" name="email" class="w3-input w3-animate-input w3-border w3-round-large"--%>
+                       <%--pattern="^[\w\.-]+@[_a-zA-Z]+\.[a-z]{2,3}$" style="width: 30%" required><br/>--%>
+            <%--</label>--%>
+            <%--<label>Login:--%>
+                <%--<input type="text" name="login" class="w3-input w3-animate-input w3-border w3-round-large"--%>
+                       <%--pattern="^[\w]+$" style="width: 30%" required><br/>--%>
+            <%--</label>--%>
+            <%--<label>Password:--%>
+                <%--<input type="password" name="password" class="w3-input w3-animate-input w3-border w3-round-large"--%>
+                       <%--pattern="^[\w]+$" style="width: 30%" required><br/>--%>
+            <%--</label>--%>
+            <%--<button type="submit" class="w3-btn w3-green w3-round-large w3-margin-bottom">Submit</button>--%>
+        <%--</form>--%>
+    <%--</div>--%>
+<%--</div>--%>
+
+<%--<div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">--%>
+    <%--<button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/'">Back to begin</button>--%>
+<%--</div>--%>
+<%--</body>--%>
+<%--</html>--%>
+<html lang="en">
 <head>
-    <title>Add new user</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Creating new account</title>
 
-<body class="w3-light-grey">
-<div class="w3-container w3-blue-grey w3-opacity w3-left-align">
-    <h1>Totalizator</h1>
-</div>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
 
-<div class="w3-container w3-padding">
-    <%--<c:if test="${errors}">--%>
-        <%--<jsp:forward page="error_page.jsp"></jsp:forward>--%>
-    <%--</c:if>--%>
-    <%
-        if (request.getAttribute("user") != null) {
-            out.println("<div class=\"w3-panel w3-green w3-display-container w3-card-4 w3-round\">\n" +
-                    "   <span onclick=\"this.parentElement.style.display='none'\"\n" +
-                    "   class=\"w3-button w3-margin-right w3-display-right w3-round-large w3-hover-green w3-border w3-border-green w3-hover-border-grey\">×</span>\n" +
-                    "   <h5>User '" + request.getAttribute("user") + "' added!</h5>\n" +
-                    "</div>");
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
-    %>
-    <div class="w3-card-4">
-        <div class="w3-container w3-center w3-green">
-            <h2>Add user</h2>
-        </div>
-        <%--<form method="POST" class="w3-selection w3-light-grey w3-padding" action="${pageContext.request.contextPath}?command=add_user">--%>
-        <form method="POST" class="w3-selection w3-light-grey w3-padding" action="${pageContext.request.contextPath}/add">
-            <label>First name:
-                <input type="text" name="first_name" class="w3-input w3-animate-input w3-border w3-round-large"
-                       pattern="^[a-zA-Z]+$" style="width: 30%" required><br/>
-            </label>
-            <label>Last name:
-                <input type="text" name="last_name" class="w3-input w3-animate-input w3-border w3-round-large"
-                       pattern="^[a-zA-Z]+$" style="width: 30%" required><br/>
-            </label>
-            <label>Email:
-                <input type="text" name="email" class="w3-input w3-animate-input w3-border w3-round-large"
-                       pattern="^[\w\.-]+@[_a-zA-Z]+\.[a-z]{2,3}$" style="width: 30%" required><br/>
-            </label>
-            <label>Login:
-                <input type="text" name="login" class="w3-input w3-animate-input w3-border w3-round-large"
-                       pattern="^[\w]+$" style="width: 30%" required><br/>
-            </label>
-            <label>Password:
-                <input type="password" name="password" class="w3-input w3-animate-input w3-border w3-round-large"
-                       pattern="^[\w]+$" style="width: 30%" required><br/>
-            </label>
-            <button type="submit" class="w3-btn w3-green w3-round-large w3-margin-bottom">Submit</button>
-        </form>
-    </div>
-</div>
 
-<div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">
-    <button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/'">Back to begin</button>
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.3/examples/floating-labels/" rel="stylesheet">
+</head>
+<body style="background-color: #eee;">
+<div style="background-color: rgba(13,24,46,0.38);" >
+    <br>
+    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white">Totalizator</h1>
+    <br>
 </div>
+<main class="container w-25 p-3">
+<form method="POST" class="form-signin" action=${pageContext.request.contextPath}/add>
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Create new account</h1>
+        <p>Enter your personal data</p>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text"  id="first_name" name="first_name" class="form-control"
+               pattern="^[a-zA-Z]+$" placeholder="First Name" required autofocus>
+        <br>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="last_name" name="last_name" class="form-control"
+               pattern="^[a-zA-Z]+$" placeholder="Last Name" required>
+        <br>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="login" name="login" class="form-control"
+               pattern="^[\w]+$" placeholder="Login" required>
+        <br>
+    </div>
+
+    <div class="form-label-group">
+        <input type="email" id="email" name="email" class="form-control"
+               pattern="^[\w\.-]+@[_a-zA-Z]+\.[a-z]{2,3}$" placeholder="Email address" required>
+        <br>
+    </div>
+
+    <div class="form-label-group">
+        <input type="password" id="password" name="password" class="form-control"
+               pattern="^[\w]+$" placeholder="Password" required>
+        <small class="text-muted">
+            Must be 4 or more characters
+        </small>
+        <br>
+    </div>
+    <br>
+    <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+</form>
+</main>
+<!-- Footer -->
+<footer class="sticky-footer bg-dark">
+    <div class="container">
+        <ul class="list-unstyled list-inline text-center py-2">
+            <%--<li class="list-inline-item">--%>
+            <%--<h5 class="mb-1">Register for free</h5>--%>
+            <%--</li>--%>
+            <li class="list-inline-item">
+                <a href="${pageContext.request.contextPath}/" class="btn btn-outline-light btn-rounded">Back to start page</a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-copyright text-center py-3" style="color: #7abaff">Created by Dima Gritsuk
+    </div>
+</footer>
+<!-- Footer -->
 </body>
 </html>

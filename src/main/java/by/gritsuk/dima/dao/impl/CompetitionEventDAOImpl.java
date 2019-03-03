@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompetitionEventDAO extends AbstractJdbcDao<Bet.CompetitionEvent,Integer>
+public class CompetitionEventDAOImpl extends AbstractJdbcDao<Bet.CompetitionEvent,Integer>
         implements GenericDao<Bet.CompetitionEvent,Integer> {
 
     @Override

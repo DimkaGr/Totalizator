@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends AbstractJdbcDao<User, Integer> implements GenericDao<User,Integer> {
+public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements GenericDao<User,Integer> {
 
     @Override
     protected List<User> parseResultSet(ResultSet rs) throws PersistException, SQLException {

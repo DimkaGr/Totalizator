@@ -1,4 +1,4 @@
-package by.gritsuk.dima.service.impl;
+package by.gritsuk.dima.validation;
 
 import by.gritsuk.dima.domain.User;
 

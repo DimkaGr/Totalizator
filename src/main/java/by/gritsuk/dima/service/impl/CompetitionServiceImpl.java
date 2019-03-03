@@ -1,17 +1,13 @@
 package by.gritsuk.dima.service.impl;
 
-import by.gritsuk.dima.dao.AbstractJdbcDao;
-import by.gritsuk.dima.dao.ConnectionPool;
-import by.gritsuk.dima.dao.ConnectionPoolFactory;
-import by.gritsuk.dima.dao.exception.ConnectionPoolException;
+import by.gritsuk.dima.dao.*;
 import by.gritsuk.dima.dao.exception.DaoException;
+import by.gritsuk.dima.dao.exception.DaoFactoryException;
 import by.gritsuk.dima.dao.exception.PersistException;
-import by.gritsuk.dima.dao.impl.CompetitionDAO;
 import by.gritsuk.dima.domain.Competition;
 import by.gritsuk.dima.service.CompetitionService;
 import by.gritsuk.dima.service.exception.ServiceException;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,57 +17,39 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public void add(Competition competition) throws ServiceException {
-        ConnectionPool connectionPool= ConnectionPoolFactory.getInstance().getConnectionPool();;
-        Connection connection=null;
         try {
-            connection=connectionPool.retrieveConnection();
-            AbstractJdbcDao competitionDao = new CompetitionDAO();
-            competitionDao.setConnection(connection);
+            GenericDao<Competition,Integer>competitionDao= FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(Competition.class);
             competitionDao.persist(competition);
         } catch (PersistException e) {
             throw new ServiceException("Failed to save competition. ", e);
-        } catch (ConnectionPoolException e){
-            throw new ServiceException("Failed to get connection",e);
-        }finally {
-            connectionPool.putBackConnection(connection);
+        } catch (DaoFactoryException|DaoException e){
+            throw new ServiceException("Failed to connect to database",e);
         }
     }
 
     @Override
     public List<Competition> getAll() throws ServiceException {
         List<Competition> competitions=new ArrayList<>();
-        ConnectionPool connectionPool=ConnectionPoolFactory.getInstance().getConnectionPool();;
-        Connection connection=null;
         try {
-            connection=connectionPool.retrieveConnection();
-            AbstractJdbcDao competitionDao = new CompetitionDAO();
-            competitionDao.setConnection(connection);
+            GenericDao<Competition,Integer>competitionDao= FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(Competition.class);
             competitions=competitionDao.getAll();
         } catch (DaoException e) {
             throw new ServiceException("Failed to get competitions. ", e);
-        } catch (ConnectionPoolException e){
-            throw new ServiceException("Failed to get connection",e);
-        }finally {
-            connectionPool.putBackConnection(connection);
+        } catch (DaoFactoryException e){
+            throw new ServiceException("Failed to connect to database",e);
         }
         return competitions;
     }
 
     @Override
     public void remove(Competition competition) throws ServiceException {
-        ConnectionPool connectionPool= ConnectionPoolFactory.getInstance().getConnectionPool();;
-        Connection connection=null;
         try {
-            connection=connectionPool.retrieveConnection();
-            AbstractJdbcDao competitionDao = new CompetitionDAO();
-            competitionDao.setConnection(connection);
+            GenericDao<Competition,Integer>competitionDao= FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(Competition.class);
             competitionDao.delete(competition);
         } catch (PersistException e) {
             throw new ServiceException("Failed to delete competition ", e);
-        } catch (ConnectionPoolException e){
-            throw new ServiceException("Failed to get connection",e);
-        }finally {
-            connectionPool.putBackConnection(connection);
+        } catch (DaoFactoryException|DaoException e){
+            throw new ServiceException("Failed to connect to database",e);
         }
     }
 }

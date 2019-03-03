@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompetitionDAO extends AbstractJdbcDao<Competition,Integer> implements GenericDao<Competition, Integer> {
+public class CompetitionDAOImpl extends AbstractJdbcDao<Competition,Integer> implements GenericDao<Competition, Integer> {
 
     @Override
     protected List<Competition> parseResultSet(ResultSet rs) throws SQLException {

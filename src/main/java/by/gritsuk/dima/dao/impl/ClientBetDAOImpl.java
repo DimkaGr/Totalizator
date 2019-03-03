@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientBetDAO extends AbstractJdbcDao<ClientBet,Integer> implements GenericDao<ClientBet,Integer> {
+public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> implements GenericDao<ClientBet,Integer> {
 
     @Override
     protected List<ClientBet> parseResultSet(ResultSet rs) throws SQLException {

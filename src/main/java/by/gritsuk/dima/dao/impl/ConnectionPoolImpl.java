@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
+import java.util.Properties;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
@@ -24,18 +25,18 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPoolImpl.class);
     private static volatile ConnectionPool instance;
     private static final Lock LOCK = new ReentrantLock();
-    private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String URL = "jdbc:mysql://207.154.220.222:3306/totalizator";
-    private final String USER = "dmitry_gritsuk";
-    private final String PASSWORD = "x8ejD39Ndk32";
     private final int POOL_CAPACITY = 20;
     private final Semaphore SEMAPHORE;
     private final Queue<Connection> POOL;
     private int createdConnections = 0;
+    private static final DAOProperties PROPERTIES=new DAOProperties();
+    private Properties props;
+    private static final String DB_FILE="db.properties";
 
     private ConnectionPoolImpl() {
         POOL = new ArrayDeque<>(POOL_CAPACITY);
         SEMAPHORE = new Semaphore(POOL_CAPACITY);
+        props=PROPERTIES.getDAOProperties(DB_FILE);
         initDriver();
     }
 
@@ -100,7 +101,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
     private void initDriver() {
         try {
-            Class.forName(DRIVER);
+            Class.forName(props.getProperty("driver"));
         } catch (ClassNotFoundException e) {
             LOGGER.error(e);
             throw new IllegalStateException("Driver cannot be found", e);
@@ -110,7 +111,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private InvocationHandler getHandler() throws SQLException {
         final ConnectionPoolImpl connectionPool = this;
         return new InvocationHandler() {
-            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            Connection connection = DriverManager.getConnection(props.getProperty("url"), props);
 
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

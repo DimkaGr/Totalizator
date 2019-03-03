@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
 //    private static final Logger LOGGER = LogManager.getLogger(ConnectionPoolImplTest.class);
 //    private static final int N_THREADS = 30;
 //    private static final int POOL_CAPACITY = 20;
-
+//
 //    @Test
 //    public void shouldGetConnection() throws InterruptedException {
 //        ConnectionPool connectionPool = Mockito.spy(ConnectionPoolImpl.getInstance());
@@ -57,5 +57,5 @@ import static org.junit.Assert.*;
 //        Mockito.verify(((ConnectionPoolImpl) connectionPool),
 //                Mockito.times(N_THREADS)).putBackConnection(Mockito.any());
 //    }
-
+//
 //}

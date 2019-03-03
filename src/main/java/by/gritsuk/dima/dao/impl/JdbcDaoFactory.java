@@ -60,12 +60,12 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
     }
 
     private JdbcDaoFactory() {
-        creators.put(User.class, UserDAO::new);
-        creators.put(Bet.class,BetDAO::new);
-        creators.put(ClientBet.class,ClientBetDAO::new);
-        creators.put(Competition.class,CompetitionDAO::new);
-        creators.put(Bet.CompetitionEvent.class,CompetitionEventDAO::new);
-        creators.put(RegistrationKey.class,SendKeysDAO::new);
+        creators.put(User.class, UserDAOImpl::new);
+        creators.put(Bet.class, BetDAOImpl::new);
+        creators.put(ClientBet.class, ClientBetDAOImpl::new);
+        creators.put(Competition.class, CompetitionDAOImpl::new);
+        creators.put(Bet.CompetitionEvent.class, CompetitionEventDAOImpl::new);
+        creators.put(RegistrationKey.class, SendKeysDAOImpl::new);
     }
 
     public static JdbcDaoFactory getInstance() {

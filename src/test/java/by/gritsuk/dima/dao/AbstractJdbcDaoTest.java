@@ -1,6 +1,6 @@
 package by.gritsuk.dima.dao;
 
-import by.gritsuk.dima.dao.impl.CompetitionEventDAO;
+import by.gritsuk.dima.dao.impl.CompetitionEventDAOImpl;
 import by.gritsuk.dima.domain.Bet;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,12 +16,12 @@ import static org.junit.Assert.*;
 //    ConnectionPool connectionPool;
 //    private Connection connection;
 //    private AbstractJdbcDao dao;
-
+//
 //    @Before
 //    public void create() throws Exception {
 //        connectionPool=ConnectionPoolFactory.getInstance().getConnectionPool();
 //        connection=connectionPool.retrieveConnection();
-//        dao=new CompetitionEventDAO();
+//        dao=new CompetitionEventDAOImpl();
 //        dao.setConnection(connection);
 //    }
 //

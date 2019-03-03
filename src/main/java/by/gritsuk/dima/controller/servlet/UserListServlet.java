@@ -25,18 +25,14 @@ public class UserListServlet extends HttpServlet {
         UserService userService=ServiceFactory.getInstance().getUserService();
         try {
             users=userService.getAll();
-            userNames=users.stream()
-                    .map(User::getLogin)
-                    .collect(Collectors.toList());
+//            userNames=users.stream()
+//                    .map(User::getLogin)
+//                    .collect(Collectors.toList());
         }catch(ServiceException e){
             throw new ServletException("Failed while getting users from database",e);
         }
-        req.setAttribute("user",userNames);
+        req.setAttribute("user",users);
         req.getRequestDispatcher("/WEB-INF/views/list_page.jsp").forward(req,resp);
     }
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doPost(req, resp);
-//    }
 }
