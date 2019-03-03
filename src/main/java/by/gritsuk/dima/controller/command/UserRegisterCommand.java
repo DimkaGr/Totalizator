@@ -21,15 +21,12 @@ public class UserRegisterCommand implements Command{
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
         user.setRole_id(1);
-        UserService userService=null;
+        UserService userService=ServiceFactory.getInstance().getUserService();
         ResponseContent responseContent=new ResponseContent();
         try {
-            userService = ServiceFactory.getInstance().getUserService();
             userService.signUp(user);
             request.setAttribute("user",user.getLogin());
-//            responseContent.setRouter(new Router(Router.Type.REDIRECT,"?command="+CommandType.ADD_USER));
-            responseContent.setRouter(new Router(Router.Type.REDIRECT,"/WEB-INF/views/add_page.jsp"));
-            return responseContent;
+            responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/success_register_page.jsp"));
         }catch(ServiceException|UserRegisterException e){
 
         }

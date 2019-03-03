@@ -19,7 +19,6 @@ import java.util.List;
 public class CompetitionListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.getRequestDispatcher("/WEB-INF/views/competitions_page.jsp").forward(req,resp);
         List<Competition> competitions=new ArrayList<>();
         CompetitionService competitionService= ServiceFactory.getInstance().getCompetitionService();
         try {
@@ -30,10 +29,4 @@ public class CompetitionListServlet extends HttpServlet {
         req.setAttribute("competitions",competitions);
         req.getRequestDispatcher("/WEB-INF/views/competitions_page.jsp").forward(req,resp);
     }
-
-
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doPost(req, resp);
-//    }
 }

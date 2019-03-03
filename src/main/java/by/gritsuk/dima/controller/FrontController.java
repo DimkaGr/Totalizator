@@ -13,12 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/")
+@WebServlet(urlPatterns = "/bets")
 public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/index.jsp").forward(request,response);
-//        processRequest(request, response);
+        processRequest(request, response);
     }
 
     @Override
@@ -28,15 +27,11 @@ public class FrontController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Command command = CommandProvider.getInstance().takeCommand(request.getParameter("command"));
-//        try {
             ResponseContent responseContent = command.execute(request);
             if(responseContent.getRouter().getType()== Router.Type.REDIRECT){
                 response.sendRedirect(responseContent.getRouter().getRoute());
             }else{
                 request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request,response);
             }
-//        }catch (SQLException| ServiceException e){
-//            throw new ServletException(e);
-//        }
     }
 }

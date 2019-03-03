@@ -8,6 +8,8 @@ import by.gritsuk.dima.domain.RegistrationKey;
 import by.gritsuk.dima.service.RegistrationKeysService;
 import by.gritsuk.dima.service.exception.ServiceException;
 
+import java.util.List;
+
 
 public class RegistrationKeysServiceImpl implements RegistrationKeysService {
 
@@ -17,10 +19,15 @@ public class RegistrationKeysServiceImpl implements RegistrationKeysService {
     public void add(RegistrationKey key) throws ServiceException {
         try {
             GenericDao<RegistrationKey,Integer> keyDao= FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(RegistrationKey.class);
-            keyDao.persist(key);
-        } catch (PersistException e) {
+            RegistrationKey dbLey=keyDao.getByPK(key.getId());
+            if (dbLey != null) {
+                keyDao.update(key);
+            }else {
+                keyDao.persist(key);
+            }
+        } catch (PersistException|DaoException e) {
             throw new ServiceException("Failed to save registration key. ", e);
-        } catch (DaoFactoryException|DaoException e){
+        } catch (DaoFactoryException e){
             throw new ServiceException("Failed to connect to database",e);
         }
     }

@@ -33,6 +33,9 @@ public class SendKeysDAOImpl extends AbstractJdbcDao<RegistrationKey,Integer> im
 
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, RegistrationKey object) throws PersistException, SQLException {
+        int i=0;
+        statement.setString(++i,object.getKey());
+        statement.setInt(++i,object.getId());
     }
 
     @Override
@@ -47,7 +50,7 @@ public class SendKeysDAOImpl extends AbstractJdbcDao<RegistrationKey,Integer> im
 
     @Override
     public String getUpdateQuery() {
-        throw new UnsupportedOperationException("Update operation is not allowed");
+        return"UPDATE registration_keys SET user_key=? WHERE user_id=?";
     }
 
     @Override

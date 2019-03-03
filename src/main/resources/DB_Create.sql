@@ -68,7 +68,7 @@ PRIMARY KEY (id),
 CONSTRAINT fk_bet_id FOREIGN KEY (bet_id) REFERENCES bet (id) ON DELETE CASCADE,
 CONSTRAINT fk_users_id FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE CASCADE);
 CREATE TABLE registration_keys (
-user_id INT NOT NULL AUTO_INCREMENT,
+user_id INT NOT NULL,
 user_key VARCHAR(36) NOT NULL,
 PRIMARY KEY (user_id));
 

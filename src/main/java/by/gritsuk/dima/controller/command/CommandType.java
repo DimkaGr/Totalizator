@@ -1,7 +1,7 @@
 package by.gritsuk.dima.controller.command;
 
 public enum CommandType {
-    ADD_USER("/WEB-INF/views/add_page.jsp"),
+    ADD_USER("add_user"),
     VIEW_USER_LIST("view_user_list"),
     FRONT_PAGE("front_page");
 

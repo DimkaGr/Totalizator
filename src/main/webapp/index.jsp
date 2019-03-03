@@ -70,13 +70,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/add">Add user</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=add_user">Add user</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/list">Users</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=user_list">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/comp_list">Competitions</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=comp_list">Competitions</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
@@ -87,7 +87,7 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/sign_in">Sign in</a>
+                <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=to_sign_in">Sign in</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

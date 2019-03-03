@@ -15,7 +15,16 @@ public class CommandProvider {
     }
 
     private CommandProvider() {
-        commandMap.put("add_user", new UserRegisterCommand());
+        commandMap.put("add_user", new ToSignUpCommand());
+        commandMap.put("main", new MainPageCommand());
+        commandMap.put("user_list", new ShowUserListCommand());
+        commandMap.put("comp_list", new CompetitionsListCommand());
+        commandMap.put("sign_up", new UserRegisterCommand());
+        commandMap.put("to_restore", new ToRestoreCommand());
+        commandMap.put("restore", new PasswordRestoreCommand());
+        commandMap.put("to_sign_in", new ToSignInCommand());
+        commandMap.put("sign_in", new SignInCommand());
+
     }
 
     /**
