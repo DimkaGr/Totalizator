@@ -24,7 +24,8 @@ public class CommandProvider {
         commandMap.put("restore", new PasswordRestoreCommand());
         commandMap.put("to_sign_in", new ToSignInCommand());
         commandMap.put("sign_in", new SignInCommand());
-
+        commandMap.put("delete", new DeleteCommand());
+        commandMap.put("log_out", new LogOutCommand());
     }
 
     /**

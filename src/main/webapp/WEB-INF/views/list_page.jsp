@@ -61,7 +61,8 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/css/bootstrap.min.css" >
+    <%--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >--%>
 
 
     <style>
@@ -102,6 +103,7 @@
                         "  <div class=\"card-body\">" +
                         "    <h5 class=\"card-title\">"+user.getLogin()+"</h5>" +
                         "    <p class=\"card-text\">"+user.getFirstName()+" "+user.getLastName()+","+user.getEmail()+"</p>" +
+//                        "    <a href=\"${pageContext.request.contextPath}/bets?command=delete&id="+user.getId()+"\" class=\"btn btn-primary\">Delete</a>" +
                         "    <a href=\"#\" class=\"btn btn-primary\">Delete</a>" +
                         "  </div>\n" +
                         "</div>");

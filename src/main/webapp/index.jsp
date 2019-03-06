@@ -24,6 +24,7 @@
 <%--</div>--%>
 <%--</body>--%>
 <%--</html>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -37,8 +38,8 @@
 
 
     <!-- Bootstrap core CSS -->
-    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}static/script/css/bootstrap.min.css" >--%>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/css/bootstrap.min.css" >
+    <%--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >--%>
 
 
     <style>
@@ -86,9 +87,16 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
+            <c:if test="${ empty sessionScope.user}">
             <li class="nav-item">
                 <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=to_sign_in">Sign in</a>
             </li>
+            </c:if>
+            <c:if test="${ not empty sessionScope.user}">
+                <li class="nav-item">
+                    <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=log_out">Log out</a>
+                </li>
+            </c:if>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

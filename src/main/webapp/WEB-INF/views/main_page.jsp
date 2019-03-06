@@ -33,7 +33,8 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/css/bootstrap.min.css" >
+    <%--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >--%>
 
 
     <style>
@@ -61,11 +62,54 @@
     <h1 class="h1 mr-md-auto font-weight-normal" style="color:white">Totalizator</h1>
     <br>
 </div>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Totalizator</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=user_list">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=comp_list">Competitions</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=log_out">Log out</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
 <main class="container w-75 p-3">
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
             <h1 class="display-4 font-weight-normal">You are welcome on your account</h1>
-            <p class="lead font-weight-normal">Ypu can make a bet</p>
+            <p class="lead font-weight-normal">You can make a bet</p>
+        </div>
+
+        <div>
+            <div class="text-center">
+                <img src="${pageContext.request.contextPath}/static/inProgress.png" alt="You'r welcome!" class="img-fluid ">
+            </div>
+        </div>
+
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
             <a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/bets?command=main">Back to main</a>
         </div>
         <div class="product-device box-shadow d-none d-md-block"></div>

@@ -1,11 +1,13 @@
 package by.gritsuk.dima.controller.command;
 
+import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.dto.ResponseContent;
 import by.gritsuk.dima.service.ServiceFactory;
 import by.gritsuk.dima.service.UserService;
 import by.gritsuk.dima.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class SignInCommand implements Command {
     @Override
@@ -14,9 +16,12 @@ public class SignInCommand implements Command {
         String login=request.getParameter("login");
         String password=request.getParameter("password");
         UserService userService= ServiceFactory.getInstance().getUserService();
+        HttpSession session=request.getSession();
         try {
-            if(userService.getUserForLogin(login,password)!=null){
+            User user=userService.getUserForLogin(login,password);
+            if(user!=null){
                 request.setAttribute("entry","true");
+                session.setAttribute("user",user);
                 responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/main_page.jsp"));
             }
             else{

@@ -23,6 +23,7 @@ public final class TransactionManager {
         try {
             ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
             proxyConnection = connectionPool.retrieveConnection();
+            //            proxyConnection.setAutoCommit(false);
             setConnectionWithReflection(dao, proxyConnection);
             for (GenericDao d : daos) {
                 setConnectionWithReflection(d, proxyConnection);

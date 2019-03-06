@@ -24,4 +24,6 @@ public interface UserService {
     User getUserForLogin(String login, String password)throws ServiceException;
 
     User getUserForRestoring(String login, String email)throws ServiceException;
+
+    void deleteUser(User user) throws ServiceException;
 }

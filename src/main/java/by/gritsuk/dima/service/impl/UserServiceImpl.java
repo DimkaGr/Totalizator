@@ -87,4 +87,16 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public void deleteUser(User user) throws ServiceException {
+        try {
+            GenericDao<User,Integer> userDao=FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            userDao.delete(user);
+        } catch (PersistException e) {
+            throw new ServiceException("Failed to delete users. ", e);
+        } catch (DaoFactoryException|DaoException e) {
+            throw new ServiceException("Failed to connect to database",e);
+        }
+    }
 }
