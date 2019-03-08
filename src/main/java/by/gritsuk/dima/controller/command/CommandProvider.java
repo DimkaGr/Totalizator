@@ -26,6 +26,7 @@ public class CommandProvider {
         commandMap.put("sign_in", new SignInCommand());
         commandMap.put("delete", new DeleteCommand());
         commandMap.put("log_out", new LogOutCommand());
+        commandMap.put("change_lang", new LangCommand());
     }
 
     /**

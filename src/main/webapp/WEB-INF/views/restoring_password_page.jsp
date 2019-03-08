@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setBundle basename="lang"  var="bd" scope="application"/>
 <%--<html>--%>
 <%--<head>--%>
     <%--<title>Restore your password</title>--%>
@@ -86,7 +89,7 @@
 <body style="background-color: #eee;">
 <div style="background-color: rgba(13,24,46,0.38);" >
     <br>
-    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white">Totalizator</h1>
+    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white"><fmt:message key="title.totalizator" bundle="${bd}"/></h1>
     <br>
 </div>
 
@@ -99,7 +102,7 @@
     %>
     <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=restore>
         <div class="text-center mb-4">
-            <h1 class="h3 mb-3 font-weight-normal">Enter your login and email to get message</h1>
+            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.password.restore" bundle="${bd}"/></h1>
         </div>
 
         <div class="form-label-group">
@@ -114,7 +117,7 @@
             <br>
         </div>
 
-        <button class="btn btn-primary btn-lg" type="submit">Send message</button>
+        <button class="btn btn-primary btn-lg" type="submit"><fmt:message key="button.sendMessage" bundle="${bd}"/></button>
     </form>
 </main>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

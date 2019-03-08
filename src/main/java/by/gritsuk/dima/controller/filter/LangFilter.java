@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "LangFilter")
+//@WebFilter(servletNames = {"start"})
+//@WebFilter(filterName = "LangFilter")
 public class LangFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -16,9 +17,11 @@ public class LangFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request=(HttpServletRequest)servletRequest;
-        String language=request.getParameter("lang");
-        HttpSession session=request.getSession(true);
-        session.setAttribute("lang",language);
+//        String locale=request.getParameter("id");
+        HttpSession session=request.getSession();
+        String locale=(String)session.getAttribute("local");
+        session.setAttribute("locale",locale);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

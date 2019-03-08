@@ -7,6 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setBundle basename="lang"  var="bd" scope="application"/>
+<%--<fmt:setLocale value="${sessionScope.locale}"/>--%>
 
 <%--<html>--%>
 <%--<head>--%>
@@ -108,7 +112,7 @@
 <body style="background-color: #eee;">
 <div style="background-color: rgba(13,24,46,0.38);" >
     <br>
-    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white">Totalizator</h1>
+    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white"><fmt:message key="title.totalizator" bundle="${bd}"/></h1>
     <br>
 </div>
 <%
@@ -123,7 +127,7 @@
 <main class="container w-25 p-3">
     <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=sign_in>
         <div class="text-center mb-4">
-            <h1 class="h3 mb-3 font-weight-normal">Sign in  to make bets</h1>
+            <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.signIn" bundle="${bd}"/></h1>
         </div>
 
         <div class="form-label-group">
@@ -140,13 +144,13 @@
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"><fmt:message key="checkBox.remember" bundle="${bd}"/>
             </label>
         </div>
-        <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+        <button class="btn btn-primary btn-lg" type="submit"><fmt:message key="button.submit" bundle="${bd}"/> </button>
     </form>
     <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=to_restore>
-        <button class="btn btn-primary btn-lg" type="submit">Forgot the password?</button>
+        <button class="btn btn-primary btn-lg" type="submit"><fmt:message key="button.forgotPassword" bundle="${bd}"/></button>
     </form>
 </main>
 <!-- Footer -->
@@ -157,7 +161,7 @@
             <%--<h5 class="mb-1">Register for free</h5>--%>
             <%--</li>--%>
             <li class="list-inline-item">
-                <a href="${pageContext.request.contextPath}/bets?command=main" class="btn btn-outline-light btn-rounded">Back to start page</a>
+                <a href="${pageContext.request.contextPath}/bets?command=main" class="btn btn-outline-light btn-rounded"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
             </li>
         </ul>
     </div>

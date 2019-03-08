@@ -8,6 +8,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.gritsuk.dima.domain.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setBundle basename="lang"  var="bd" scope="application"/>
 <%--<html>--%>
 <%--<head>--%>
     <%--<title>Users list</title>--%>
@@ -87,24 +90,31 @@
 <body style="background-color: #eee;">
 <div style="background-color: rgba(13,24,46,0.38);" >
     <br>
-    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white">Totalizator</h1>
+    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white"><fmt:message key="title.totalizator" bundle="${bd}"/></h1>
     <br>
 </div>
 <main class="container w-75 p-3">
     <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">List of users</h1>
+        <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.users.list" bundle="${bd}"/></h1>
     </div>
     <%
         List<User> users = (List<User>) request.getAttribute("user");
 
         if (users != null && !users.isEmpty()) {
+            String delete;
+            if(session.getAttribute("locale")==null||session.getAttribute("locale").equals("en_EN")){
+                delete="Delete";
+            }
+            else{
+                delete="Удалить";
+            }
             for (User user : users) {
                 out.println("<div class=\"card w-50\">" +
                         "  <div class=\"card-body\">" +
                         "    <h5 class=\"card-title\">"+user.getLogin()+"</h5>" +
                         "    <p class=\"card-text\">"+user.getFirstName()+" "+user.getLastName()+","+user.getEmail()+"</p>" +
 //                        "    <a href=\"${pageContext.request.contextPath}/bets?command=delete&id="+user.getId()+"\" class=\"btn btn-primary\">Delete</a>" +
-                        "    <a href=\"#\" class=\"btn btn-primary\">Delete</a>" +
+                        "    <a href=\"#\" class=\"btn btn-primary\">"+delete+"</a>" +
                         "  </div>\n" +
                         "</div>");
             }
@@ -122,7 +132,7 @@
             <%--<h5 class="mb-1">Register for free</h5>--%>
             <%--</li>--%>
             <li class="list-inline-item">
-                <a href="${pageContext.request.contextPath}/bets?command=main" class="btn btn-outline-light btn-rounded">Back to start page</a>
+                <a href="${pageContext.request.contextPath}/bets?command=main" class="btn btn-outline-light btn-rounded"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
             </li>
         </ul>
     </div>

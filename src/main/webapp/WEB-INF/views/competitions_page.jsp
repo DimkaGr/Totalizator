@@ -8,6 +8,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.gritsuk.dima.domain.Competition" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setBundle basename="lang"  var="bd" scope="application"/>
 <%--<html>--%>
 <%--<head>--%>
     <%--<title>Competitions</title>--%>
@@ -91,22 +94,22 @@
 <body style="background-color: #eee;">
 <div style="background-color: rgba(13,24,46,0.38);" >
     <br>
-    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white">Totalizator</h1>
+    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white"><fmt:message key="title.totalizator" bundle="${bd}"/></h1>
     <br>
 </div>
 <main class="container w-75 p-3">
     <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">List of sport competitions</h1>
+        <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.competitions.head" bundle="${bd}"/></h1>
     </div>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">id</th>
-            <th scope="col">Kind of sport</th>
-            <th scope="col">Participant 1</th>
-            <th scope="col">Participant 2</th>
-            <th scope="col">Date</th>
-            <th scope="col">Result</th>
+            <th scope="col"><fmt:message key="text.competitions.id" bundle="${bd}"/></th>
+            <th scope="col"><fmt:message key="text.competitions.sport" bundle="${bd}"/></th>
+            <th scope="col"><fmt:message key="text.competitions.participant1" bundle="${bd}"/></th>
+            <th scope="col"><fmt:message key="text.competitions.participant2" bundle="${bd}"/></th>
+            <th scope="col"><fmt:message key="text.competitions.date" bundle="${bd}"/></th>
+            <th scope="col"><fmt:message key="text.competitions.result" bundle="${bd}"/></th>
         </tr>
         </thead>
     <%
@@ -139,7 +142,7 @@
             <%--<h5 class="mb-1">Register for free</h5>--%>
             <%--</li>--%>
             <li class="list-inline-item">
-                <a href="${pageContext.request.contextPath}/bets?command=main" class="btn btn-outline-light btn-rounded">Back to start page</a>
+                <a href="${pageContext.request.contextPath}/bets?command=main" class="btn btn-outline-light btn-rounded"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
             </li>
         </ul>
     </div>

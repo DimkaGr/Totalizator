@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setBundle basename="lang"  var="bd" scope="application"/>
 <%--<html>--%>
 <%--<head>--%>
     <%--<title>Main page(in progress)</title>--%>
@@ -59,7 +62,7 @@
 <body style="background-color: #eee;">
 <div style="background-color: rgba(13,24,46,0.38);" >
     <br>
-    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white">Totalizator</h1>
+    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white"><fmt:message key="title.totalizator" bundle="${bd}"/></h1>
     <br>
 </div>
 
@@ -72,10 +75,10 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=user_list">Users</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=user_list"><fmt:message key="button.users" bundle="${bd}"/></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=comp_list">Competitions</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=comp_list"><fmt:message key="button.competitions" bundle="${bd}"/></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
@@ -86,12 +89,12 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=log_out">Log out</a>
+                <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=log_out"><fmt:message key="button.logOut" bundle="${bd}"/></a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-outline-success" type="submit"><fmt:message key="button.search" bundle="${bd}"/></button>
         </form>
     </div>
 </nav>
@@ -99,8 +102,8 @@
 <main class="container w-75 p-3">
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 font-weight-normal">You are welcome on your account</h1>
-            <p class="lead font-weight-normal">You can make a bet</p>
+            <h1 class="display-4 font-weight-normal"><fmt:message key="text.welcome" bundle="${bd}"/></h1>
+            <p class="lead font-weight-normal"><fmt:message key="text.welcome.addition" bundle="${bd}"/></p>
         </div>
 
         <div>
@@ -110,7 +113,7 @@
         </div>
 
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/bets?command=main">Back to main</a>
+            <a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/bets?command=main"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
         </div>
         <div class="product-device box-shadow d-none d-md-block"></div>
         <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>

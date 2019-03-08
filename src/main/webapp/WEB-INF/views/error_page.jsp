@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setBundle basename="lang"  var="bd" scope="application"/>
 <%--<html>--%>
 <%--<head>--%>
     <%--<title>Failed registration</title>--%>
@@ -65,13 +68,13 @@
 <body style="background-color: #eee;">
 <div style="background-color: rgba(13,24,46,0.38);" >
     <br>
-    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white">Totalizator</h1>
+    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white"><fmt:message key="title.totalizator" bundle="${bd}"/></h1>
     <br>
 </div>
 <main class="container w-75 p-3">
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 font-weight-normal">Something went wrong</h1>
+            <h1 class="display-4 font-weight-normal"><fmt:message key="text.error.wrong" bundle="${bd}"/></h1>
         </div>
 
         <div>
@@ -81,7 +84,7 @@
         </div>
 
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/bets?command=main">Back to main</a>
+            <a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/bets?command=main"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
         </div>
 
         <div class="product-device box-shadow d-none d-md-block"></div>

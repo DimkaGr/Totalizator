@@ -24,9 +24,14 @@
 <%--</div>--%>
 <%--</body>--%>
 <%--</html>--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
+<fmt:setBundle basename="lang"  var="bd" scope="application"/>
+
 <!doctype html>
-<html lang="en">
+<html>
 <head>
     <title>Totalizator(Demo)</title>
     <meta charset="utf-8">
@@ -63,7 +68,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Totalizator</a>
+    <a class="navbar-brand" href="#"><fmt:message key="title.totalizator" bundle="${bd}"/> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -71,13 +76,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=add_user">Add user</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=add_user"><fmt:message key="button.addUser" bundle="${bd}"/></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=user_list">Users</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=user_list"><fmt:message key="button.users" bundle="${bd}"/></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=comp_list">Competitions</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=comp_list"><fmt:message key="button.competitions" bundle="${bd}"/></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
@@ -89,18 +94,24 @@
             </li>
             <c:if test="${ empty sessionScope.user}">
             <li class="nav-item">
-                <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=to_sign_in">Sign in</a>
+                <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=to_sign_in"><fmt:message key="button.signIn" bundle="${bd}"/></a>
             </li>
             </c:if>
             <c:if test="${ not empty sessionScope.user}">
                 <li class="nav-item">
-                    <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=log_out">Log out</a>
+                    <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=log_out"><fmt:message key="button.logOut" bundle="${bd}"/></a>
                 </li>
             </c:if>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=change_lang&local=ru_RU">Ru</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=change_lang&local=en_EN">En</a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-outline-success" type="submit"><fmt:message key="button.search" bundle="${bd}"/></button>
         </form>
     </div>
 </nav>
