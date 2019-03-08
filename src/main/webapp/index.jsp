@@ -102,11 +102,13 @@
                     <a class="nav-link active html-editor-align-right" href="${pageContext.request.contextPath}/bets?command=log_out"><fmt:message key="button.logOut" bundle="${bd}"/></a>
                 </li>
             </c:if>
+        </ul>
+        <ul class="navbar-nav ml-md-auto">
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=change_lang&local=ru_RU">Ru</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=change_lang&local=ru_RU"><img src="${pageContext.request.contextPath}/static/Russia.jpg" alt="Ru" width="27" height="33" class="img-fluid "></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=change_lang&local=en_EN">En</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=change_lang&local=en_EN"><img src="${pageContext.request.contextPath}/static/Britain.png" alt="En" width="27" height="33" class="img-fluid "></a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
