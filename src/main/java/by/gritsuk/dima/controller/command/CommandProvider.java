@@ -27,6 +27,13 @@ public class CommandProvider {
         commandMap.put("delete", new DeleteCommand());
         commandMap.put("log_out", new LogOutCommand());
         commandMap.put("change_lang", new LangCommand());
+        commandMap.put("make_bet1", new ChooseSportCommand());
+        commandMap.put("make_bet2", new ChooseCompetitionCommand());
+        commandMap.put("make_bet3", new ChooseEventCommand());
+        commandMap.put("to_account", new ToAccountCommand());
+        commandMap.put("make_bet4", new ToSetAmountCommand());
+        commandMap.put("make_bet5", new SetAmountCommand());
+        commandMap.put("confirm_bet", new ConfirmBetCommand());
     }
 
     /**

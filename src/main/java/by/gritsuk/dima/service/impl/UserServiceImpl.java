@@ -4,11 +4,14 @@ import by.gritsuk.dima.dao.*;
 import by.gritsuk.dima.dao.exception.DaoException;
 import by.gritsuk.dima.dao.exception.DaoFactoryException;
 import by.gritsuk.dima.dao.exception.PersistException;
+import by.gritsuk.dima.dao.impl.UserDAOImpl;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.service.UserService;
 import by.gritsuk.dima.service.exception.ServiceException;
 import by.gritsuk.dima.service.exception.UserRegisterException;
 import by.gritsuk.dima.validation.UserValidation;
+import by.gritsuk.dima.validation.exception.LoginPersistException;
+import by.gritsuk.dima.validation.exception.ValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +40,10 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public User signUp(User user) throws ServiceException,UserRegisterException {
+    public User signUp(User user) throws ServiceException, UserRegisterException, LoginPersistException {
         try {
-            GenericDao<User,Integer> userDao = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
-            if(UserValidation.validate(user)) {
+            UserDAO userDao = (UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            if(UserValidation.validate(user)&&UserValidation.isReservedLogin(user.getLogin())) {
                 userDao.persist(user);
             }else{
                 throw new UserRegisterException("Invalid data to registrate this user");
@@ -49,6 +52,8 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Failed to save user. ", e);
         } catch (DaoFactoryException|DaoException e){
             throw new ServiceException("Failed to connect to database",e);
+        }catch (ValidationException e){
+            throw new ServiceException("Failed while validate user data",e);
         }
         return user;
     }
@@ -56,7 +61,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll()throws ServiceException{
         List<User> users=new ArrayList<>();
         try {
-            GenericDao<User,Integer> userDao = FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            UserDAO userDao = (UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
             users=userDao.getAll();
         } catch (DaoException e) {
             throw new ServiceException("Failed to get users. ", e);
@@ -91,12 +96,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User user) throws ServiceException {
         try {
-            GenericDao<User,Integer> userDao=FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            UserDAO userDao=(UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
             userDao.delete(user);
         } catch (PersistException e) {
             throw new ServiceException("Failed to delete users. ", e);
         } catch (DaoFactoryException|DaoException e) {
             throw new ServiceException("Failed to connect to database",e);
         }
+    }
+
+    @Override
+    public List<User> getAllClients() throws ServiceException {
+        List<User> users=new ArrayList<>();
+        try {
+            UserDAO userDao = (UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            users=userDao.getAllClients();
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to get users. ", e);
+        } catch (DaoFactoryException e){
+            throw new ServiceException("Failed to connect to database",e);
+        }
+        return users;
     }
 }

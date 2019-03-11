@@ -50,7 +50,7 @@ public class SendKeysDAOImpl extends AbstractJdbcDao<RegistrationKey,Integer> im
 
     @Override
     public String getUpdateQuery() {
-        return"UPDATE registration_keys SET user_key=? WHERE user_id=?";
+        return "UPDATE registration_keys SET user_key=? WHERE user_id=?";
     }
 
     @Override

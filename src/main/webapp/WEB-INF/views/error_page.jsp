@@ -9,27 +9,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
 <fmt:setBundle basename="lang"  var="bd" scope="application"/>
-<%--<html>--%>
-<%--<head>--%>
-    <%--<title>Failed registration</title>--%>
-    <%--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">--%>
-<%--</head>--%>
-<%--<body class="w3-light-grey">--%>
-<%--<div class="container">--%>
-    <%--<div class="picture">--%>
-        <%--<img src="../../static/errorPic.jpg" height=330px" width="500px" alt="Oops!">--%>
-    <%--</div>--%>
-    <%--<div class="w3-panel w3-red w3-display-container w3-card-4 w3-round">--%>
-       <%--&lt;%&ndash;<span class="w3-button w3-margin-right w3-display-center w3-round-large w3-hover-green w3-border w3-border-green w3-hover-border-grey"></span>&ndash;%&gt;--%>
-    <%--<h5>Your input data is not valid! Try to registr again or return to menu</h5>--%>
-    <%--</div>--%>
-    <%--<div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">--%>
-        <%--<button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/'">Back to begin</button>--%>
-        <%--<button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/add'">Try to register again</button>--%>
-    <%--</div>--%>
-<%--</div>--%>
-<%--</body>--%>
-<%--</html>--%>
 <html>
 <head>
     <meta charset="utf-8">

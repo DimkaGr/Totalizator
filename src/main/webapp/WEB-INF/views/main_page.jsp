@@ -7,23 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
 <fmt:setBundle basename="lang"  var="bd" scope="application"/>
-<%--<html>--%>
-<%--<head>--%>
-    <%--<title>Main page(in progress)</title>--%>
-    <%--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">--%>
-<%--</head>--%>
-<%--<body class="w3-light-grey">--%>
-
-<%--<div class="picture">--%>
-    <%--<img src="../../static/inProgress.png" height=330px" width="500px" alt="You'r welcome!">--%>
-<%--</div>--%>
-<%--<div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">--%>
-    <%--<button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/'">Back to begin</button>--%>
-<%--</div>--%>
-<%--</body>--%>
-<%--</html>--%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -98,6 +84,13 @@
         </form>
     </div>
 </nav>
+
+<c:if test="${sessionScope.role eq 'admin'}">
+    <jsp:forward page="admin_page.jsp"/>
+</c:if>
+<c:if test="${sessionScope.role eq 'user'}">
+    <jsp:forward page="client_page.jsp"/>
+</c:if>
 
 <main class="container w-75 p-3">
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">

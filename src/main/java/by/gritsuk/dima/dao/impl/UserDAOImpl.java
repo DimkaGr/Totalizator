@@ -1,7 +1,9 @@
 package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.AbstractJdbcDao;
-import by.gritsuk.dima.dao.GenericDao;
+import by.gritsuk.dima.dao.AutoConnection;
+import by.gritsuk.dima.dao.UserDAO;
+import by.gritsuk.dima.dao.exception.DaoException;
 import by.gritsuk.dima.dao.exception.PersistException;
 import by.gritsuk.dima.domain.Admin;
 import by.gritsuk.dima.domain.Bookmaker;
@@ -14,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements GenericDao<User,Integer> {
+public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserDAO {
 
     @Override
     protected List<User> parseResultSet(ResultSet rs) throws PersistException, SQLException {
@@ -29,7 +31,7 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements Gener
                 case "bookmaker":
                     user=new Bookmaker();
                     break;
-                case "client":
+                case "user":
                     user=new Client();
                     ((Client) user).setCash(rs.getDouble("user_cash"));
                     ((Client) user).setStatus(rs.getString("status"));
@@ -101,5 +103,42 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements Gener
     public String getSelectAllQuery() {
         return "SELECT * FROM users INNER JOIN role ON role.id=users.role_id " +
                 "LEFT JOIN client_account ON users.client_account_id=client_account.id";
+    }
+
+    @Override
+    @AutoConnection
+    public List<User> getAllClients() throws DaoException {
+        try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectedClientQuery())) {
+            try (ResultSet resQuery = selectStatement.executeQuery()) {
+                return parseResultSet(resQuery);
+            }
+        } catch (PersistException | SQLException e) {
+            throw new DaoException("Failed while select elements", e);
+        }
+    }
+
+    private String getSelectedClientQuery(){
+        return "SELECT * FROM users INNER JOIN role ON role.id=users.role_id " +
+                "LEFT JOIN client_account ON users.client_account_id=client_account.id " +
+                "WHERE users.client_account_id>-1";
+    }
+
+    @Override
+    @AutoConnection
+    public User getByLogin(String login) throws DaoException {
+        try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectedByLogin())) {
+            selectStatement.setString(1,login);
+            try (ResultSet resQuery = selectStatement.executeQuery()) {
+                return parseResultSet(resQuery).get(0);
+            }
+        } catch (PersistException | SQLException e) {
+            throw new DaoException("Failed while select element by login="+login, e);
+        }
+    }
+
+    private String getSelectedByLogin(){
+        return "SELECT * FROM users INNER JOIN role ON role.id=users.role_id " +
+                "LEFT JOIN client_account ON users.client_account_id=client_account.id " +
+                "WHERE users.login=?";
     }
 }

@@ -8,6 +8,10 @@ import java.util.List;
 public interface CompetitionService {
 
     void add(Competition competition) throws ServiceException;
+
     List<Competition> getAll() throws ServiceException;
+
     void remove(Competition competition) throws ServiceException;
+
+    List<Competition> getAllBySport(Integer kind_of_sport_id) throws ServiceException;
 }

@@ -1,7 +1,11 @@
 package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.AbstractJdbcDao;
+import by.gritsuk.dima.dao.AutoConnection;
+import by.gritsuk.dima.dao.CompetitionDAO;
 import by.gritsuk.dima.dao.GenericDao;
+import by.gritsuk.dima.dao.exception.DaoException;
+import by.gritsuk.dima.dao.exception.PersistException;
 import by.gritsuk.dima.domain.Competition;
 
 import java.sql.Date;
@@ -12,7 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompetitionDAOImpl extends AbstractJdbcDao<Competition,Integer> implements GenericDao<Competition, Integer> {
+public class CompetitionDAOImpl extends AbstractJdbcDao<Competition,Integer> implements CompetitionDAO {
 
     @Override
     protected List<Competition> parseResultSet(ResultSet rs) throws SQLException {
@@ -76,5 +80,24 @@ public class CompetitionDAOImpl extends AbstractJdbcDao<Competition,Integer> imp
     public String getSelectAllQuery() {
         return "SELECT * FROM competition INNER JOIN kind_of_sport ON kind_of_sport.id=competition.kind_of_sport_id "+
                 "INNER JOIN competition_result ON competition_result.id=competition.competition_result_id";
+    }
+
+    @Override
+    @AutoConnection
+    public List<Competition> getBySport(Integer kind_of_sport_id) throws DaoException {
+        try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectedBySport())) {
+            selectStatement.setInt(1,kind_of_sport_id);
+            try (ResultSet resQuery = selectStatement.executeQuery()) {
+                return parseResultSet(resQuery);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed while select element by id="+kind_of_sport_id, e);
+        }
+    }
+
+    private String getSelectedBySport(){
+        return "SELECT * FROM competition INNER JOIN kind_of_sport ON kind_of_sport.id=competition.kind_of_sport_id "+
+                "INNER JOIN competition_result ON competition_result.id=competition.competition_result_id " +
+                "WHERE competition.kind_of_sport_id=?";
     }
 }

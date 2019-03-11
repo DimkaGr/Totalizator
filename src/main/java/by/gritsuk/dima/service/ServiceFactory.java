@@ -1,8 +1,6 @@
 package by.gritsuk.dima.service;
 
-import by.gritsuk.dima.service.impl.CompetitionServiceImpl;
-import by.gritsuk.dima.service.impl.RegistrationKeysServiceImpl;
-import by.gritsuk.dima.service.impl.UserServiceImpl;
+import by.gritsuk.dima.service.impl.*;
 
 
 /**
@@ -26,4 +24,13 @@ public class ServiceFactory {
     public  CompetitionService getCompetitionService(){
         return new CompetitionServiceImpl();
     }
+
+    public KindOfSportService getKindOfSportService(){return new KindOfSportServiceImpl();
+    }
+
+    public BetService getBetService(){
+        return new BetServiceImpl();
+    }
+
+    public ClientBetService getClientBetService(){return new ClientBetServiceImpl();}
 }

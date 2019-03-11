@@ -11,51 +11,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
 <fmt:setBundle basename="lang"  var="bd" scope="application"/>
-<%--<html>--%>
-<%--<head>--%>
-    <%--<title>Competitions</title>--%>
-    <%--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">--%>
-
-<%--</head>--%>
-
-<%--<body class="w3-light-grey">--%>
-
-<%--<div class="w3-container w3-blue-grey w3-opacity w3-left-align">--%>
-    <%--<h1>Totalizator</h1>--%>
-<%--</div>--%>
-
-<%--<div class="w3-container w3-padding">--%>
-    <%--<h2>The list of future competitions</h2>--%>
-    <%--<table class="w3-table w3-striped w3-border">--%>
-        <%--<tr>--%>
-            <%--<th>Kind of sport</th>--%>
-            <%--<th>Participant 1</th>--%>
-            <%--<th>Participant 2</th>--%>
-            <%--<th>Date</th>--%>
-            <%--<th>Result</th>--%>
-        <%--</tr>--%>
-        <%--<%--%>
-
-            <%--List<Competition> competitions = (List<Competition>) request.getAttribute("competitions");--%>
-            <%--if (competitions != null && !competitions.isEmpty()) {--%>
-                <%--for (Competition s : competitions) {--%>
-                    <%--out.println("<tr>" +--%>
-                            <%--"<td>"+s.getKindOfSport()+"</td>" +--%>
-                            <%--"<td>"+s.getParticipant1()+"</td>" +--%>
-                            <%--"<td>"+s.getParticipant2()+"</td>" +--%>
-                            <%--"<td>"+s.getDate()+"</td>" +--%>
-                            <%--"<td>"+s.getResult()+"</td></tr>");--%>
-                <%--}--%>
-
-            <%--}      %>--%>
-    <%--</table>--%>
-<%--</div>--%>
-
-<%--<div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">--%>
-    <%--<button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/'">Back to begin</button>--%>
-<%--</div>--%>
-<%--</body>--%>
-<%--</html>--%>
 <html>
 <head>
     <meta charset="utf-8">

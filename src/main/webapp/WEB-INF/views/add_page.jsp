@@ -10,66 +10,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
 <fmt:setBundle basename="lang"  var="bd" scope="application"/>
-<%--<html>--%>
-<%--<head>--%>
-    <%--<title>Add new user</title>--%>
-    <%--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">--%>
-<%--</head>--%>
-
-<%--<body class="w3-light-grey">--%>
-<%--<div class="w3-container w3-blue-grey w3-opacity w3-left-align">--%>
-    <%--<h1>Totalizator</h1>--%>
-<%--</div>--%>
-
-<%--<div class="w3-container w3-padding">--%>
-    <%--&lt;%&ndash;<c:if test="${errors}">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<jsp:forward page="error_page.jsp"></jsp:forward>&ndash;%&gt;--%>
-    <%--&lt;%&ndash;</c:if>&ndash;%&gt;--%>
-    <%--<%--%>
-        <%--if (request.getAttribute("user") != null) {--%>
-            <%--out.println("<div class=\"w3-panel w3-green w3-display-container w3-card-4 w3-round\">\n" +--%>
-                    <%--"   <span onclick=\"this.parentElement.style.display='none'\"\n" +--%>
-                    <%--"   class=\"w3-button w3-margin-right w3-display-right w3-round-large w3-hover-green w3-border w3-border-green w3-hover-border-grey\">×</span>\n" +--%>
-                    <%--"   <h5>User '" + request.getAttribute("user") + "' added!</h5>\n" +--%>
-                    <%--"</div>");--%>
-        <%--}--%>
-    <%--%>--%>
-    <%--<div class="w3-card-4">--%>
-        <%--<div class="w3-container w3-center w3-green">--%>
-            <%--<h2>Add user</h2>--%>
-        <%--</div>--%>
-        <%--&lt;%&ndash;<form method="POST" class="w3-selection w3-light-grey w3-padding" action="${pageContext.request.contextPath}?command=add_user">&ndash;%&gt;--%>
-        <%--<form method="POST" class="w3-selection w3-light-grey w3-padding" action="${pageContext.request.contextPath}/add">--%>
-            <%--<label>First name:--%>
-                <%--<input type="text" name="first_name" class="w3-input w3-animate-input w3-border w3-round-large"--%>
-                       <%--pattern="^[a-zA-Z]+$" style="width: 30%" required><br/>--%>
-            <%--</label>--%>
-            <%--<label>Last name:--%>
-                <%--<input type="text" name="last_name" class="w3-input w3-animate-input w3-border w3-round-large"--%>
-                       <%--pattern="^[a-zA-Z]+$" style="width: 30%" required><br/>--%>
-            <%--</label>--%>
-            <%--<label>Email:--%>
-                <%--<input type="text" name="email" class="w3-input w3-animate-input w3-border w3-round-large"--%>
-                       <%--pattern="^[\w\.-]+@[_a-zA-Z]+\.[a-z]{2,3}$" style="width: 30%" required><br/>--%>
-            <%--</label>--%>
-            <%--<label>Login:--%>
-                <%--<input type="text" name="login" class="w3-input w3-animate-input w3-border w3-round-large"--%>
-                       <%--pattern="^[\w]+$" style="width: 30%" required><br/>--%>
-            <%--</label>--%>
-            <%--<label>Password:--%>
-                <%--<input type="password" name="password" class="w3-input w3-animate-input w3-border w3-round-large"--%>
-                       <%--pattern="^[\w]+$" style="width: 30%" required><br/>--%>
-            <%--</label>--%>
-            <%--<button type="submit" class="w3-btn w3-green w3-round-large w3-margin-bottom">Submit</button>--%>
-        <%--</form>--%>
-    <%--</div>--%>
-<%--</div>--%>
-
-<%--<div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">--%>
-    <%--<button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/'">Back to begin</button>--%>
-<%--</div>--%>
-<%--</body>--%>
-<%--</html>--%>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -112,6 +52,11 @@
     <br>
 </div>
 <main class="container w-25 p-3">
+    <c:if test="${requestScope.loginError != null}">
+        <div class="text-center mb-4 p-3 alert alert-danger" role="alert">
+            <h5><fmt:message key="message.registrate.reservedLogin" bundle="${bd}"/></h5>
+        </div>
+    </c:if>
 <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=sign_up>
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.createAccount" bundle="${bd}"/></h1>

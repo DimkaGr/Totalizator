@@ -1,6 +1,7 @@
 package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.AbstractJdbcDao;
+import by.gritsuk.dima.dao.ClientBetDAO;
 import by.gritsuk.dima.dao.GenericDao;
 import by.gritsuk.dima.domain.ClientBet;
 
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> implements GenericDao<ClientBet,Integer> {
+public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> implements ClientBetDAO {
 
     @Override
     protected List<ClientBet> parseResultSet(ResultSet rs) throws SQLException {

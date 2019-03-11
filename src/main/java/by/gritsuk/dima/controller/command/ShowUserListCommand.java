@@ -18,12 +18,13 @@ public class ShowUserListCommand implements Command {
         List<String> userNames=new ArrayList<>();
         UserService userService= ServiceFactory.getInstance().getUserService();
         try {
-            users=userService.getAll();
+//            users=userService.getAll();
+            users=userService.getAllClients();
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/list_page.jsp"));
         }catch(ServiceException e){
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/error_page.jsp"));
         }
-        request.setAttribute("user",users);
+        request.setAttribute("users",users);
         return responseContent;
     }
 }

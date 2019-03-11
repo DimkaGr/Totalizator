@@ -1,6 +1,13 @@
 package by.gritsuk.dima.validation;
 
+import by.gritsuk.dima.dao.DaoFactoryType;
+import by.gritsuk.dima.dao.FactoryProducer;
+import by.gritsuk.dima.dao.UserDAO;
+import by.gritsuk.dima.dao.exception.DaoException;
+import by.gritsuk.dima.dao.exception.DaoFactoryException;
 import by.gritsuk.dima.domain.User;
+import by.gritsuk.dima.validation.exception.LoginPersistException;
+import by.gritsuk.dima.validation.exception.ValidationException;
 
 public class UserValidation {
     private static final String LOGIN_PATTERN="^[\\w]+$";
@@ -34,6 +41,17 @@ public class UserValidation {
         }
         if(email.length()<5||!email.matches(EMAIL_PATTERN)){
             return false;
+        }
+        return true;
+    }
+
+    public static boolean isReservedLogin(String login) throws ValidationException, LoginPersistException {
+        try {
+            UserDAO userDao = (UserDAO) FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            if(userDao.getByLogin(login)!=null)
+                throw new LoginPersistException("Login is use");
+        } catch (DaoException|DaoFactoryException e) {
+            throw new ValidationException("Failed while getting connection to database",e);
         }
         return true;
     }

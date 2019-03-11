@@ -3,6 +3,8 @@ package by.gritsuk.dima.service;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.service.exception.ServiceException;
 import by.gritsuk.dima.service.exception.UserRegisterException;
+import by.gritsuk.dima.validation.exception.LoginPersistException;
+import by.gritsuk.dima.validation.exception.ValidationException;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ public interface UserService {
      * @return - saved user
      * @throws ServiceException should be clarify
      */
-    User signUp(User user) throws ServiceException, UserRegisterException;
+    User signUp(User user) throws ServiceException, UserRegisterException, LoginPersistException;
 
     List<User> getAll() throws ServiceException;
 
@@ -26,4 +28,6 @@ public interface UserService {
     User getUserForRestoring(String login, String email)throws ServiceException;
 
     void deleteUser(User user) throws ServiceException;
+
+    List<User> getAllClients() throws ServiceException;
 }

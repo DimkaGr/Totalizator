@@ -22,6 +22,13 @@ public class SignInCommand implements Command {
             if(user!=null){
                 request.setAttribute("entry","true");
                 session.setAttribute("user",user);
+                if(user.getRole_id()==1){
+                    session.setAttribute("role","admin");
+                } else if(user.getRole_id()==2){
+                    session.setAttribute("role","user");
+                }else {
+                    session.setAttribute("role","bookmaker");
+                }
                 responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/main_page.jsp"));
             }
             else{

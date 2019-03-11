@@ -1,7 +1,10 @@
 package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.AbstractJdbcDao;
+import by.gritsuk.dima.dao.AutoConnection;
+import by.gritsuk.dima.dao.BetDAO;
 import by.gritsuk.dima.dao.GenericDao;
+import by.gritsuk.dima.dao.exception.DaoException;
 import by.gritsuk.dima.domain.Bet;
 
 import java.sql.PreparedStatement;
@@ -10,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BetDAOImpl extends AbstractJdbcDao<Bet,Integer> implements GenericDao<Bet,Integer> {
+public class BetDAOImpl extends AbstractJdbcDao<Bet,Integer> implements BetDAO {
 
     @Override
     protected List<Bet> parseResultSet(ResultSet rs) throws SQLException {
@@ -50,7 +53,7 @@ public class BetDAOImpl extends AbstractJdbcDao<Bet,Integer> implements GenericD
     @Override
     public String getSelectQuery() {
         return "SELECT * FROM bet INNER JOIN competition_events ON bet.competition_events_id=competition_events.id "+
-                "INNER JOIN competition ON competition.id=bet.competition_id WHERE id=?";
+                "INNER JOIN competition ON competition.id=bet.competition_id WHERE bet.id=?";
     }
 
     @Override
@@ -72,5 +75,23 @@ public class BetDAOImpl extends AbstractJdbcDao<Bet,Integer> implements GenericD
     public String getSelectAllQuery(){
         return "SELECT * FROM bet INNER JOIN competition_events ON bet.competition_events_id=competition_events.id "+
                 "INNER JOIN competition ON competition.id=bet.competition_id";
+    }
+
+    @Override
+    @AutoConnection
+    public List<Bet> getByCompetition(Integer competition_id) throws DaoException {
+        try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectedByCompetition())) {
+            selectStatement.setInt(1,competition_id);
+            try (ResultSet resQuery = selectStatement.executeQuery()) {
+                return parseResultSet(resQuery);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed while select element by id="+competition_id, e);
+        }
+    }
+
+    private String getSelectedByCompetition(){
+        return "SELECT * FROM bet INNER JOIN competition_events ON bet.competition_events_id=competition_events.id "+
+                "INNER JOIN competition ON competition.id=bet.competition_id WHERE bet.competition_id=?";
     }
 }

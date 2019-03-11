@@ -66,6 +66,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
         creators.put(Competition.class, CompetitionDAOImpl::new);
         creators.put(Bet.CompetitionEvent.class, CompetitionEventDAOImpl::new);
         creators.put(RegistrationKey.class, SendKeysDAOImpl::new);
+        creators.put(Sport.class, SportsDAOImpl::new);
     }
 
     public static JdbcDaoFactory getInstance() {

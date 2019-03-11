@@ -9,49 +9,9 @@
 <%@ page import="by.gritsuk.dima.domain.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
-<fmt:setBundle basename="lang"  var="bd" scope="application"/>
-<%--<html>--%>
-<%--<head>--%>
-    <%--<title>Users list</title>--%>
-    <%--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">--%>
-<%--</head>--%>
-
-<%--<body class="w3-light-grey">--%>
-<%--<div class="w3-container w3-blue-grey w3-opacity w3-left-align">--%>
-    <%--<h1>Totalizator</h1>--%>
-<%--</div>--%>
-
-<%--<div class="w3-container w3-center w3-margin-bottom w3-padding">--%>
-    <%--<div class="w3-card-4">--%>
-        <%--<div class="w3-container w3-light-blue">--%>
-            <%--<h2>Users</h2>--%>
-        <%--</div>--%>
-        <%--<%--%>
-            <%--List<String> users = (List<String>) request.getAttribute("user");--%>
-
-            <%--if (users != null && !users.isEmpty()) {--%>
-                <%--out.println("<ul class=\"w3-ul\">");--%>
-                <%--for (String s : users) {--%>
-                    <%--out.println("<li class=\"w3-hover-sand\">" + s + "</li>");--%>
-                <%--}--%>
-                <%--out.println("</ul>");--%>
-
-            <%--} else out.println("<div class=\"w3-panel w3-red w3-display-container w3-card-4 w3-round\">\n"--%>
-                    <%--+--%>
-                    <%--"   <span onclick=\"this.parentElement.style.display='none'\"\n" +--%>
-                    <%--"   class=\"w3-button w3-margin-right w3-display-right w3-round-large w3-hover-red w3-border w3-border-red w3-hover-border-grey\">×</span>\n" +--%>
-                    <%--"   <h5>There are no users yet!</h5>\n" +--%>
-                    <%--"</div>");--%>
-        <%--%>--%>
-    <%--</div>--%>
-<%--</div>--%>
-
-<%--<div class="w3-container w3-grey w3-opacity w3-right-align w3-padding">--%>
-    <%--<button class="w3-btn w3-round-large" onclick="location.href='${pageContext.request.contextPath}/'">Back to begin</button>--%>
-<%--</div>--%>
-<%--</body>--%>
-<%--</html>--%>
+<fmt:setBundle basename="lang" var="bd" scope="application"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -64,7 +24,11 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/css/datatables.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/css/fullcalendar.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/css/bootadmin.min.css">
     <%--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >--%>
 
 
@@ -88,7 +52,7 @@
     <link href="https://getbootstrap.com/docs/4.3/examples/floating-labels/" rel="stylesheet">
 </head>
 <body style="background-color: #eee;">
-<div style="background-color: rgba(13,24,46,0.38);" >
+<div style="background-color: rgba(13,24,46,0.38);">
     <br>
     <h1 class="h1 mr-md-auto font-weight-normal" style="color:white"><fmt:message key="title.totalizator" bundle="${bd}"/></h1>
     <br>
@@ -97,32 +61,79 @@
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.users.list" bundle="${bd}"/></h1>
     </div>
-    <%
-        List<User> users = (List<User>) request.getAttribute("user");
+    <%--<%--%>
+        <%--List<User> users = (List<User>) request.getAttribute("users");--%>
 
-        if (users != null && !users.isEmpty()) {
-            String delete;
-            if(session.getAttribute("locale")==null||session.getAttribute("locale").equals("en_EN")){
-                delete="Delete";
-            }
-            else{
-                delete="Удалить";
-            }
-            for (User user : users) {
-                out.println("<div class=\"card w-50\">" +
-                        "  <div class=\"card-body\">" +
-                        "    <h5 class=\"card-title\">"+user.getLogin()+"</h5>" +
-                        "    <p class=\"card-text\">"+user.getFirstName()+" "+user.getLastName()+","+user.getEmail()+"</p>" +
-//                        "    <a href=\"${pageContext.request.contextPath}/bets?command=delete&id="+user.getId()+"\" class=\"btn btn-primary\">Delete</a>" +
-                        "    <a href=\"#\" class=\"btn btn-primary\">"+delete+"</a>" +
-                        "  </div>\n" +
-                        "</div>");
-            }
-        }else {
-            out.println("<div class=\"text-center mb-4 p-3 alert alert-warning\" role=\"alert\">" +
-                    "<h5>There are no users here</h5></div>");
-        }
-    %>
+        <%--if (users != null && !users.isEmpty()) {--%>
+            <%--String delete;--%>
+            <%--if (session.getAttribute("locale") == null || session.getAttribute("locale").equals("en_EN")) {--%>
+                <%--delete = "Delete";--%>
+            <%--} else {--%>
+                <%--delete = "Удалить";--%>
+            <%--}--%>
+            <%--for (User user : users) {--%>
+                <%--out.println("<div class=\"card w-50\">" +--%>
+                        <%--"  <div class=\"card-body\">" +--%>
+                        <%--"    <h5 class=\"card-title\">" + user.getLogin() + "</h5>" +--%>
+                        <%--"    <p class=\"card-text\">" + user.getFirstName() + " " + user.getLastName() + "," + user.getEmail() + "</p>" +--%>
+<%--//                        "    <a href=\"${pageContext.request.contextPath}/bets?command=delete&id="+user.getId()+"\" class=\"btn btn-primary\">Delete</a>" +--%>
+                        <%--"    <a href=\"#\" class=\"btn btn-primary\">" + delete + "</a>" +--%>
+                        <%--"  </div>\n" +--%>
+                        <%--"</div>");--%>
+            <%--}--%>
+        <%--} else {--%>
+            <%--out.println("<div class=\"text-center mb-4 p-3 alert alert-warning\" role=\"alert\">" +--%>
+                    <%--"<h5>There are no users here</h5></div>");--%>
+        <%--}--%>
+    <%--%>--%>
+    <c:if test="${requestScope.users eq null}">
+        <div class="text-center mb-4 p-3 alert alert-warning" role="alert">
+            <h5><fmt:message key="message.noUsers" bundle="${bd}"/></h5>
+        </div>
+    </c:if>
+    <c:if test="${requestScope.users != null}">
+        <div class="card mb-4">
+            <div class="card-body">
+                <table id="example" class="table table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th><fmt:message key="text.user.firstName" bundle="${bd}"/></th>
+                        <th><fmt:message key="text.user.lastName" bundle="${bd}"/></th>
+                        <th><fmt:message key="text.user.login" bundle="${bd}"/></th>
+                        <th><fmt:message key="text.user.email" bundle="${bd}"/></th>
+                        <th><fmt:message key="text.user.status" bundle="${bd}"/></th>
+                        <th class="actions"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="client" items="${requestScope.users}">
+                        <tr>
+                            <td><c:out value="${client.firstName}"/> </td>
+                            <td><c:out value="${client.lastName}"/></td>
+                            <td><c:out value="${client.login}"/></td>
+                            <td><c:out value="${client.email}"/></td>
+                            <c:if test="${client.status eq 'active'}">
+                                <td><span class="badge badge-pill badge-success">Active</span></td>
+                            </c:if>
+                            <c:if test="${client.status eq 'banned'}">
+                                <td><span class="badge badge-pill badge-danger">Banned</span></td>
+                            </c:if>
+                            <c:if test="${client.status eq 'waiting_confirmation'}">
+                                <td><span class="badge badge-pill badge-warning">Waiting confirmation</span></td>
+                            </c:if>
+                            <td>
+                                <form method="POST" action=${pageContext.request.contextPath}/bets?command=delete&id=${client.id}>
+                                    <button class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" type="submit"><i class="fa fa-fw fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </c:if>
+
 </main>
 <!-- Footer -->
 <footer class="sticky-footer bg-dark">
@@ -132,7 +143,8 @@
             <%--<h5 class="mb-1">Register for free</h5>--%>
             <%--</li>--%>
             <li class="list-inline-item">
-                <a href="${pageContext.request.contextPath}/bets?command=main" class="btn btn-outline-light btn-rounded"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
+                <a href="${pageContext.request.contextPath}/bets?command=main"
+                   class="btn btn-outline-light btn-rounded"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
             </li>
         </ul>
     </div>
@@ -140,9 +152,43 @@
     </div>
 </footer>
 <!-- Footer -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/static/script/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/static/script/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/script/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/script/js/datatables.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/script/js/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/script/js/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/script/js/bootadmin.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118868344-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-118868344-1');
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-4097235499795154",
+        enable_page_level_ads: true
+    });
+</script>
 </body>
 </html>
 

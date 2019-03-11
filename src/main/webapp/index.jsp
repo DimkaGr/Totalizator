@@ -1,29 +1,3 @@
-<%--<!DOCTYPE html>--%>
-<%--<%@ page import="by.gritsuk.dima.controller.command.CommandType" %>--%>
-<%--<html lang="en">--%>
-<%--<head>--%>
-    <%--<meta charset="UTF-8">--%>
-    <%--<title>Totalizator(Demo)</title>--%>
-    <%--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">--%>
-<%--</head>--%>
-
-<%--<body class="w3-light-grey">--%>
-<%--<div class="w3-container w3-blue-grey w3-opacity w3-left-align">--%>
-    <%--<h1>Totalizator</h1>--%>
-    <%--<div class="w3-right-align">--%>
-        <%--<button class="w3-btn w3-hover-green w3-round-large" onclick="location.href='${pageContext.request.contextPath}/sign_in'">Sign In</button>--%>
-    <%--</div>--%>
-<%--</div>--%>
-
-<%--<div class="w3-container w3-center">--%>
-    <%--<div class="w3-bar w3-padding-large w3-padding-24">--%>
-        <%--<button class="w3-btn w3-hover-light-blue w3-round-large" onclick="location.href='${pageContext.request.contextPath}/list'">List users</button>--%>
-        <%--<button class="w3-btn w3-hover-light-blue w3-round-large" onclick="location.href='${pageContext.request.contextPath}/comp_list'">View competitions</button>--%>
-        <%--<button class="w3-btn w3-hover-green w3-round-large" onclick="location.href='${pageContext.request.contextPath}/add'">Add user</button>--%>
-    <%--</div>--%>
-<%--</div>--%>
-<%--</body>--%>
-<%--</html>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -118,12 +92,54 @@
     </div>
 </nav>
 
-<main role="main" class="container">
+<main role="main" class="container w-75">
 
-    <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-    </div>
+    <%--<div class="starter-template">--%>
+        <%--<h1>Bootstrap starter template</h1>--%>
+        <%--<p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>--%>
+    <%--</div>--%>
+        <div id="carouselCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselCaptions" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselCaptions" data-slide-to="1"></li>
+                <li data-target="#carouselCaptions" data-slide-to="2"></li>
+                <li data-target="#carouselCaptions" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="${pageContext.request.contextPath}/static/frontPicture1.jpg" class="d-block w-100" height="650" width="1000">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 style="color: black"><fmt:message key="text.front.picture1" bundle="${bd}"/></h2>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="${pageContext.request.contextPath}/static/frontPicture2.jpg" class="d-block w-100" height="650" width="1000">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 style="color: rgba(68,197,23,0.74)"><fmt:message key="text.front.picture2" bundle="${bd}"/></h2>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="${pageContext.request.contextPath}/static/frontPicture3.jpg" class="d-block w-100" height="650" width="1000">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 style="color: black"><fmt:message key="text.front.picture3" bundle="${bd}"/></h2>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="${pageContext.request.contextPath}/static/frontPicture4.jpg" class="d-block w-100" height="650" width="1000">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 style="color: rgba(90,188,29,0.98)"><fmt:message key="text.front.picture4" bundle="${bd}"/></h2>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
 
 
 </main><!-- /.container -->
@@ -133,3 +149,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<%--http://themehunt.com/item/1527563-corlate-free-business-agency-wordpress-theme-with-page-builder/preview--%>
+<%--https://bootswatch.com/cyborg/--%>
+<%--https://bootadmin.net/demo/datatables--%>
