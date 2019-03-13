@@ -64,7 +64,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 createdConnections++;
                 InvocationHandler handler = this.getHandler();
                 Class[] classes = {Connection.class};
-                return (Connection) Proxy.newProxyInstance(null, classes, handler);
+                return (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), classes, handler);
             }
             return POOL.poll();
         } catch (Exception e) {
