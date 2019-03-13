@@ -79,7 +79,7 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
     @Override
     public String getSelectQuery() {
         return "SELECT * FROM users INNER JOIN role ON role.id=users.role_id " +
-                "LEFT JOIN client_account ON users.client_account_id=client_account.id WHERE id=?";
+                "LEFT JOIN client_account ON users.client_account_id=client_account.id WHERE users.id=?";
     }
 
     @Override
@@ -129,7 +129,12 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
         try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectedByLogin())) {
             selectStatement.setString(1,login);
             try (ResultSet resQuery = selectStatement.executeQuery()) {
-                return parseResultSet(resQuery).get(0);
+                List<User>users=parseResultSet(resQuery);
+                if(users.isEmpty()){
+                    return null;
+                }else {
+                    return parseResultSet(resQuery).get(0);
+                }
             }
         } catch (PersistException | SQLException e) {
             throw new DaoException("Failed while select element by login="+login, e);

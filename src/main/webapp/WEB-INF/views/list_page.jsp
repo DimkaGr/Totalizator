@@ -139,13 +139,16 @@
 <footer class="sticky-footer bg-dark">
     <div class="container">
         <ul class="list-unstyled list-inline text-center py-2">
-            <%--<li class="list-inline-item">--%>
-            <%--<h5 class="mb-1">Register for free</h5>--%>
-            <%--</li>--%>
-            <li class="list-inline-item">
-                <a href="${pageContext.request.contextPath}/bets?command=main"
-                   class="btn btn-outline-light btn-rounded"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
-            </li>
+            <c:if test="${sessionScope.role == null}">
+                <li class="list-inline-item">
+                    <a href="${pageContext.request.contextPath}/bets?command=main" class="btn btn-outline-light btn-rounded"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.role != null}">
+                <li class="list-inline-item">
+                    <a href="${pageContext.request.contextPath}/bets?command=to_account" class="btn btn-outline-light btn-rounded"><fmt:message key="button.toAccount" bundle="${bd}"/></a>
+                </li>
+            </c:if>
         </ul>
     </div>
     <div class="footer-copyright text-center py-3" style="color: #7abaff">Created by Dima Gritsuk

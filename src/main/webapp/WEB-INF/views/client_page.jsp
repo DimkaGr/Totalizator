@@ -54,8 +54,8 @@
             <%--<li>Totalizator</li>--%>
             <%--<li>Totalizator</li>--%>
             <li><a href="${pageContext.request.contextPath}/bets?command=comp_list"><i class="fa fa-fw fa-table"></i><fmt:message key="button.competitions" bundle="${bd}"/></a></li>
-            <li><a href="https://bootadmin.net/demo/icons"><i class="fa fa-fw fa-table"></i><fmt:message key="button.myBets" bundle="${bd}"/></a></li>
-            <li><a href="https://bootadmin.net/demo/buttons"><i class="fa fa-fw fa-table"></i><fmt:message key="button.sports" bundle="${bd}"/></a></li>
+            <li><a href="#"><i class="fa fa-fw fa-table"></i><fmt:message key="button.myBets" bundle="${bd}"/></a></li>
+            <li><a href="#"><i class="fa fa-fw fa-table"></i><fmt:message key="button.sports" bundle="${bd}"/></a></li>
         </ul>
     </div>
 

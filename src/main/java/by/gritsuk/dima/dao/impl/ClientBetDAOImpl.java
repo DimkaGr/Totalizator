@@ -3,6 +3,7 @@ package by.gritsuk.dima.dao.impl;
 import by.gritsuk.dima.dao.AbstractJdbcDao;
 import by.gritsuk.dima.dao.ClientBetDAO;
 import by.gritsuk.dima.dao.GenericDao;
+import by.gritsuk.dima.dao.exception.DaoException;
 import by.gritsuk.dima.domain.ClientBet;
 
 import java.sql.PreparedStatement;
@@ -53,7 +54,7 @@ public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> impleme
     @Override
     public String getSelectQuery() {
         return "SELECT * FROM  client_bet INNER JOIN bet ON bet.id=client_bet.bet_id "+
-                "INNER JOIN users ON users.id=client_bet.users_id WHERE id=?";
+                "INNER JOIN users ON users.id=client_bet.users_id WHERE client_bet.id=?";
     }
 
     @Override
@@ -75,5 +76,22 @@ public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> impleme
     public String getSelectAllQuery(){
         return "SELECT * FROM client_bet INNER JOIN bet ON bet.id=client_bet.bet_id "+
                 "INNER JOIN users ON users.id=client_bet.users_id";
+    }
+
+    @Override
+    public List<ClientBet> getByUserId(Integer user_id) throws DaoException {
+        try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectedByUserId())) {
+            selectStatement.setInt(1,user_id);
+            try (ResultSet resQuery = selectStatement.executeQuery()) {
+                return parseResultSet(resQuery);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed while select element by id="+user_id, e);
+        }
+    }
+
+    private String getSelectedByUserId(){
+        return "SELECT * FROM  client_bet INNER JOIN bet ON bet.id=client_bet.bet_id "+
+                "INNER JOIN users ON users.id=client_bet.users_id WHERE client_bet.users_id=?";
     }
 }

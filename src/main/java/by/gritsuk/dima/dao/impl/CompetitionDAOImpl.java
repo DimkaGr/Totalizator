@@ -58,7 +58,7 @@ public class CompetitionDAOImpl extends AbstractJdbcDao<Competition,Integer> imp
     @Override
     public String getSelectQuery() {
         return "SELECT * FROM competition INNER JOIN kind_of_sport ON kind_of_sport.id=competition.kind_of_sport_id "+
-                "INNER JOIN competition_result ON competition_result.id=competition.competition_result_id WHERE id=?";
+                "INNER JOIN competition_result ON competition_result.id=competition.competition_result_id WHERE competition.id=?";
     }
 
     @Override
