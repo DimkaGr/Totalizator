@@ -52,11 +52,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=add_user"><fmt:message key="button.addUser" bundle="${bd}"/></a>
             </li>
-            <%--<li class="nav-item">--%>
-                <%--<a class="nav-link" href="${pageContext.request.contextPath}/bets?command=user_list"><fmt:message key="button.users" bundle="${bd}"/></a>--%>
-            <%--</li>--%>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=comp_list"><fmt:message key="button.competitions" bundle="${bd}"/></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/bets?command=show_sports"><fmt:message key="button.sports" bundle="${bd}"/></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>

@@ -22,19 +22,23 @@ public final class TransactionManager {
     public void begin(GenericDao dao, GenericDao... daos) throws DaoException{
         try {
             ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
-            proxyConnection = connectionPool.retrieveConnection();
-            //            proxyConnection.setAutoCommit(false);
+            this.proxyConnection = connectionPool.retrieveConnection();
+            proxyConnection.setAutoCommit(false);
             setConnectionWithReflection(dao, proxyConnection);
             for (GenericDao d : daos) {
                 setConnectionWithReflection(d, proxyConnection);
             }
         } catch (ConnectionPoolException e) {
             throw new DaoException("Failed to get a connection from CP.", e);
+        } catch (SQLException e) {
+            throw new DaoException("Failed to make transaction.", e);
         }
     }
 
     public void end() throws SQLException{
         proxyConnection.setAutoCommit(true);
+//        ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
+//        connectionPool.putBackConnection(proxyConnection);
         proxyConnection.close();
     }
 

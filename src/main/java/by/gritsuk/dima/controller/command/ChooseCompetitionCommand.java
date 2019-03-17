@@ -15,7 +15,7 @@ public class ChooseCompetitionCommand implements Command{
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         ResponseContent responseContent = new ResponseContent();
-        List<Competition> competitions = new ArrayList<>();
+        List<Competition> competitions=null;
         CompetitionService competitionService = ServiceFactory.getInstance().getCompetitionService();
         try {
             competitions = competitionService.getAllBySport(Integer.parseInt(request.getParameter("id")));

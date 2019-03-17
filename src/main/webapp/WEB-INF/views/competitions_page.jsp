@@ -5,8 +5,6 @@
   Time: 20:09
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="java.util.List" %>
-<%@ page import="by.gritsuk.dima.domain.Competition" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -68,26 +66,25 @@
             <th scope="col"><fmt:message key="text.competitions.result" bundle="${bd}"/></th>
         </tr>
         </thead>
-    <%
-    List<Competition> competitions = (List<Competition>) request.getAttribute("competitions");
-
-        if (competitions != null && !competitions.isEmpty()) {
-            out.println("<tbody>");
-            for (Competition s : competitions) {
-                out.println("<tr>" +
-                        "<th scope=\"row\">" + s.getId() + "</th>" +
-                        "<td>" + s.getKindOfSport() + "</td>" +
-                        "<td>" + s.getParticipant1() + "</td>" +
-                        "<td>" + s.getParticipant2() + "</td>" +
-                        "<td>" + s.getDate() + "</td>" +
-                        "<td>" + s.getResult() + "</td></tr>");
-            }
-            out.println("</tbody>");
-        }else {
-            out.println("<div class=\"text-center mb-4 p-3 alert alert-warning\" role=\"alert\">" +
-                    "<h5>There are no competitions</h5></div>");
-        }
-    %>
+        <c:if test="${requestScope.competitions == null}">
+            <div class="text-center mb-4 p-3 alert alert-warning" role="alert">
+                <h5><fmt:message key="message.competitions" bundle="${bd}"/> </h5>
+            </div>
+        </c:if>
+        <c:if test="${requestScope.competitions != null}">
+            <tbody>
+            <c:forEach var="competition" items="${requestScope.competitions}">
+                <tr>
+                    <th scope="row"><c:out value="${competition.getId()}"/></th>
+                    <td><c:out value="${competition.getKindOfSport()}"/></td>
+                    <td><c:out value="${competition.getParticipant1()}"/></td>
+                    <td><c:out value="${competition.getParticipant2()}"/></td>
+                    <td><c:out value="${competition.getDate()}"/></td>
+                    <td><c:out value="${competition.getResult()}"/></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </c:if>
     </table>
 </main>
 <!-- Footer -->

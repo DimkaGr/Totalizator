@@ -1,6 +1,7 @@
 package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.AbstractJdbcDao;
+import by.gritsuk.dima.dao.AutoConnection;
 import by.gritsuk.dima.dao.ClientBetDAO;
 import by.gritsuk.dima.dao.GenericDao;
 import by.gritsuk.dima.dao.exception.DaoException;
@@ -79,6 +80,7 @@ public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> impleme
     }
 
     @Override
+    @AutoConnection
     public List<ClientBet> getByUserId(Integer user_id) throws DaoException {
         try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectedByUserId())) {
             selectStatement.setInt(1,user_id);

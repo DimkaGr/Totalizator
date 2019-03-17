@@ -118,4 +118,40 @@ public class UserServiceImpl implements UserService {
         }
         return users;
     }
+
+    @Override
+    public User getByLogin(String login) throws ServiceException {
+        try {
+            UserDAO userDAO=(UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            return userDAO.getByLogin(login);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to get user. ", e);
+        } catch (DaoFactoryException e) {
+            throw new ServiceException("Failed to connect to database",e);
+        }
+    }
+
+    @Override
+    public void changePassword(String password, Integer id) throws ServiceException {
+        try {
+            UserDAO userDAO=(UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            userDAO.updatePassword(password,id);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to update user password. ", e);
+        } catch (DaoFactoryException e) {
+            throw new ServiceException("Failed to connect to database",e);
+        }
+    }
+
+    @Override
+    public void updateCash(Integer id,double cash) throws ServiceException {
+        try {
+            UserDAO userDAO=(UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            userDAO.updateCash(id,cash);
+        } catch (PersistException e) {
+            throw new ServiceException("Failed to update user cash. ", e);
+        } catch (DaoException|DaoFactoryException e) {
+            throw new ServiceException("Failed to connect to database",e);
+        }
+    }
 }

@@ -10,6 +10,7 @@ import by.gritsuk.dima.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 
 public class ConfirmBetCommand implements Command {
     @Override
@@ -24,9 +25,13 @@ public class ConfirmBetCommand implements Command {
         clientBet.setStatus("in play");
         ClientBetService clientBetService= ServiceFactory.getInstance().getClientBetService();
         try {
-            clientBetService.makeBet(clientBet);
+            int id=((Client) session.getAttribute("user")).getClient_account_id();
+            double cash=((Client) session.getAttribute("user")).getCash()-(Double)session.getAttribute("value");
+            clientBetService.makeBet(clientBet,id,cash);
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/main_page.jsp"));
         } catch (ServiceException e) {
+
+        } catch (SQLException e) {
 
         }
         return responseContent;

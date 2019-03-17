@@ -18,10 +18,13 @@ public class KindOfSportServiceImpl implements KindOfSportService {
 
     @Override
     public List<Sport> getAll() throws ServiceException {
-        List<Sport> sports=new ArrayList<>();
+        List<Sport> sports;
         try {
             SportsDAO sportDao = (SportsDAO) FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(Sport.class);
             sports=sportDao.getAll();
+            if(sports.isEmpty()){
+                sports=null;
+            }
         } catch (DaoException e) {
             throw new ServiceException("Failed to get kind of sports. ", e);
         } catch (DaoFactoryException e){

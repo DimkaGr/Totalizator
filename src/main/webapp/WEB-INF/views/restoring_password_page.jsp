@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
 <fmt:setBundle basename="lang"  var="bd" scope="application"/>
 <html>
@@ -52,12 +53,11 @@
 </div>
 
 <main class="container w-25 p-3">
-    <%
-        if(request.getAttribute("errors")!=null){
-            out.println("<div class=\"text-center mb-4 p-3 alert alert-danger\" role=\"alert\"> " +
-                    "<h5>Incorrect login or email! Try again</h5></div");
-        }
-    %>
+    <c:if test="${requestScope.errors != null}">
+        <div class="text-center mb-4 p-3 alert alert-danger" role="alert">
+            <h5><fmt:message key="message.restore.incorrectLoginOrEmail"/></h5>
+        </div>
+    </c:if>
     <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=restore>
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.password.restore" bundle="${bd}"/></h1>

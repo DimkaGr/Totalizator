@@ -12,6 +12,7 @@ import by.gritsuk.dima.util.StringGenerator;
 import by.gritsuk.dima.util.exception.UtilException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class PasswordRestoreCommand implements Command {
     @Override
@@ -20,6 +21,8 @@ public class PasswordRestoreCommand implements Command {
         String login=request.getParameter("login");
         String email=request.getParameter("email");
         UserService userService= ServiceFactory.getInstance().getUserService();
+
+        HttpSession session=request.getSession();
         try {
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/confirm_restore_page.jsp"));
             User user=userService.getUserForRestoring(login,email);
@@ -33,7 +36,7 @@ public class PasswordRestoreCommand implements Command {
                     RegistrationKeysService registrationService=ServiceFactory.getInstance().getRegistrationService();
                     registrationService.add(registrationKey);
                     sender.sendMail("Your code to confirm is "+key,email);
-
+                    session.setAttribute("userLog",user);
                 }
             }
             else{
@@ -46,6 +49,7 @@ public class PasswordRestoreCommand implements Command {
         } catch (UtilException e){
             //couldn't send mail error page
         }
+//        request.setAttribute("userLogin",login);
         return responseContent;
     }
 }

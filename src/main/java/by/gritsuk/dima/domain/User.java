@@ -13,7 +13,7 @@ public abstract class User implements Identified<Integer> {
     private String firstName;
     private String lastName;
     private int role_id;
-    private int client_account_id=-1;
+    private int client_account_id=2;
 
     public User(){ }
 

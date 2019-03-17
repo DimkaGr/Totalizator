@@ -51,15 +51,11 @@
     <h1 class="h1 mr-md-auto font-weight-normal" style="color:white"><fmt:message key="title.totalizator" bundle="${bd}"/></h1>
     <br>
 </div>
-<%
-    if(request.getAttribute("loginErrors")!=null){
-        out.println("<div class=\"text-center mb-4 p-3 alert alert-danger\" role=\"alert\">" +
-                "<h5>Incorrect login or password! Try again</h5></div>");
-    }
-    else if(request.getAttribute("entry")!=null){
-        request.getRequestDispatcher("/WEB-INF/views/main_page.jsp").forward(request,response);
-    }
-%>
+<c:if test="${requestScope.loginErrors != null}">
+    <div class="text-center mb-4 p-3 alert alert-danger" role="alert">
+        <h5><fmt:message key="message.restore.incorrectLoginOrPassword" bundle="${bd}"/> </h5>
+    </div>
+</c:if>
 <main class="container w-25 p-3">
     <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=sign_in>
         <div class="text-center mb-4">

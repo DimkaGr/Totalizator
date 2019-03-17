@@ -34,6 +34,16 @@ public class CommandProvider {
         commandMap.put("make_bet4", new ToSetAmountCommand());
         commandMap.put("make_bet5", new SetAmountCommand());
         commandMap.put("confirm_bet", new ConfirmBetCommand());
+        commandMap.put("tp_change_password", new ToChangePasswordCommand());
+        commandMap.put("change_password", new ChangePasswordCommand());
+        commandMap.put("verify_code", new VerifyMessageCommand());
+        commandMap.put("add_bet1", new ChooseSportForBookmakerCommand());
+        commandMap.put("add_bet2", new ChooseCompetitionForBookmakerCommand());
+        commandMap.put("add_bet3", new ToAddBetEventCommand());
+        commandMap.put("add_bet4", new AddBetEventCommand());
+        commandMap.put("show_sports", new ShowSportsCommand());
+        commandMap.put("comp_of_sport", new ShowCompetitionsOfSportCommand());
+        commandMap.put("client_bets", new ShowClientBetsCommand());
     }
 
     /**

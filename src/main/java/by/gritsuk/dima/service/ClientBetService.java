@@ -4,9 +4,12 @@ import by.gritsuk.dima.domain.ClientBet;
 import by.gritsuk.dima.dto.ClientBetResponse;
 import by.gritsuk.dima.service.exception.ServiceException;
 
+import java.sql.SQLException;
+import java.util.List;
+
 public interface ClientBetService {
 
-    void makeBet(ClientBet bet) throws ServiceException;
+    void makeBet(ClientBet bet,Integer id, double cash) throws ServiceException, SQLException;
 
-    ClientBetResponse showClientBets(Integer user_id) throws ServiceException;
+    List<ClientBetResponse> showClientBets(Integer userId) throws ServiceException;
 }

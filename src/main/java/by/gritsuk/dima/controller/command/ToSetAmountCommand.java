@@ -17,7 +17,7 @@ public class ToSetAmountCommand implements Command {
         try {
             Bet bet=betService.getById(Integer.parseInt(request.getParameter("id")));
             HttpSession session=request.getSession();
-                session.setAttribute("bet", bet);
+            session.setAttribute("bet", bet);
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/make_bet_page4.jsp"));
         } catch (ServiceException e) {
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/error_page.jsp"));

@@ -49,17 +49,16 @@
 </nav>
 
 <div class="d-flex">
-    <div class="sidebar sidebar-dark bg-dark">
-        <ul class="list-unstyled">
-            <%--<li>Totalizator</li>--%>
-            <%--<li>Totalizator</li>--%>
-            <li><a href="${pageContext.request.contextPath}/bets?command=comp_list"><i class="fa fa-fw fa-table"></i><fmt:message key="button.competitions" bundle="${bd}"/></a></li>
-            <li><a href="${pageContext.request.contextPath}/bets?command=user_list"><i class="fa fa-fw fa-table"></i><fmt:message key="button.users" bundle="${bd}"/></a></li>
-            <li><a href="#"><i class="fa fa-fw fa-table"></i><fmt:message key="button.sports" bundle="${bd}"/></a></li>
-        </ul>
-    </div>
+    <%--<div class="sidebar sidebar-dark bg-dark">--%>
+        <%--<ul class="list-unstyled">--%>
+            <%--<li><a href="${pageContext.request.contextPath}/bets?command=comp_list"><i class="fa fa-fw fa-table"></i><fmt:message key="button.competitions" bundle="${bd}"/></a></li>--%>
+            <%--<li><a href="${pageContext.request.contextPath}/bets?command=user_list"><i class="fa fa-fw fa-table"></i><fmt:message key="button.users" bundle="${bd}"/></a></li>--%>
+            <%--<li><a href="#"><i class="fa fa-fw fa-table"></i><fmt:message key="button.sports" bundle="${bd}"/></a></li>--%>
+        <%--</ul>--%>
+    <%--</div>--%>
+        <jsp:include page="admin_left.jsp"/>
 
-    <div class="content p-4">
+        <div class="content p-4">
         <div class="text-center mb-4">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <!-- Responsive -->

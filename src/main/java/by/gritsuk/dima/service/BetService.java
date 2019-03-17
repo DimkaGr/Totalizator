@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface BetService {
 
-    List<Bet> getAllByCompetition(Integer competition_id) throws ServiceException;
+    List<Bet> getAllByCompetition(Integer competitionId) throws ServiceException;
 
     Bet getById(Integer id) throws ServiceException;
+
+    void add(Bet bet) throws ServiceException;
 }

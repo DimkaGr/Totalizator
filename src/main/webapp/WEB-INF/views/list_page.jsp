@@ -86,7 +86,7 @@
                     <%--"<h5>There are no users here</h5></div>");--%>
         <%--}--%>
     <%--%>--%>
-    <c:if test="${requestScope.users eq null}">
+    <c:if test="${requestScope.users == null}">
         <div class="text-center mb-4 p-3 alert alert-warning" role="alert">
             <h5><fmt:message key="message.noUsers" bundle="${bd}"/></h5>
         </div>

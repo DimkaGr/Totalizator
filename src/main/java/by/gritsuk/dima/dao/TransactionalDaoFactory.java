@@ -10,8 +10,8 @@ import java.io.Serializable;
 public interface TransactionalDaoFactory {
     /**
      * Get generic DAO of entity without connection
-     * @param entityClass
+     * @param entityClass- entity class
      * @return transactional DAO
      * @throws DaoException should be clarify
      */
-    <T extends Identified<PK>, PK extends Serializable> GenericDao getTransactionalDao(Class<T> entityClass) throws DaoException;}
+    <T extends Identified<PK>, PK extends Serializable> GenericDao<T, PK> getTransactionalDao(Class<T> entityClass) throws DaoException;}

@@ -33,10 +33,10 @@ public class RegistrationKeysServiceImpl implements RegistrationKeysService {
     }
 
     @Override
-    public RegistrationKey getByUserId(Integer user_id) throws ServiceException {
+    public RegistrationKey getByUserId(Integer userId) throws ServiceException {
         try {
             GenericDao<RegistrationKey,Integer> keyDao= FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(RegistrationKey.class);
-            return keyDao.getByPK(user_id);
+            return keyDao.getByPK(userId);
         } catch (DaoException e) {
             throw new ServiceException("Failed to find registration key ", e);
         } catch (DaoFactoryException e){

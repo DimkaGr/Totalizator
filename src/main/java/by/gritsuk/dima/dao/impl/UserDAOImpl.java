@@ -146,4 +146,34 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
                 "LEFT JOIN client_account ON users.client_account_id=client_account.id " +
                 "WHERE users.login=?";
     }
+
+    @Override
+    @AutoConnection
+    public void updatePassword(String password,Integer id) throws DaoException {
+        try (PreparedStatement updateStatement = this.connection.prepareStatement(getUpdatePassword())) {
+            updateStatement.setString(1,password);
+            updateStatement.setInt(2,id);
+            updateStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("Failed while update element", e);
+        }
+    }
+
+    private String getUpdatePassword(){
+        return "UPDATE users SET password=? WHERE id=?";
+    }
+
+    @Override
+    public void updateCash(Integer id, double cash) throws PersistException {
+        try (PreparedStatement updateStatement = this.connection.prepareStatement(getUpdateCash())) {
+            updateStatement.setDouble(1,cash);
+            updateStatement.setInt(2,id);
+            updateStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new PersistException("Failed while update element", e);
+        }
+    }
+    private String getUpdateCash(){
+        return "UPDATE client_account SET user_cash=? WHERE id=?";
+    }
 }

@@ -29,10 +29,13 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public List<Competition> getAll() throws ServiceException {
-        List<Competition> competitions=new ArrayList<>();
+        List<Competition> competitions;
         try {
             CompetitionDAO competitionDao = (CompetitionDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(Competition.class);
             competitions=competitionDao.getAll();
+            if(competitions.isEmpty()){
+                competitions=null;
+            }
         } catch (DaoException e) {
             throw new ServiceException("Failed to get competitions. ", e);
         } catch (DaoFactoryException e){
@@ -54,11 +57,14 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public List<Competition> getAllBySport(Integer kind_of_sport_id) throws ServiceException {
-        List<Competition> competitions=new ArrayList<>();
+    public List<Competition> getAllBySport(Integer kindOfSportId) throws ServiceException {
+        List<Competition> competitions;
         try {
             CompetitionDAO competitionDao = (CompetitionDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(Competition.class);
-            competitions=competitionDao.getBySport(kind_of_sport_id);
+            competitions=competitionDao.getBySport(kindOfSportId);
+            if(competitions.isEmpty()){
+                competitions=null;
+            }
         } catch (DaoException e) {
             throw new ServiceException("Failed to get competitions. ", e);
         } catch (DaoFactoryException e){

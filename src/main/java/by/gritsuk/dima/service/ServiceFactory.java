@@ -33,4 +33,6 @@ public class ServiceFactory {
     }
 
     public ClientBetService getClientBetService(){return new ClientBetServiceImpl();}
+
+    public CompetitionEventService getCompetitionEventService(){return new CompetitionEventServiceImpl();}
 }

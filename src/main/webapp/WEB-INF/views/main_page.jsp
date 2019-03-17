@@ -85,11 +85,16 @@
     </div>
 </nav>
 
-<c:if test="${sessionScope.role eq 'admin'}">
+<%--<c:if test="${sessionScope.role eq 'admin'}">--%>
+<c:if test="${sessionScope.role == 1}">
     <jsp:forward page="admin_page.jsp"/>
 </c:if>
-<c:if test="${sessionScope.role eq 'user'}">
+<%--<c:if test="${sessionScope.role eq 'user'}">--%>
+<c:if test="${sessionScope.role == 2}">
     <jsp:forward page="client_page.jsp"/>
+</c:if>
+<c:if test="${sessionScope.role == 3}">
+    <jsp:forward page="bookmaker_page.jsp"/>
 </c:if>
 
 <main class="container w-75 p-3">

@@ -52,7 +52,7 @@
 </div>
 
 <main class="container w-25 p-3">
-    <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=tp_change_password>
+    <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=verify_code>
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.password.confirm" bundle="${bd}"/></h1>
             <p><fmt:message key="text.password.confirm.addition" bundle="${bd}"/></p>

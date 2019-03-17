@@ -1,6 +1,7 @@
 package by.gritsuk.dima.dao.impl;
 
 import by.gritsuk.dima.dao.AbstractJdbcDao;
+import by.gritsuk.dima.dao.CompetitionEventDAO;
 import by.gritsuk.dima.dao.GenericDao;
 import by.gritsuk.dima.domain.Bet;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompetitionEventDAOImpl extends AbstractJdbcDao<Bet.CompetitionEvent,Integer>
-        implements GenericDao<Bet.CompetitionEvent,Integer> {
+        implements CompetitionEventDAO {
 
     @Override
     protected List<Bet.CompetitionEvent> parseResultSet(ResultSet rs) throws SQLException {

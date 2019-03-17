@@ -63,7 +63,7 @@
     <form method="POST" id="setBet" class="form-signin" action=${pageContext.request.contextPath}/bets?command=make_bet5>
         <div class="form-label-group">
             <label for="number"><fmt:message key="text.bet.yourAmount" bundle="${bd}"/></label>
-            <input type="number" id="number" name="number" class="form-control" required>
+            <input type="text" id="number" name="number" class="form-control" pattern="^[0-9]+[.,]?[0-9]*$" required>
             <br>
         </div>
         <button class="btn btn-primary btn-lg" type="submit"><fmt:message key="button.next" bundle="${bd}"/></button>

@@ -30,4 +30,10 @@ public interface UserService {
     void deleteUser(User user) throws ServiceException;
 
     List<User> getAllClients() throws ServiceException;
+
+    User getByLogin(String login) throws ServiceException;
+
+    void changePassword(String password, Integer id) throws ServiceException;
+
+    void updateCash(Integer id,double cash) throws ServiceException;
 }

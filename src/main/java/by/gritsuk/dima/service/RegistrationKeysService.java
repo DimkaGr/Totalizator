@@ -7,7 +7,7 @@ public interface RegistrationKeysService {
 
     void add(RegistrationKey key) throws ServiceException;
 
-    RegistrationKey getByUserId(Integer user_id) throws ServiceException;
+    RegistrationKey getByUserId(Integer userId) throws ServiceException;
 
     void remove(RegistrationKey key) throws ServiceException;
 }
