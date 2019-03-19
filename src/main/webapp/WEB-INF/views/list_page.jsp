@@ -52,40 +52,27 @@
     <link href="https://getbootstrap.com/docs/4.3/examples/floating-labels/" rel="stylesheet">
 </head>
 <body style="background-color: #eee;">
-<div style="background-color: rgba(13,24,46,0.38);">
-    <br>
-    <h1 class="h1 mr-md-auto font-weight-normal" style="color:white"><fmt:message key="title.totalizator" bundle="${bd}"/></h1>
-    <br>
-</div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
+        <a class="navbar-brand" href="#"><fmt:message key="title.totalizator" bundle="${bd}"/></a>
+
+        <div class="navbar-collapse collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" id="dd_user" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>${sessionScope.user.firstName} ${sessionScope.user.lastName}</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd_user">
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="${pageContext.request.contextPath}/bets?command=log_out" class="dropdown-item"><fmt:message key="button.logOut" bundle="${bd}"/></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 <main class="container w-75 p-3">
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.users.list" bundle="${bd}"/></h1>
     </div>
-    <%--<%--%>
-        <%--List<User> users = (List<User>) request.getAttribute("users");--%>
 
-        <%--if (users != null && !users.isEmpty()) {--%>
-            <%--String delete;--%>
-            <%--if (session.getAttribute("locale") == null || session.getAttribute("locale").equals("en_EN")) {--%>
-                <%--delete = "Delete";--%>
-            <%--} else {--%>
-                <%--delete = "Удалить";--%>
-            <%--}--%>
-            <%--for (User user : users) {--%>
-                <%--out.println("<div class=\"card w-50\">" +--%>
-                        <%--"  <div class=\"card-body\">" +--%>
-                        <%--"    <h5 class=\"card-title\">" + user.getLogin() + "</h5>" +--%>
-                        <%--"    <p class=\"card-text\">" + user.getFirstName() + " " + user.getLastName() + "," + user.getEmail() + "</p>" +--%>
-<%--//                        "    <a href=\"${pageContext.request.contextPath}/bets?command=delete&id="+user.getId()+"\" class=\"btn btn-primary\">Delete</a>" +--%>
-                        <%--"    <a href=\"#\" class=\"btn btn-primary\">" + delete + "</a>" +--%>
-                        <%--"  </div>\n" +--%>
-                        <%--"</div>");--%>
-            <%--}--%>
-        <%--} else {--%>
-            <%--out.println("<div class=\"text-center mb-4 p-3 alert alert-warning\" role=\"alert\">" +--%>
-                    <%--"<h5>There are no users here</h5></div>");--%>
-        <%--}--%>
-    <%--%>--%>
     <c:if test="${requestScope.users == null}">
         <div class="text-center mb-4 p-3 alert alert-warning" role="alert">
             <h5><fmt:message key="message.noUsers" bundle="${bd}"/></h5>

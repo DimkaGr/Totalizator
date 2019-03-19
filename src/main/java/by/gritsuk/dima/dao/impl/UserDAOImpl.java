@@ -133,7 +133,7 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
                 if(users.isEmpty()){
                     return null;
                 }else {
-                    return parseResultSet(resQuery).get(0);
+                    return users.get(0);
                 }
             }
         } catch (PersistException | SQLException e) {
@@ -175,5 +175,24 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
     }
     private String getUpdateCash(){
         return "UPDATE client_account SET user_cash=? WHERE id=?";
+    }
+
+    @Override
+    @AutoConnection
+    public Integer setClientAccount() throws PersistException {
+        try (PreparedStatement persistStatement = this.connection.prepareStatement(getToSetAccount(), PreparedStatement.RETURN_GENERATED_KEYS)) {
+            persistStatement.executeUpdate();
+            try (ResultSet keysSet = persistStatement.getGeneratedKeys()) {
+                if (keysSet.next()) {
+                    return new Integer(keysSet.getInt(1));
+                } else return null;
+            }
+        } catch (SQLException e) {
+            throw new PersistException("Failed while update element", e);
+        }
+    }
+
+    private String getToSetAccount(){
+        return "INSERT INTO client_account (status,user_cash) VALUES('active',0.0)";
     }
 }

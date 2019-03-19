@@ -6,6 +6,7 @@ import by.gritsuk.dima.service.exception.UserRegisterException;
 import by.gritsuk.dima.validation.exception.LoginPersistException;
 import by.gritsuk.dima.validation.exception.ValidationException;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface UserService {
      * @return - saved user
      * @throws ServiceException should be clarify
      */
-    User signUp(User user) throws ServiceException, UserRegisterException, LoginPersistException;
+    User signUp(User user) throws ServiceException, UserRegisterException, LoginPersistException, SQLException;
 
     List<User> getAll() throws ServiceException;
 
@@ -33,7 +34,7 @@ public interface UserService {
 
     User getByLogin(String login) throws ServiceException;
 
-    void changePassword(String password, Integer id) throws ServiceException;
+    void changePassword(String password, Integer id, String login) throws ServiceException;
 
     void updateCash(Integer id,double cash) throws ServiceException;
 }

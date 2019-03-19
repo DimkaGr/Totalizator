@@ -14,4 +14,6 @@ public interface UserDAO extends GenericDao<User,Integer> {
     void updatePassword(String password, Integer id) throws DaoException;
 
     void updateCash(Integer id,double cash) throws PersistException;
+
+    Integer setClientAccount() throws PersistException;
 }

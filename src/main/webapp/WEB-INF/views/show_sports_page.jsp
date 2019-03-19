@@ -45,6 +45,7 @@
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.3/examples/floating-labels/" rel="stylesheet">
 </head>
+<body>
 <c:if test="${sessionScope.user != null}">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>

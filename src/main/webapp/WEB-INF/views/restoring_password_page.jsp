@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
 <fmt:setBundle basename="lang"  var="bd" scope="application"/>
 <html>
@@ -55,7 +55,7 @@
 <main class="container w-25 p-3">
     <c:if test="${requestScope.errors != null}">
         <div class="text-center mb-4 p-3 alert alert-danger" role="alert">
-            <h5><fmt:message key="message.restore.incorrectLoginOrEmail"/></h5>
+            <h5><fmt:message key="message.restore.incorrectLoginOrEmail" bundle="${bd}"/></h5>
         </div>
     </c:if>
     <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=restore>

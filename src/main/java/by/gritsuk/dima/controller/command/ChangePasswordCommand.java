@@ -20,7 +20,7 @@ public class ChangePasswordCommand implements Command {
             UserService userService= ServiceFactory.getInstance().getUserService();
             User user=(User)session.getAttribute("user");
             try {
-                userService.changePassword(password1,user.getId());
+                userService.changePassword(password1,user.getId(),user.getLogin());
                 session.setAttribute("role", user.getRole_id());
                 responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/main_page.jsp"));
             } catch (ServiceException e) {
