@@ -50,6 +50,9 @@
 </nav>
 
 <main role="main" class="container w-50 p-3">
+    <c:if test="${requestScope.betError != null}">
+        <fmt:message key="message.bet.saveError" bundle="${bd}"/>
+    </c:if>
 
     <div class="jumbotron">
         <h1 class="display-3"><fmt:message key="text.bet.yourAmount" bundle="${bd}"/></h1>

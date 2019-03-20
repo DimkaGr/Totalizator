@@ -36,9 +36,9 @@ public final class TransactionManager {
     }
 
     public void end() throws SQLException{
-        proxyConnection.setAutoCommit(true);
-//        ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
-//        connectionPool.putBackConnection(proxyConnection);
+//        proxyConnection.setAutoCommit(true);
+        ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
+        connectionPool.putBackConnection(proxyConnection);
         proxyConnection.close();
     }
 

@@ -9,7 +9,6 @@ import by.gritsuk.dima.domain.Sport;
 import by.gritsuk.dima.service.KindOfSportService;
 import by.gritsuk.dima.service.exception.ServiceException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KindOfSportServiceImpl implements KindOfSportService {

@@ -3,16 +3,13 @@ package by.gritsuk.dima.dao.impl;
 import by.gritsuk.dima.dao.AbstractJdbcDao;
 import by.gritsuk.dima.dao.AutoConnection;
 import by.gritsuk.dima.dao.CompetitionDAO;
-import by.gritsuk.dima.dao.GenericDao;
 import by.gritsuk.dima.dao.exception.DaoException;
 import by.gritsuk.dima.dao.exception.PersistException;
 import by.gritsuk.dima.domain.Competition;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +26,8 @@ public class CompetitionDAOImpl extends AbstractJdbcDao<Competition,Integer> imp
             competition.setParticipant2(rs.getString("participant_2"));
             competition.setKindOfSport(rs.getString("name"));
             competition.setResult(rs.getString("result"));
+            competition.setCompetitionResultId(rs.getInt("competition_result_id"));
+            competition.setKindOfSportId(rs.getInt("kind_of_sport_id"));
             competitions.add(competition);
         }
         return competitions;
@@ -40,8 +39,8 @@ public class CompetitionDAOImpl extends AbstractJdbcDao<Competition,Integer> imp
         statement.setString(++i, object.getDate());
         statement.setString(++i,object.getParticipant1());
         statement.setString(++i,object.getParticipant2());
-        statement.setInt(++i,object.getKind_of_sport_id());
-        statement.setInt(++i,object.getCompetition_result_id());
+        statement.setInt(++i,object.getKindOfSportId());
+        statement.setInt(++i,object.getCompetitionResultId());
     }
 
     @Override
@@ -50,8 +49,8 @@ public class CompetitionDAOImpl extends AbstractJdbcDao<Competition,Integer> imp
         statement.setString(++i, object.getDate());
         statement.setString(++i,object.getParticipant1());
         statement.setString(++i,object.getParticipant2());
-        statement.setInt(++i,object.getKind_of_sport_id());
-        statement.setInt(++i,object.getCompetition_result_id());
+        statement.setInt(++i,object.getKindOfSportId());
+        statement.setInt(++i,object.getCompetitionResultId());
         statement.setInt(++i,object.getId());
     }
 
@@ -99,5 +98,41 @@ public class CompetitionDAOImpl extends AbstractJdbcDao<Competition,Integer> imp
         return "SELECT * FROM competition INNER JOIN kind_of_sport ON kind_of_sport.id=competition.kind_of_sport_id "+
                 "INNER JOIN competition_result ON competition_result.id=competition.competition_result_id " +
                 "WHERE competition.kind_of_sport_id=?";
+    }
+
+    @Override
+    @AutoConnection
+    public List<Competition> getAllWithoutResult(Integer sportId) throws DaoException {
+        try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectedWithoutResult())) {
+            selectStatement.setInt(1,sportId);
+            try (ResultSet resQuery = selectStatement.executeQuery()) {
+                return parseResultSet(resQuery);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed while select elements", e);
+        }
+    }
+
+    private String getSelectedWithoutResult(){
+        return "SELECT * FROM totalizator.competition " +
+                "INNER JOIN totalizator.kind_of_sport ON kind_of_sport.id=competition.kind_of_sport_id " +
+                "INNER JOIN totalizator.competition_result ON competition_result.id=competition.competition_result_id " +
+                "WHERE competition_result.result='not played' AND kind_of_sport_id=?";
+    }
+
+    @Override
+    @AutoConnection
+    public void updateResult(Integer id, String result) throws PersistException {
+        try (PreparedStatement updateStatement = this.connection.prepareStatement(getResultUpdate())) {
+            updateStatement.setString(1,result);
+            updateStatement.setInt(2,id);
+            updateStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new PersistException("Failed while update element", e);
+        }
+    }
+
+    private String getResultUpdate(){
+        return "UPDATE competition_result SET result=? WHERE id=?";
     }
 }

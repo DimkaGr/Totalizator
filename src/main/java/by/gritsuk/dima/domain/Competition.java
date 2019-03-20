@@ -2,16 +2,14 @@ package by.gritsuk.dima.domain;
 
 import by.gritsuk.dima.dao.Identified;
 
-import java.time.LocalDate;
-
 public class Competition implements Identified<Integer> {
     private int id;
     private String date;
     private String participant1;
     private String participant2;
-    private int kind_of_sport_id;
+    private int kindOfSportId;
     private String kindOfSport;
-    private int competition_result_id;
+    private int competitionResultId;
     private String result;
 
     public Competition(){}
@@ -41,12 +39,12 @@ public class Competition implements Identified<Integer> {
         this.result = result;
     }
 
-    public void setKind_of_sport_id(int kind_of_sport_id) {
-        this.kind_of_sport_id = kind_of_sport_id;
+    public void setKindOfSportId(int kindOfSportId) {
+        this.kindOfSportId = kindOfSportId;
     }
 
-    public void setCompetition_result_id(int competition_result_id) {
-        this.competition_result_id = competition_result_id;
+    public void setCompetitionResultId(int competitionResultId) {
+        this.competitionResultId = competitionResultId;
     }
 
     @Override
@@ -74,11 +72,11 @@ public class Competition implements Identified<Integer> {
         return result;
     }
 
-    public int getKind_of_sport_id() {
-        return kind_of_sport_id;
+    public int getKindOfSportId() {
+        return kindOfSportId;
     }
 
-    public int getCompetition_result_id() {
-        return competition_result_id;
+    public int getCompetitionResultId() {
+        return competitionResultId;
     }
 }

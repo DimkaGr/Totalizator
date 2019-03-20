@@ -5,7 +5,7 @@ import by.gritsuk.dima.dao.Identified;
 public class Bet implements Identified<Integer> {
     private int id;
     private double minValue;
-    private int competition_id;
+    private int competitionId;
     private CompetitionEvent event;
 
     public Bet(){}
@@ -19,8 +19,8 @@ public class Bet implements Identified<Integer> {
         this.minValue = minValue;
     }
 
-    public void setCompetition_id(int competition_id) {
-        this.competition_id = competition_id;
+    public void setCompetitionId(int competitionId) {
+        this.competitionId = competitionId;
     }
 
     public void setEvent(CompetitionEvent event) {
@@ -36,8 +36,8 @@ public class Bet implements Identified<Integer> {
         return minValue;
     }
 
-    public int getCompetition_id() {
-        return competition_id;
+    public int getCompetitionId() {
+        return competitionId;
     }
 
     public CompetitionEvent getEvent() {

@@ -12,8 +12,8 @@ public abstract class User implements Identified<Integer> {
     private String email;
     private String firstName;
     private String lastName;
-    private int role_id=2;
-    private int client_account_id;
+    private int roleId =2;
+    private int clientAccountId;
 
     public User(){ }
 
@@ -55,12 +55,12 @@ public abstract class User implements Identified<Integer> {
         this.id = id;
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
-    public void setClient_account_id(int client_account_id) {
-        this.client_account_id = client_account_id;
+    public void setClientAccountId(int clientAccountId) {
+        this.clientAccountId = clientAccountId;
     }
 
     public String getLogin() {
@@ -83,11 +83,11 @@ public abstract class User implements Identified<Integer> {
         return lastName;
     }
 
-    public int getRole_id() {
-        return role_id;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public int getClient_account_id() {
-        return client_account_id;
+    public int getClientAccountId() {
+        return clientAccountId;
     }
 }

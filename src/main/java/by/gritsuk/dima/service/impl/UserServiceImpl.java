@@ -6,7 +6,6 @@ import by.gritsuk.dima.dao.exception.DaoFactoryException;
 import by.gritsuk.dima.dao.exception.PersistException;
 import by.gritsuk.dima.dao.impl.JdbcDaoFactory;
 import by.gritsuk.dima.dao.impl.TransactionManager;
-import by.gritsuk.dima.dao.impl.UserDAOImpl;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.service.UserService;
 import by.gritsuk.dima.service.exception.ServiceException;
@@ -19,29 +18,13 @@ import by.gritsuk.dima.validation.exception.ValidationException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Example of user service implementation
  */
 public class UserServiceImpl implements UserService {
-    private static UserServiceImpl instance;
-    private static final Lock LOCK=new ReentrantLock();
 
     public UserServiceImpl(){}
-
-//    public static UserServiceImpl getInstance(){
-//            LOCK.lock();
-//            try {
-//                if (instance == null) {
-//                    instance = new UserServiceImpl();
-//                }
-//            } finally {
-//                LOCK.unlock();
-//            }
-//            return instance;
-//    }
 
     @Override
     public User signUp(User user) throws ServiceException, UserRegisterException, LoginPersistException, SQLException {
@@ -57,7 +40,7 @@ public class UserServiceImpl implements UserService {
                     manager.rollback();
                     throw new UserRegisterException("Invalid data to registrate this user");
                 }
-                user.setClient_account_id(clientAccountId);
+                user.setClientAccountId(clientAccountId);
                 userDao.persist(user);
                 manager.commit();
             }else{

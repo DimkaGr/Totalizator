@@ -74,11 +74,6 @@
 <footer class="sticky-footer bg-dark">
     <div class="container">
         <ul class="list-unstyled list-inline text-center py-2">
-            <%--&lt;%&ndash;-------------realisation-----------&ndash;%&gt;--%>
-            <%--<li class="list-inline-item">--%>
-                <%--<a href="${pageContext.request.contextPath}/bets?command=make_bet1" class="btn btn-outline-light btn-rounded"><fmt:message key="button.previous" bundle="${bd}"/></a>--%>
-            <%--</li>--%>
-                <%--&lt;%&ndash;-------------realisation-----------&ndash;%&gt;--%>
             <li class="list-inline-item">
                 <a href="${pageContext.request.contextPath}/bets?command=to_account" class="btn btn-outline-light btn-rounded"><fmt:message key="button.toAccount" bundle="${bd}"/></a>
             </li>

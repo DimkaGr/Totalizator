@@ -21,7 +21,7 @@ public class ChangePasswordCommand implements Command {
             User user=(User)session.getAttribute("user");
             try {
                 userService.changePassword(password1,user.getId(),user.getLogin());
-                session.setAttribute("role", user.getRole_id());
+                session.setAttribute("role", user.getRoleId());
                 responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/main_page.jsp"));
             } catch (ServiceException e) {
                 responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/error_page.jsp"));

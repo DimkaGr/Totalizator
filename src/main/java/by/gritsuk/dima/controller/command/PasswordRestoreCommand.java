@@ -48,6 +48,8 @@ public class PasswordRestoreCommand implements Command {
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/error_page.jsp"));
         } catch (UtilException e){
             //couldn't send mail error page
+            responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/restoring_password_page.jsp"));
+            request.setAttribute("sendMailError","true");
         }
 //        request.setAttribute("userLogin",login);
         return responseContent;

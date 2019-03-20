@@ -7,8 +7,8 @@ public class ClientBet implements Identified<Integer> {
     private double deposit;
     private String status;
     private double income;
-    private int user_id;
-    private int bet_id;
+    private int userId;
+    private int betId;
 
     public ClientBet(){}
 
@@ -29,12 +29,12 @@ public class ClientBet implements Identified<Integer> {
         this.income = income;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setBet_id(int bet_id) {
-        this.bet_id = bet_id;
+    public void setBetId(int betId) {
+        this.betId = betId;
     }
 
     @Override
@@ -54,11 +54,11 @@ public class ClientBet implements Identified<Integer> {
         return income;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public int getBet_id() {
-        return bet_id;
+    public int getBetId() {
+        return betId;
     }
 }

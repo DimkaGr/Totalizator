@@ -21,7 +21,7 @@ public class UserRegisterCommand implements Command{
         user.setEmail(request.getParameter("email"));
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
-        user.setRole_id(2);
+        user.setRoleId(2);
         UserService userService=ServiceFactory.getInstance().getUserService();
         ResponseContent responseContent=new ResponseContent();
         try {
@@ -29,7 +29,7 @@ public class UserRegisterCommand implements Command{
 //            responseContent.setRouter(new Router(Router.Type.REDIRECT,"/WEB-INF/views/success_register_page.jsp"));
             responseContent.setRouter(new Router(Router.Type.REDIRECT,request.getContextPath()+"?command=main"));
         }catch(ServiceException|UserRegisterException|SQLException e){
-
+//            -------create error-------
         }catch (LoginPersistException e){
             request.setAttribute("loginError","true");
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/add_page.jsp"));

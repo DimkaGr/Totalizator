@@ -58,6 +58,12 @@
             <h5><fmt:message key="message.restore.incorrectLoginOrEmail" bundle="${bd}"/></h5>
         </div>
     </c:if>
+    <c:if test="${requestScope.sendMailError != null}">
+        <div class="text-center mb-4 p-3 alert alert-danger" role="alert">
+            <h5><fmt:message key="message.restore.mail" bundle="${bd}"/></h5>
+            <h5><fmt:message key="message.restore.mail.addition" bundle="${bd}"/></h5>
+        </div>
+    </c:if>
     <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=restore>
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.password.restore" bundle="${bd}"/></h1>

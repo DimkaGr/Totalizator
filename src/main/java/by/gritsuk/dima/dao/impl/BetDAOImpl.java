@@ -3,7 +3,6 @@ package by.gritsuk.dima.dao.impl;
 import by.gritsuk.dima.dao.AbstractJdbcDao;
 import by.gritsuk.dima.dao.AutoConnection;
 import by.gritsuk.dima.dao.BetDAO;
-import by.gritsuk.dima.dao.GenericDao;
 import by.gritsuk.dima.dao.exception.DaoException;
 import by.gritsuk.dima.domain.Bet;
 
@@ -27,7 +26,7 @@ public class BetDAOImpl extends AbstractJdbcDao<Bet,Integer> implements BetDAO {
             event.setEvent(rs.getString("event_name"));
             event.setFactor(rs.getDouble("factor"));
             bet.setEvent(event);
-            bet.setCompetition_id(rs.getInt("competition_id"));
+            bet.setCompetitionId(rs.getInt("competition_id"));
             bets.add(bet);
         }
         return bets;
@@ -37,7 +36,7 @@ public class BetDAOImpl extends AbstractJdbcDao<Bet,Integer> implements BetDAO {
     protected void prepareStatementForInsert(PreparedStatement statement, Bet object) throws SQLException {
         int i=0;
         statement.setDouble(++i,object.getMinValue());
-        statement.setInt(++i,object.getCompetition_id());
+        statement.setInt(++i,object.getCompetitionId());
         statement.setInt(++i,object.getEvent().getId());
     }
 
@@ -45,7 +44,7 @@ public class BetDAOImpl extends AbstractJdbcDao<Bet,Integer> implements BetDAO {
     protected void prepareStatementForUpdate(PreparedStatement statement, Bet object) throws SQLException {
         int i=0;
         statement.setDouble(++i,object.getMinValue());
-        statement.setInt(++i,object.getCompetition_id());
+        statement.setInt(++i,object.getCompetitionId());
         statement.setInt(++i,object.getEvent().getId());
         statement.setInt(++i,object.getId());
     }

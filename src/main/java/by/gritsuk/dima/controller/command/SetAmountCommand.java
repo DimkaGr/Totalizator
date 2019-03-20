@@ -32,9 +32,6 @@ public class SetAmountCommand implements Command {
 
         session.setAttribute("value",userRate);
         session.setAttribute("expected",userRate*factor);
-//        session.setAttribute("bet",null);
-//        session.setAttribute("sportName",null);
-//        session.setAttribute("competitionName",null);
 
         return responseContent;
     }

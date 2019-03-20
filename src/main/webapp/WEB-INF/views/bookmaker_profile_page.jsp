@@ -133,6 +133,21 @@
     <div id="editor-js" class="playground-editor" style="height:500px;" itemprop="sampleType"></div>
 </div>
 
+<!-- Footer -->
+<footer class="sticky-footer bg-dark">
+    <div class="container">
+        <ul class="list-unstyled list-inline text-center py-2">
+            <%---------------realisation-------------%>
+            <li class="list-inline-item">
+                <a href="${pageContext.request.contextPath}/bets?command=to_account" class="btn btn-outline-light btn-rounded"><fmt:message key="button.toAccount" bundle="${bd}"/></a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-copyright text-center py-3" style="color: #7abaff">Created by Dima Gritsuk
+    </div>
+</footer>
+<!-- Footer -->
+
 <script src="${pageContext.request.contextPath}/static/script/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/script/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/script/js/datatables.min.js"></script>

@@ -52,10 +52,10 @@ public class ClientBetServiceImpl implements ClientBetService {
                 response.setDeposit(clientBet.getDeposit());
                 response.setIncome(clientBet.getIncome());
                 response.setStatus(clientBet.getStatus());
-                Bet bet=betDAO.getByPK(clientBet.getBet_id());
+                Bet bet=betDAO.getByPK(clientBet.getBetId());
                 response.setFactor(bet.getEvent().getFactor());
                 response.setEvent(bet.getEvent().getEvent());
-                Competition competition=competitionDAO.getByPK(bet.getCompetition_id());
+                Competition competition=competitionDAO.getByPK(bet.getCompetitionId());
                 response.setCompetitionName(competition.getParticipant1()+"-"+competition.getParticipant1());
                 response.setKindOfSport(competition.getKindOfSport());
                 responses.add(response);
@@ -67,5 +67,19 @@ public class ClientBetServiceImpl implements ClientBetService {
             return null;
         }
         return responses;
+    }
+
+    @Override
+    public void updateStatus(Integer id, String status) throws ServiceException {
+        try {
+            ClientBetDAO clientBetDAO= (ClientBetDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(ClientBet.class);
+            List<ClientBet>bets=clientBetDAO.getByBet(id);
+            for(ClientBet bet:bets){
+                clientBetDAO.updateStatus(bet.getId(),status);
+            }
+        } catch (PersistException e) {
+            throw new ServiceException("Failed to update client bet ", e);
+        } catch (DaoException|DaoFactoryException e) {
+            throw new ServiceException("Failed to connect to database",e);        }
     }
 }

@@ -45,6 +45,11 @@ public class CommandProvider {
         commandMap.put("comp_of_sport", new ShowCompetitionsOfSportCommand());
         commandMap.put("client_bets", new ShowClientBetsCommand());
         commandMap.put("to_profile", new ToProfileCommand());
+        commandMap.put("to_generate", new ToGenerateResultCommand());
+        commandMap.put("to_generate2", new ChooseCompetitionForGenerateResultCommand());
+        commandMap.put("generate", new GenerateResultCommand());
+        commandMap.put("set_bet_res", new SetResultCommand());
+        commandMap.put("to_main", new ShowAccountCommand());
     }
 
     /**

@@ -12,4 +12,6 @@ public interface ClientBetService {
     void makeBet(ClientBet bet,Integer id, double cash) throws ServiceException, SQLException;
 
     List<ClientBetResponse> showClientBets(Integer userId) throws ServiceException;
+
+    void updateStatus(Integer id,String status) throws ServiceException;
 }

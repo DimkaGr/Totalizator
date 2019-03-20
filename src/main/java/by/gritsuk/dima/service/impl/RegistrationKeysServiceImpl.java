@@ -8,8 +8,6 @@ import by.gritsuk.dima.domain.RegistrationKey;
 import by.gritsuk.dima.service.RegistrationKeysService;
 import by.gritsuk.dima.service.exception.ServiceException;
 
-import java.util.List;
-
 
 public class RegistrationKeysServiceImpl implements RegistrationKeysService {
 

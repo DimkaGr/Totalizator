@@ -4,13 +4,13 @@ import by.gritsuk.dima.dao.Identified;
 
 public class RegistrationKey implements Identified<Integer> {
     private String key;
-    private Integer user_id;
+    private Integer userId;
 
     public RegistrationKey(){}
 
     @Override
     public Integer getId() {
-        return user_id;
+        return userId;
     }
 
     public String getKey() {
@@ -19,7 +19,7 @@ public class RegistrationKey implements Identified<Integer> {
 
     @Override
     public void setId(Integer user_id) {
-        this.user_id=user_id;
+        this.userId =user_id;
     }
 
     public void setKey(String key) {

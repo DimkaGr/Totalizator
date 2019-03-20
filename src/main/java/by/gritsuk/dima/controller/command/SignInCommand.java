@@ -1,6 +1,5 @@
 package by.gritsuk.dima.controller.command;
 
-import by.gritsuk.dima.domain.RoleType;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.dto.ResponseContent;
 import by.gritsuk.dima.service.ServiceFactory;
@@ -22,14 +21,7 @@ public class SignInCommand implements Command {
             User user=userService.getUserForLogin(login,password);
             if(user!=null){
                 session.setAttribute("user",user);
-//                if(user.getRole_id()==1){
-//                    session.setAttribute("role","admin");
-//                } else if(user.getRole_id()==2){
-//                    session.setAttribute("role","user");
-//                }else {
-//                    session.setAttribute("role","bookmaker");
-//                }
-                session.setAttribute("role",user.getRole_id());
+                session.setAttribute("role",user.getRoleId());
                 responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/main_page.jsp"));
             }
             else{

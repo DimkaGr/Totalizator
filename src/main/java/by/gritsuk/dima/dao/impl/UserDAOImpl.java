@@ -39,13 +39,13 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
                 default:throw new PersistException("There is no such user's type");
             }
             user.setId(rs.getInt("id"));
-            user.setRole_id(rs.getInt("role_id"));
+            user.setRoleId(rs.getInt("role_id"));
             user.setLogin(rs.getString("login"));
             user.setPassword(rs.getString("password"));
             user.setEmail(rs.getString("email"));
             user.setFirstName(rs.getString("first_name"));
             user.setLastName(rs.getString("last_name"));
-            user.setClient_account_id(rs.getInt("client_account_id"));
+            user.setClientAccountId(rs.getInt("client_account_id"));
             users.add(user);
         }
         return users;
@@ -59,8 +59,8 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
         statement.setString(++i,object.getEmail());
         statement.setString(++i,object.getFirstName());
         statement.setString(++i,object.getLastName());
-        statement.setInt(++i,object.getRole_id());
-        statement.setInt(++i,object.getClient_account_id());
+        statement.setInt(++i,object.getRoleId());
+        statement.setInt(++i,object.getClientAccountId());
     }
 
     @Override
@@ -71,8 +71,8 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
         statement.setString(++i,object.getEmail());
         statement.setString(++i,object.getFirstName());
         statement.setString(++i,object.getLastName());
-        statement.setInt(++i,object.getRole_id());
-        statement.setInt(++i,object.getClient_account_id());
+        statement.setInt(++i,object.getRoleId());
+        statement.setInt(++i,object.getClientAccountId());
         statement.setInt(++i,object.getId());
     }
 

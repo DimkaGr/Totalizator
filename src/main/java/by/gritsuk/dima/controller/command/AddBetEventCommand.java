@@ -25,7 +25,7 @@ public class AddBetEventCommand implements Command {
         event.setEvent(eventName);
         bet.setEvent(event);
         bet.setMinValue(minValue);
-        bet.setCompetition_id(competition_id);
+        bet.setCompetitionId(competition_id);
         BetService betService= ServiceFactory.getInstance().getBetService();
         try {
             betService.add(bet);

@@ -14,4 +14,8 @@ public interface CompetitionService {
     void remove(Competition competition) throws ServiceException;
 
     List<Competition> getAllBySport(Integer kindOfSportId) throws ServiceException;
+
+    List<Competition> getAllWithoutResult(Integer sportId) throws ServiceException;
+
+    String updateResult(Integer id,String result) throws ServiceException;
 }

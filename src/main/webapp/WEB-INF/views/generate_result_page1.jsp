@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Dima
-  Date: 16.03.2019
-  Time: 10:20
+  Date: 19.03.2019
+  Time: 23:28
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -23,17 +23,17 @@
 
     <style>
         body {
-            padding-top: 46px;
+            padding-top: 65px;
         }
     </style>
 
-    <title>Bookmaker page</title>
+    <title>Generate result</title>
 </head>
 <body class="bg-light">
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
-    <a class="navbar-brand" href="#"><fmt:message key="title.totalizator" bundle="${bd}"/></a>
+    <a class="navbar-brand" href="https://bootadmin.net"><fmt:message key="title.totalizator" bundle="${bd}"/></a>
 
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav ml-auto">
@@ -48,31 +48,35 @@
     </div>
 </nav>
 
-<div class="d-flex">
-        <jsp:include page="bookmaker_left.jsp"/>
-    <div class="content p-4">
-        <div class="text-center mb-4">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Responsive -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-4097235499795154"
-                 data-ad-slot="5211442851"
-                 data-ad-format="auto"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+<main role="main" class="container">
 
-        <%-----------------realization-------------------%>
-
-        <div class="card mb-4">
-            <div class="card-body">
-                <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/bets?command=to_generate" class="dropdown-item"><fmt:message key="button.generateResult" bundle="${bd}"/></a>
+    <div class="card mb-4">
+        <div class="card-body">
+            <label for="selectSport"><fmt:message key="text.bet.selectSport" bundle="${bd}"/></label>
+            <div class="list-group" id="selectSport">
+                <c:forEach var="sport" items="${requestScope.sports}">
+                    <a href="${pageContext.request.contextPath}/bets?command=to_generate2&id=${sport.id}" class="list-group-item list-group-item-action"><c:out value="${sport.name}"/></a>
+                </c:forEach>
             </div>
         </div>
     </div>
-</div>
+
+</main>
+
+<!-- Footer -->
+<footer class="sticky-footer bg-dark">
+    <div class="container">
+        <ul class="list-unstyled list-inline text-center py-2">
+            <%---------------realisation-------------%>
+            <li class="list-inline-item">
+                <a href="${pageContext.request.contextPath}/bets?command=to_account" class="btn btn-outline-light btn-rounded"><fmt:message key="button.toAccount" bundle="${bd}"/></a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-copyright text-center py-3" style="color: #7abaff">Created by Dima Gritsuk
+    </div>
+</footer>
+<!-- Footer -->
 
 <script src="${pageContext.request.contextPath}/static/script/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/script/js/bootstrap.bundle.min.js"></script>

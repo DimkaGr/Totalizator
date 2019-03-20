@@ -8,7 +8,6 @@ import by.gritsuk.dima.domain.Competition;
 import by.gritsuk.dima.service.CompetitionService;
 import by.gritsuk.dima.service.exception.ServiceException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CompetitionServiceImpl implements CompetitionService {
@@ -71,5 +70,47 @@ public class CompetitionServiceImpl implements CompetitionService {
             throw new ServiceException("Failed to connect to database",e);
         }
         return competitions;
+    }
+
+    @Override
+    public List<Competition> getAllWithoutResult(Integer sportId) throws ServiceException {
+        List<Competition> competitions;
+        try {
+            CompetitionDAO competitionDao = (CompetitionDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(Competition.class);
+            competitions=competitionDao.getAllWithoutResult(sportId);
+            if(competitions.isEmpty()){
+                competitions=null;
+            }
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to get competitions. ", e);
+        } catch (DaoFactoryException e){
+            throw new ServiceException("Failed to connect to database",e);
+        }
+        return competitions;
+    }
+
+    @Override
+    public String updateResult(Integer id, String result) throws ServiceException {
+        String res;
+        try {
+            CompetitionDAO competitionDao = (CompetitionDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(Competition.class);
+            Competition competition=competitionDao.getByPK(id);
+            int resultId=competition.getCompetitionResultId();
+            if(competition.getKindOfSportId()==4){
+                if(result.contains("team 1")){
+                    res=competition.getParticipant1()+" win";
+                } else {
+                    res=competition.getParticipant2()+" win";
+                }
+            } else {
+                res = competition.getParticipant1() + " " + result + " " + competition.getParticipant2();
+            }
+            competitionDao.updateResult(resultId,res);
+        } catch (PersistException e) {
+            throw new ServiceException("Failed to save competition. ", e);
+        } catch (DaoFactoryException|DaoException e){
+            throw new ServiceException("Failed to connect to database",e);
+        }
+        return res;
     }
 }

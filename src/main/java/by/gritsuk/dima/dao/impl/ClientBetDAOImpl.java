@@ -3,8 +3,8 @@ package by.gritsuk.dima.dao.impl;
 import by.gritsuk.dima.dao.AbstractJdbcDao;
 import by.gritsuk.dima.dao.AutoConnection;
 import by.gritsuk.dima.dao.ClientBetDAO;
-import by.gritsuk.dima.dao.GenericDao;
 import by.gritsuk.dima.dao.exception.DaoException;
+import by.gritsuk.dima.dao.exception.PersistException;
 import by.gritsuk.dima.domain.ClientBet;
 
 import java.sql.PreparedStatement;
@@ -24,8 +24,8 @@ public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> impleme
             bet.setDeposit(rs.getDouble("deposit"));
             bet.setStatus(rs.getString("status"));
             bet.setIncome(rs.getDouble("income"));
-            bet.setBet_id(rs.getInt("bet_id"));
-            bet.setUser_id(rs.getInt("users_id"));
+            bet.setBetId(rs.getInt("bet_id"));
+            bet.setUserId(rs.getInt("users_id"));
             clientBets.add(bet);
         }
         return clientBets;
@@ -37,8 +37,8 @@ public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> impleme
         statement.setDouble(++i,object.getDeposit());
         statement.setString(++i,object.getStatus());
         statement.setDouble(++i,object.getIncome());
-        statement.setInt(++i,object.getBet_id());
-        statement.setInt(++i,object.getUser_id());
+        statement.setInt(++i,object.getBetId());
+        statement.setInt(++i,object.getUserId());
     }
 
     @Override
@@ -47,8 +47,8 @@ public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> impleme
         statement.setDouble(++i,object.getDeposit());
         statement.setString(++i,object.getStatus());
         statement.setDouble(++i,object.getIncome());
-        statement.setInt(++i,object.getBet_id());
-        statement.setInt(++i,object.getUser_id());
+        statement.setInt(++i,object.getBetId());
+        statement.setInt(++i,object.getUserId());
         statement.setInt(++i,object.getId());
     }
 
@@ -95,5 +95,38 @@ public class ClientBetDAOImpl extends AbstractJdbcDao<ClientBet,Integer> impleme
     private String getSelectedByUserId(){
         return "SELECT * FROM  client_bet INNER JOIN bet ON bet.id=client_bet.bet_id "+
                 "INNER JOIN users ON users.id=client_bet.users_id WHERE client_bet.users_id=?";
+    }
+
+    @Override
+    @AutoConnection
+    public void updateStatus(Integer id, String status) throws PersistException {
+        try (PreparedStatement updateStatement = this.connection.prepareStatement(getUpdateStatus())) {
+            updateStatement.setString(1,status);
+            updateStatement.setInt(2,id);
+            updateStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new PersistException("Failed while update element", e);
+        }
+    }
+
+    private String getUpdateStatus(){
+        return "UPDATE client_bet SET status=? WHERE id=?";
+    }
+
+    @Override
+    @AutoConnection
+    public List<ClientBet> getByBet(Integer id) throws DaoException {
+        try (PreparedStatement selectStatement = this.connection.prepareStatement(getSelectedByBet())) {
+            selectStatement.setInt(1,id);
+            try (ResultSet resQuery = selectStatement.executeQuery()) {
+                return parseResultSet(resQuery);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed while select elements", e);
+        }
+    }
+
+    private String getSelectedByBet(){
+        return "SELECT * FROM  client_bet WHERE bet_id=?";
     }
 }
