@@ -1,7 +1,5 @@
 package by.gritsuk.dima.dao.impl;
 
-import by.gritsuk.dima.dao.exception.DaoException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

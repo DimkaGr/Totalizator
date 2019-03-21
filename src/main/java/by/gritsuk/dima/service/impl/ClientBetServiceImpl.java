@@ -56,7 +56,7 @@ public class ClientBetServiceImpl implements ClientBetService {
                 response.setFactor(bet.getEvent().getFactor());
                 response.setEvent(bet.getEvent().getEvent());
                 Competition competition=competitionDAO.getByPK(bet.getCompetitionId());
-                response.setCompetitionName(competition.getParticipant1()+"-"+competition.getParticipant1());
+                response.setCompetitionName(competition.getParticipant1()+"-"+competition.getParticipant2());
                 response.setKindOfSport(competition.getKindOfSport());
                 responses.add(response);
             }
