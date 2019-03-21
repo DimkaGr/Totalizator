@@ -6,6 +6,7 @@ import by.gritsuk.dima.dao.exception.DaoFactoryException;
 import by.gritsuk.dima.dao.exception.PersistException;
 import by.gritsuk.dima.dao.impl.JdbcDaoFactory;
 import by.gritsuk.dima.dao.impl.TransactionManager;
+import by.gritsuk.dima.domain.Client;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.service.UserService;
 import by.gritsuk.dima.service.exception.ServiceException;
@@ -31,10 +32,11 @@ public class UserServiceImpl implements UserService {
         TransactionManager manager=new TransactionManager();
         try {
             UserDAO userDao = (UserDAO)((JdbcDaoFactory)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC)).getTransactionalDao(User.class);
+            manager.begin(userDao);
             if(UserValidation.validate(user)&&UserValidation.isReservedLogin(user.getLogin())) {
                 String password= PasswordEncryptor.encrypt(user.getPassword()+user.getLogin());
                 user.setPassword(password);
-                manager.begin(userDao);
+//                manager.begin(userDao);
                 Integer clientAccountId=userDao.setClientAccount();
                 if(clientAccountId==null){
                     manager.rollback();
@@ -108,17 +110,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllClients() throws ServiceException {
-        List<User> users=new ArrayList<>();
+    public List<Client> getAllClients() throws ServiceException {
+        List<User> users;
+        List<Client> clients=new ArrayList<>();
         try {
             UserDAO userDao = (UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
             users=userDao.getAllClients();
+            for(User user:users){
+                clients.add((Client) user);
+            }
+            if(clients.isEmpty()){
+                return null;
+            }
         } catch (DaoException e) {
             throw new ServiceException("Failed to get users. ", e);
         } catch (DaoFactoryException e){
             throw new ServiceException("Failed to connect to database",e);
         }
-        return users;
+        return clients;
     }
 
     @Override

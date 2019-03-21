@@ -1,5 +1,6 @@
 package by.gritsuk.dima.controller.command;
 
+import by.gritsuk.dima.domain.Client;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.dto.ResponseContent;
 import by.gritsuk.dima.service.ServiceFactory;
@@ -14,7 +15,7 @@ public class ShowUserListCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         ResponseContent responseContent=new ResponseContent();
-        List<User> users=new ArrayList<>();
+        List<Client> users=new ArrayList<>();
         List<String> userNames=new ArrayList<>();
         UserService userService= ServiceFactory.getInstance().getUserService();
         try {

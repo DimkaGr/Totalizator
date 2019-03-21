@@ -13,7 +13,7 @@ public class AddBetEventCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         ResponseContent responseContent=new ResponseContent();
-        responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/main_page.jsp"));
+        responseContent.setRouter(new Router(Router.Type.REDIRECT,request.getContextPath()+"/bets?command=to_main"));
         HttpSession session=request.getSession();
         String eventName=request.getParameter("event_name");
         double factor=Double.parseDouble(request.getParameter("factor"));

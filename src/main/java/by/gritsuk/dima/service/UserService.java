@@ -1,5 +1,6 @@
 package by.gritsuk.dima.service;
 
+import by.gritsuk.dima.domain.Client;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.service.exception.ServiceException;
 import by.gritsuk.dima.service.exception.UserRegisterException;
@@ -30,7 +31,7 @@ public interface UserService {
 
     void deleteUser(User user) throws ServiceException;
 
-    List<User> getAllClients() throws ServiceException;
+    List<Client> getAllClients() throws ServiceException;
 
     User getByLogin(String login) throws ServiceException;
 

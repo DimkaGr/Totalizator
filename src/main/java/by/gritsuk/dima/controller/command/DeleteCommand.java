@@ -1,6 +1,6 @@
 package by.gritsuk.dima.controller.command;
 
-import by.gritsuk.dima.domain.Admin;
+import by.gritsuk.dima.domain.Client;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.dto.ResponseContent;
 import by.gritsuk.dima.service.ServiceFactory;
@@ -13,15 +13,15 @@ import java.util.List;
 public class DeleteCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
-        List<User> users=null;
+        List<Client> users=null;
         UserService userService= ServiceFactory.getInstance().getUserService();
         ResponseContent responseContent=new ResponseContent();
-        User user=new Admin();
+        User user=new Client();
         user.setId(Integer.parseInt(request.getParameter("id")));
         responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/list_page.jsp"));
         try {
             userService.deleteUser(user);
-            users=userService.getAll();
+            users=userService.getAllClients();
         }catch(ServiceException e){
             request.setAttribute("errorDelete","true");
         }

@@ -99,13 +99,13 @@
                             <td><c:out value="${client.lastName}"/></td>
                             <td><c:out value="${client.login}"/></td>
                             <td><c:out value="${client.email}"/></td>
-                            <c:if test="${client.status eq 'active'}">
+                            <c:if test="${client.status == 'active'}">
                                 <td><span class="badge badge-pill badge-success">Active</span></td>
                             </c:if>
-                            <c:if test="${client.status eq 'banned'}">
+                            <c:if test="${client.status == 'banned'}">
                                 <td><span class="badge badge-pill badge-danger">Banned</span></td>
                             </c:if>
-                            <c:if test="${client.status eq 'waiting_confirmation'}">
+                            <c:if test="${client.status == 'waiting_confirmation'}">
                                 <td><span class="badge badge-pill badge-warning">Waiting confirmation</span></td>
                             </c:if>
                             <td>
