@@ -25,7 +25,7 @@ public class SetResultCommand implements Command {
             }
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/bookmaker_page.jsp"));
         } catch (ServiceException e) {
-
+            responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/error_page.jsp"));
         }
         return responseContent;
     }

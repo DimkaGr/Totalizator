@@ -49,13 +49,6 @@
 </nav>
 
 <div class="d-flex">
-    <%--<div class="sidebar sidebar-dark bg-dark">--%>
-        <%--<ul class="list-unstyled">--%>
-            <%--<li><a href="${pageContext.request.contextPath}/bets?command=comp_list"><i class="fa fa-fw fa-table"></i><fmt:message key="button.competitions" bundle="${bd}"/></a></li>--%>
-            <%--<li><a href="#"><i class="fa fa-fw fa-table"></i><fmt:message key="button.myBets" bundle="${bd}"/></a></li>--%>
-            <%--<li><a href="#"><i class="fa fa-fw fa-table"></i><fmt:message key="button.sports" bundle="${bd}"/></a></li>--%>
-        <%--</ul>--%>
-    <%--</div>--%>
         <jsp:include page="client_left.jsp"/>
 
     <div class="content p-4">
@@ -73,12 +66,31 @@
         </div>
 
         <%--<h2 class="mb-4">Datatables</h2>--%>
-
+        <c:if test="${requestScope.notActive != null}">
+            <div class="text-center mb-4 p-3 alert alert-warning" role="alert">
+                <h5><fmt:message key="message.activate" bundle="${bd}"/></h5>
+            </div>
+            <!-- Footer -->
+            <footer class="sticky-footer bg-dark">
+                <div class="container">
+                    <ul class="list-unstyled list-inline text-center py-2">
+                        <li class="list-inline-item">
+                            <a href="${pageContext.request.contextPath}/bets?command=to_account" class="btn btn-outline-light btn-rounded"><fmt:message key="button.toAccount" bundle="${bd}"/></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-copyright text-center py-3" style="color: #7abaff">Created by Dima Gritsuk
+                </div>
+            </footer>
+            <!-- Footer -->
+        </c:if>
+        <c:if test="${requestScope.notActive == null}">
         <div class="card mb-4">
             <div class="card-body">
                 <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/bets?command=make_bet1" class="dropdown-item"><fmt:message key="button.makeBet" bundle="${bd}"/></a>
             </div>
         </div>
+        </c:if>
     </div>
 </div>
 

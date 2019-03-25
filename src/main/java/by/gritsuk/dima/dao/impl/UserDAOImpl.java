@@ -164,6 +164,7 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
     }
 
     @Override
+    @AutoConnection
     public void updateCash(Integer id, double cash) throws PersistException {
         try (PreparedStatement updateStatement = this.connection.prepareStatement(getUpdateCash())) {
             updateStatement.setDouble(1,cash);
@@ -192,7 +193,28 @@ public class UserDAOImpl extends AbstractJdbcDao<User, Integer> implements UserD
         }
     }
 
+//    private String getToSetAccount(){
+//        return "INSERT INTO client_account (status,user_cash) VALUES('active',0.0)";
+//    }
+
     private String getToSetAccount(){
-        return "INSERT INTO client_account (status,user_cash) VALUES('active',0.0)";
+        return "INSERT INTO client_account (status,user_cash) VALUES('waiting_confirmation',0.0)";
+    }
+
+    @Override
+    @AutoConnection
+    public User activate(Client user) throws PersistException {
+        try (PreparedStatement updateStatement = this.connection.prepareStatement(getActivate())) {
+            updateStatement.setInt(1,user.getClientAccountId());
+            updateStatement.executeUpdate();
+            user.setStatus("active");
+            return user;
+        } catch (SQLException e) {
+            throw new PersistException("Failed while update element", e);
+        }
+    }
+
+    private String getActivate(){
+        return "UPDATE client_account SET status='active' WHERE id=?";
     }
 }

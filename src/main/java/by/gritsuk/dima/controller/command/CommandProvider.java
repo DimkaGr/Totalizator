@@ -50,6 +50,7 @@ public class CommandProvider {
         commandMap.put("generate", new GenerateResultCommand());
         commandMap.put("set_bet_res", new SetResultCommand());
         commandMap.put("to_main", new ShowAccountCommand());
+        commandMap.put("activate_account", new ActivateAccountCommand());
     }
 
     /**

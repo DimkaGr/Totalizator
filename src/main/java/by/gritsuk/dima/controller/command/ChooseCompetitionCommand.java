@@ -17,7 +17,7 @@ public class ChooseCompetitionCommand implements Command{
         List<Competition> competitions=null;
         CompetitionService competitionService = ServiceFactory.getInstance().getCompetitionService();
         try {
-            competitions = competitionService.getAllBySport(Integer.parseInt(request.getParameter("id")));
+            competitions = competitionService.getAllWithoutResult(Integer.parseInt(request.getParameter("id")));
             HttpSession session=request.getSession();
             session.setAttribute("sportName",request.getParameter("sportName"));
             responseContent.setRouter(new Router(Router.Type.FORWARD, "/WEB-INF/views/make_bet_page2.jsp"));

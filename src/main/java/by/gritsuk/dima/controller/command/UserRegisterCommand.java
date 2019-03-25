@@ -7,6 +7,7 @@ import by.gritsuk.dima.service.ServiceFactory;
 import by.gritsuk.dima.service.UserService;
 import by.gritsuk.dima.service.exception.ServiceException;
 import by.gritsuk.dima.service.exception.UserRegisterException;
+import by.gritsuk.dima.util.exception.UtilException;
 import by.gritsuk.dima.validation.exception.LoginPersistException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,9 @@ public class UserRegisterCommand implements Command{
         UserService userService=ServiceFactory.getInstance().getUserService();
         ResponseContent responseContent=new ResponseContent();
         try {
-            userService.signUp(user);
-//            responseContent.setRouter(new Router(Router.Type.REDIRECT,"/WEB-INF/views/success_register_page.jsp"));
+            userService.signUp(user,request.getRequestURL()+"?command=activate_account");
             responseContent.setRouter(new Router(Router.Type.REDIRECT,request.getContextPath()+"?command=main"));
-        }catch(ServiceException|UserRegisterException|SQLException e){
+        }catch(ServiceException|UserRegisterException|SQLException| UtilException e){
 //            -------create error-------
         }catch (LoginPersistException e){
             request.setAttribute("loginError","true");

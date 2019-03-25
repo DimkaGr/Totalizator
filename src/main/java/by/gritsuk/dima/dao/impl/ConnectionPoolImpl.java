@@ -23,7 +23,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ConnectionPoolImpl implements ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPoolImpl.class);
-    private static volatile ConnectionPool instance;
+    private static ConnectionPool instance;
     private static final Lock LOCK = new ReentrantLock();
     private final int POOL_CAPACITY = 20;
     private final Semaphore SEMAPHORE;

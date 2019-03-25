@@ -7,11 +7,17 @@ import by.gritsuk.dima.dao.exception.PersistException;
 import by.gritsuk.dima.dao.impl.JdbcDaoFactory;
 import by.gritsuk.dima.dao.impl.TransactionManager;
 import by.gritsuk.dima.domain.Client;
+import by.gritsuk.dima.domain.RegistrationKey;
 import by.gritsuk.dima.domain.User;
+import by.gritsuk.dima.service.RegistrationKeysService;
+import by.gritsuk.dima.service.ServiceFactory;
 import by.gritsuk.dima.service.UserService;
 import by.gritsuk.dima.service.exception.ServiceException;
 import by.gritsuk.dima.service.exception.UserRegisterException;
+import by.gritsuk.dima.util.MailSender;
 import by.gritsuk.dima.util.PasswordEncryptor;
+import by.gritsuk.dima.util.StringGenerator;
+import by.gritsuk.dima.util.exception.UtilException;
 import by.gritsuk.dima.validation.UserValidation;
 import by.gritsuk.dima.validation.exception.LoginPersistException;
 import by.gritsuk.dima.validation.exception.ValidationException;
@@ -28,7 +34,7 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(){}
 
     @Override
-    public User signUp(User user) throws ServiceException, UserRegisterException, LoginPersistException, SQLException {
+    public User signUp(User user,String link) throws ServiceException, UserRegisterException, LoginPersistException, SQLException, UtilException {
         TransactionManager manager=new TransactionManager();
         try {
             UserDAO userDao = (UserDAO)((JdbcDaoFactory)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC)).getTransactionalDao(User.class);
@@ -36,14 +42,19 @@ public class UserServiceImpl implements UserService {
             if(UserValidation.validate(user)&&UserValidation.isReservedLogin(user.getLogin())) {
                 String password= PasswordEncryptor.encrypt(user.getPassword()+user.getLogin());
                 user.setPassword(password);
-//                manager.begin(userDao);
                 Integer clientAccountId=userDao.setClientAccount();
                 if(clientAccountId==null){
                     manager.rollback();
                     throw new UserRegisterException("Invalid data to registrate this user");
                 }
                 user.setClientAccountId(clientAccountId);
-                userDao.persist(user);
+                user=userDao.persist(user);
+                MailSender sender=MailSender.getInstance();
+                if(sender!=null){
+                    sender.sendMail("Thank you for registration on our site.\n" +
+                            "Your link to activate your account: " +
+                            "<a href="+link+"&id="+user.getId()+">Activate account</a>",user.getEmail());
+                }
                 manager.commit();
             }else{
                 throw new UserRegisterException("Invalid data to registrate this user");
@@ -162,6 +173,32 @@ public class UserServiceImpl implements UserService {
             userDAO.updateCash(id,cash);
         } catch (PersistException e) {
             throw new ServiceException("Failed to update user cash. ", e);
+        } catch (DaoException|DaoFactoryException e) {
+            throw new ServiceException("Failed to connect to database",e);
+        }
+    }
+
+    @Override
+    public User getById(Integer id) throws ServiceException {
+        try {
+            UserDAO userDao = (UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            return userDao.getByPK(id);
+        } catch (DaoException e) {
+            throw new ServiceException("Failed to get user. ", e);
+        } catch (DaoFactoryException e){
+            throw new ServiceException("Failed to connect to database",e);
+        }
+    }
+
+    @Override
+    public User activateUser(Integer id) throws ServiceException {
+        Client client=(Client)getById(id);
+        try {
+            UserDAO userDao = (UserDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(User.class);
+            userDao.activate(client);
+            return client;
+        } catch (PersistException e) {
+            throw new ServiceException("Failed to update user status. ", e);
         } catch (DaoException|DaoFactoryException e) {
             throw new ServiceException("Failed to connect to database",e);
         }

@@ -10,6 +10,9 @@ import by.gritsuk.dima.domain.*;
 import by.gritsuk.dima.dto.ClientBetResponse;
 import by.gritsuk.dima.service.ClientBetService;
 import by.gritsuk.dima.service.exception.ServiceException;
+import by.gritsuk.dima.util.IncomeSender;
+import by.gritsuk.dima.util.PaymentThread;
+import by.gritsuk.dima.util.TempBetList;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -75,8 +78,14 @@ public class ClientBetServiceImpl implements ClientBetService {
             ClientBetDAO clientBetDAO= (ClientBetDAO)FactoryProducer.getDaoFactory(DaoFactoryType.JDBC).getDao(ClientBet.class);
             List<ClientBet>bets=clientBetDAO.getByBet(id);
             for(ClientBet bet:bets){
+                bet.setStatus(status);
                 clientBetDAO.updateStatus(bet.getId(),status);
             }
+            IncomeSender sender=new IncomeSender(bets);
+            sender.sendIncome();
+//            TempBetList list=new TempBetList();
+//            list.setBets(bets);
+//            new PaymentThread(bets).start();
         } catch (PersistException e) {
             throw new ServiceException("Failed to update client bet ", e);
         } catch (DaoException|DaoFactoryException e) {

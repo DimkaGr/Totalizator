@@ -39,8 +39,8 @@ public class MailSender {
 
             message.setFrom(new InternetAddress("bet.totalizator@gmail.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject("New account on site\"Totalizator\"");
-            message.setText(mail);
+            message.setSubject("\"Totalizator\"");
+            message.setContent(mail,"text/html; charset=utf-8");
 
             Transport.send(message);
         } catch (MessagingException e) {

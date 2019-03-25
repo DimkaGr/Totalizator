@@ -41,6 +41,9 @@
     <link href="${pageContext.request.contextPath}/static/script/starter-template.css" rel="stylesheet">
 </head>
 <body>
+<c:if test="${sessionScope.user != null}">
+    <jsp:forward page="/WEB-INF/views/main_page.jsp"/>
+</c:if>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#"><fmt:message key="title.totalizator" bundle="${bd}"/> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">

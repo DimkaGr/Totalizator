@@ -1,5 +1,6 @@
 package by.gritsuk.dima.controller.command;
 
+import by.gritsuk.dima.domain.Client;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.dto.ClientBetResponse;
 import by.gritsuk.dima.dto.ResponseContent;
@@ -18,6 +19,11 @@ public class ShowClientBetsCommand implements Command {
         List<ClientBetResponse> clientBets;
         ClientBetService clientBetService= ServiceFactory.getInstance().getClientBetService();
         HttpSession session=request.getSession();
+        if(((Client)session.getAttribute("user")).getStatus().equals("waiting_confirmation")){
+            responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/client_page.jsp"));
+            request.setAttribute("notActive","true");
+            return responseContent;
+        }
         int id=((User)session.getAttribute("user")).getId();
         try {
             clientBets=clientBetService.showClientBets(id);

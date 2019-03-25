@@ -2,6 +2,7 @@ package by.gritsuk.dima.dao;
 
 import by.gritsuk.dima.dao.exception.DaoException;
 import by.gritsuk.dima.dao.exception.PersistException;
+import by.gritsuk.dima.domain.Client;
 import by.gritsuk.dima.domain.User;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface UserDAO extends GenericDao<User,Integer> {
     void updateCash(Integer id,double cash) throws PersistException;
 
     Integer setClientAccount() throws PersistException;
+
+    User activate(Client user) throws PersistException;
 }

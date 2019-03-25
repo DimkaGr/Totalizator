@@ -16,12 +16,10 @@ public class VerifyMessageCommand implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         ResponseContent responseContent=new ResponseContent();
         String code=request.getParameter("code");
-//        String login=(String)request.getAttribute("userLogin");
         RegistrationKeysService keysService= ServiceFactory.getInstance().getRegistrationService();
         UserService userService=ServiceFactory.getInstance().getUserService();
         try {
             HttpSession session=request.getSession();
-//            User user=userService.getByLogin(login);
             User user=(User)session.getAttribute("userLog");
             String key=keysService.getByUserId(user.getId()).getKey();
             if(key.equals(code)){
