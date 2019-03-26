@@ -1,6 +1,5 @@
 package by.gritsuk.dima.controller.command;
 
-import by.gritsuk.dima.domain.RegistrationKey;
 import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.dto.ResponseContent;
 import by.gritsuk.dima.service.RegistrationKeysService;

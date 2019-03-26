@@ -57,6 +57,12 @@
             <h5><fmt:message key="message.registrate.reservedLogin" bundle="${bd}"/></h5>
         </div>
     </c:if>
+    <c:if test="${requestScope.registerError != null}">
+        <div class="text-center mb-4 p-3 alert alert-danger" role="alert">
+            <h5><fmt:message key="message.registrate.registerError" bundle="${bd}"/></h5>
+            <h5><fmt:message key="message.registrate.registerError.addition" bundle="${bd}"/></h5>
+        </div>
+    </c:if>
 <form method="POST" class="form-signin" action=${pageContext.request.contextPath}/bets?command=sign_up>
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="text.createAccount" bundle="${bd}"/></h1>
@@ -103,9 +109,6 @@
 <footer class="sticky-footer bg-dark">
     <div class="container">
         <ul class="list-unstyled list-inline text-center py-2">
-            <%--<li class="list-inline-item">--%>
-            <%--<h5 class="mb-1">Register for free</h5>--%>
-            <%--</li>--%>
             <li class="list-inline-item">
                 <a href="${pageContext.request.contextPath}/bets?command=main" class="btn btn-outline-light btn-rounded"><fmt:message key="button.backToMain" bundle="${bd}"/></a>
             </li>

@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en_EN'}"/>
 <fmt:setBundle basename="lang"  var="bd" scope="application"/>
 <html>
@@ -65,11 +66,12 @@
             </script>
         </div>
 
-        <%--<h2 class="mb-4">Datatables</h2>--%>
         <c:if test="${requestScope.notActive != null}">
-            <div class="text-center mb-4 p-3 alert alert-warning" role="alert">
-                <h5><fmt:message key="message.activate" bundle="${bd}"/></h5>
-            </div>
+            <%--<div class="text-center mb-4 p-3 alert alert-warning" role="alert">--%>
+                <%--<h5><fmt:message key="message.activate" bundle="${bd}"/></h5>--%>
+            <%--</div>--%>
+            <my:bet message="message.activate"> </my:bet>
+
             <!-- Footer -->
             <footer class="sticky-footer bg-dark">
                 <div class="container">

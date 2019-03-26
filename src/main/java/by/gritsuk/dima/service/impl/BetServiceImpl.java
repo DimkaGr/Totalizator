@@ -11,7 +11,6 @@ import by.gritsuk.dima.domain.Bet;
 import by.gritsuk.dima.service.BetService;
 import by.gritsuk.dima.service.exception.ServiceException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BetServiceImpl implements BetService {

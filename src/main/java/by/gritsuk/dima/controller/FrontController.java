@@ -2,7 +2,6 @@ package by.gritsuk.dima.controller;
 
 import by.gritsuk.dima.controller.command.Command;
 import by.gritsuk.dima.controller.command.CommandProvider;
-import by.gritsuk.dima.controller.command.CommandType;
 import by.gritsuk.dima.controller.command.Router;
 import by.gritsuk.dima.dto.ResponseContent;
 

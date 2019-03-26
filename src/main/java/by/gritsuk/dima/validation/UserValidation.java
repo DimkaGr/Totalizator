@@ -25,8 +25,6 @@ public class UserValidation {
         String email=user.getEmail();
         String password=user.getPassword();
 
-        //if cases needed to be changed to the messages for user
-
         if(firstName.length()<1||!firstName.matches(FIRST_NAME_PATTERN)){
             return false;
         }

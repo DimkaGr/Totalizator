@@ -29,7 +29,8 @@ public class UserRegisterCommand implements Command{
             userService.signUp(user,request.getRequestURL()+"?command=activate_account");
             responseContent.setRouter(new Router(Router.Type.REDIRECT,request.getContextPath()+"?command=main"));
         }catch(ServiceException|UserRegisterException|SQLException| UtilException e){
-//            -------create error-------
+            request.setAttribute("registerError","true");
+            responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/add_page.jsp"));
         }catch (LoginPersistException e){
             request.setAttribute("loginError","true");
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/add_page.jsp"));

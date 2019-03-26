@@ -1,7 +1,6 @@
 package by.gritsuk.dima.controller.command;
 
 import by.gritsuk.dima.domain.Client;
-import by.gritsuk.dima.domain.User;
 import by.gritsuk.dima.dto.ResponseContent;
 import by.gritsuk.dima.service.ServiceFactory;
 import by.gritsuk.dima.service.UserService;
@@ -16,10 +15,8 @@ public class ShowUserListCommand implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         ResponseContent responseContent=new ResponseContent();
         List<Client> users=new ArrayList<>();
-        List<String> userNames=new ArrayList<>();
         UserService userService= ServiceFactory.getInstance().getUserService();
         try {
-//            users=userService.getAll();
             users=userService.getAllClients();
             responseContent.setRouter(new Router(Router.Type.FORWARD,"/WEB-INF/views/list_page.jsp"));
         }catch(ServiceException e){
