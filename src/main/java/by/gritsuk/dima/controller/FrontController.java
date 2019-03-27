@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/bets",name = "start")
+@WebServlet(urlPatterns = "/bets", name = "start")
 public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,11 +26,17 @@ public class FrontController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Command command = CommandProvider.getInstance().takeCommand(request.getParameter("command"));
+        if (command != null) {
             ResponseContent responseContent = command.execute(request);
-            if(responseContent.getRouter().getType()== Router.Type.REDIRECT){
+
+            if (responseContent.getRouter().getType() == Router.Type.REDIRECT) {
                 response.sendRedirect(responseContent.getRouter().getRoute());
-            }else{
-                request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request,response);
+            } else {
+                request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
             }
+        } else{
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+        }
     }
 }

@@ -28,16 +28,20 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private final int POOL_CAPACITY = 20;
     private final Semaphore SEMAPHORE;
     private final Queue<Connection> POOL;
-    private int createdConnections = 0;
-    private static final DAOProperties PROPERTIES=new DAOProperties();
+    private static final DAOProperties PROPERTIES = new DAOProperties();
     private Properties props;
-    private static final String DB_FILE="db.properties";
+    private static final String DB_FILE = "db.properties";
 
-    private ConnectionPoolImpl() {
+    private ConnectionPoolImpl() throws SQLException {
         POOL = new ArrayDeque<>(POOL_CAPACITY);
         SEMAPHORE = new Semaphore(POOL_CAPACITY);
-        props=PROPERTIES.getDAOProperties(DB_FILE);
+        props = PROPERTIES.getDAOProperties(DB_FILE);
         initDriver();
+        for (int i = 0; i < POOL_CAPACITY; i++) {
+            Connection connection = DriverManager.getConnection(props.getProperty("url"), props);
+            POOL.add(connection);
+            SEMAPHORE.release();
+        }
     }
 
     public static synchronized ConnectionPool getInstance() {
@@ -45,7 +49,11 @@ public class ConnectionPoolImpl implements ConnectionPool {
             LOCK.lock();
             try {
                 if (instance == null) {
-                    instance = new ConnectionPoolImpl();
+                    try {
+                        instance = new ConnectionPoolImpl();
+                    } catch (SQLException e) {
+                        LOGGER.error("Failed to create connection", e);
+                    }
                 }
             } finally {
                 LOCK.unlock();
@@ -60,13 +68,13 @@ public class ConnectionPoolImpl implements ConnectionPool {
         try {
             SEMAPHORE.acquire();
             LOCK.lock();
-            if (createdConnections < POOL_CAPACITY) {
-                createdConnections++;
-                InvocationHandler handler = this.getHandler();
-                Class[] classes = {Connection.class};
-                return (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), classes, handler);
+            Connection connection = POOL.poll();
+            if (!connection.isValid(3)) {
+                connection = DriverManager.getConnection(props.getProperty("url"), props);
             }
-            return POOL.poll();
+            InvocationHandler handler =new  Handler(connection);
+            Class[] classes = {Connection.class};
+            return (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), classes, handler);
         } catch (Exception e) {
             LOGGER.error(e);
             throw new ConnectionPoolException("Error while getting connection to DataBase", e);
@@ -95,7 +103,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 connection.close();
             }
         } catch (SQLException e) {
-            throw new ConnectionPoolException("Failed while close all connections",e);
+            throw new ConnectionPoolException("Failed while close all connections", e);
         }
     }
 
@@ -108,22 +116,22 @@ public class ConnectionPoolImpl implements ConnectionPool {
         }
     }
 
-    private InvocationHandler getHandler() throws SQLException {
-        final ConnectionPoolImpl connectionPool = this;
-        return new InvocationHandler() {
-            Connection connection = DriverManager.getConnection(props.getProperty("url"), props);
+    private class Handler implements InvocationHandler {
+        private Connection connection;
 
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                String methodName = method.getName();
-                final ConnectionPoolImpl connectPool = connectionPool;
-                if (methodName.equals("close")) {
-                    connectPool.putBackConnection((Connection) proxy);
-                    return null;
-                } else {
-                    return method.invoke(connection, args);
-                }
+        public Handler(Connection connection){
+            this.connection=connection;
+        }
+
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            String methodName = method.getName();
+            if (methodName.equals("close")) {
+                putBackConnection((Connection) proxy);
+                return null;
+            } else {
+                return method.invoke(connection, args);
             }
-        };
+        }
     }
 }
